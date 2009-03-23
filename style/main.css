@@ -1,0 +1,83 @@
+form {
+	background-color: #EEE;
+	border: 1px solid #CCC;
+	font: small Verdana, Helvetica, Geneva, Arial, sans-serif;
+	padding: 10px;
+	margin: 10px;
+	width: 400px;
+}
+
+form dl {
+	text-align: right;
+}
+
+form dl dt {
+	background-color: #FFF;
+	border-left: 3px solid #CCC;
+	float: left;
+	line-height: 200%;
+	padding: 0px 10px 0px 5px;
+}
+
+form dl dd {
+	padding: 0px 0px 10px 0px;
+	position: relative;
+}
+
+form dl dd input {
+	width: 250px;
+}
+
+form dl dd textarea {
+	height: 100px;
+	width: 250px;
+}
+
+form dl dd span {
+	background-color: #FF0;
+	border: 1px solid #CC0;
+	display: none;
+	font: x-small Courier New, serif;
+	padding: 2px;
+	position: absolute;
+	width: 150px;
+	right: -180px;
+	text-align: center;
+	top: 4px;
+}
+
+form dl dd span.error {
+	background-color: #F00;
+	border: 1px solid #000;
+	display: inline;
+}
+
+form div {
+	text-align: right;
+}
+
+form div input {
+	background-color: #CCC;
+	border: 1px outset #CCC;
+}
+
+.onFocus {
+	border: 2px solid #FF0;
+	margin: 1px;
+}
+
+.onBlur {
+	border: 1px solid #000;
+	margin: 2px;
+}
+
+.valid {
+	border: 3px solid #0F0;
+	margin: 0px;
+}
+
+.invalid {
+	border: 3px solid #F00;
+	margin: 0px;
+}
+
