@@ -28,10 +28,10 @@ EID:
 Unique: 54270
 E-mail address:
 
-Name:
-EID:
+Name: Jeffery Zhu
+EID: JZ995
 Unique: 54270
-E-mail address:
+E-mail address: jz9901@mail.utexas.edu
 
 ------
 Effort
