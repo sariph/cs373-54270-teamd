@@ -1,4 +1,4 @@
------
+----
 Title
 -----
 
@@ -13,10 +13,10 @@ EID: hpt
 Unique: 54270
 E-mail address: ancientpc@mail.utexas.edu
 
-Name:
-EID:
+Name:Ji-Hoon Woo
+EID:jw3352
 Unique: 54270
-E-mail address:
+E-mail address: estesox@gmail.com
 
 Name:
 EID:
