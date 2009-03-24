@@ -6,9 +6,8 @@ from validator import Validator
 
 class Index(webapp.RequestHandler):
 	def get(self):
-		template_values = {}
 		path = os.path.join(os.path.dirname(__file__), 'index.html')
-		self.response.out.write(template.render(path, template_values))
+		self.response.out.write(template.render(path, {}))
 
 class Applicant(webapp.RequestHandler):
 	def __init__(self):
