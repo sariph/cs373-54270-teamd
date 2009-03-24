@@ -4,7 +4,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from validator import Validator
 
-class Index(webapp.RequestHandler):
+class Applicant(webapp.RequestHandler):
 	def __init__(self):
 		self.results = []
 
@@ -20,7 +20,45 @@ class Index(webapp.RequestHandler):
 		template_values = {
 			'results': self.results,
 		}
-		path = os.path.join(os.path.dirname(__file__), 'index.html')
+		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
+		self.response.out.write(template.render(path, template_values))
+
+class Instructor(webapp.RequestHandler):
+	def __init__(self):
+		self.results = []
+
+	def get(self):
+		self.template()
+
+	def post(self):
+		validator = Validator(self.request.params.items())
+		self.results.extend(validator.results)
+		self.template()
+
+	def template(self):
+		template_values = {
+			'results': self.results,
+		}
+		path = os.path.join(os.path.dirname(__file__), 'instructor.html')
+		self.response.out.write(template.render(path, template_values))
+
+class Admin(webapp.RequestHandler):
+	def __init__(self):
+		self.results = []
+
+	def get(self):
+		self.template()
+
+	def post(self):
+		validator = Validator(self.request.params.items())
+		self.results.extend(validator.results)
+		self.template()
+
+	def template(self):
+		template_values = {
+			'results': self.results,
+		}
+		path = os.path.join(os.path.dirname(__file__), 'admin.html')
 		self.response.out.write(template.render(path, template_values))
 
 class Is_valid(webapp.RequestHandler):
@@ -37,7 +75,9 @@ class Is_valid(webapp.RequestHandler):
 		self.response.out.write("</fields>\n")
 
 application = webapp.WSGIApplication([('/is_valid', Is_valid),
-                                      ('/.*', Index)],
+                                      ('/applicant', Applicant),
+                                      ('/instructor', Instructor),
+                                      ('/admin', Admin)],
                                      debug=True)
 
 def main():
