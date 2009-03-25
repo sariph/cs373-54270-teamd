@@ -17,8 +17,8 @@
 			<dl>
 				<dt><label for="phone_applicant">Phone</label></dt><dd>
 				<input type="text" name="phone_applicant" id="phone_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'phone_applicant' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><
-				span{% endif %}>What is your phone number?</span></dd>
+				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is your phone number?</span></dd>
 
 				<dt><label for="email_applicant">Email</label></dt><dd>
 				<input type="text" name="email_applicant" id="email_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'email_applicant' %}{% if result.valid %}value="{{ result.value }}" />
