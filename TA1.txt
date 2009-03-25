@@ -40,10 +40,25 @@ Effort
 Predicted number of hours to complete:
 Actual    number of hours to complete:
 
+------------------------------
+My Contribution to the Project
+------------------------------
+
+
+
 ----------------------------
 My Rating of My Team Members
 ----------------------------
 
+Name: HanPing Ting
+
+Name: Ji-Hoon Woo
+
+Name: Levi Wiseman
+
+Name: Sariph Shrestha
+
+Name: Jeffery Zhu
 
 
 -------
