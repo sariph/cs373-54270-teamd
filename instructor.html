@@ -3,37 +3,22 @@
 	<head>
 		<title>C S 373: 54270: TA Matching: Instructor</title>
 
-		<link rel="stylesheet" type="text/css" href="style/reset.css" />
-		<link rel="stylesheet" type="text/css" href="style/main.css" />
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
 
-		<script type="text/javascript" src="js/load.js"></script>
-		<script type="text/javascript" src="js/setHighlight.js"></script>
-		<script type="text/javascript" src="js/formInputHighlight.js"></script>
-		<script type="text/javascript" src="js/formTextareaHighlight.js"></script>
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
 	</head>
 
 	<body>
 		<form action="instructor" method="post">
 			<dl>
-				<dt><label for="comment_wanted">Specific wanted students</label></dt>
-				<dd><input type="text" name="comment_wanted" id="comment_wanted" {% if results %}{% for result in results %}{% ifequal result.key 'comment_wanted' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Are there any students you specifically want?</span></dd>
-
-				<dt><label for="comment_unwanted">Specific unwanted students</label></dt>
-				<dd><input type="text" name="comment_unwanted" id="comment_unwanted" {% if results %}{% for result in results %}{% ifequal result.key 'comment_unwanted' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Are there any students you specifically don't want?</span></dd>
-
-				<dt><label for="comment_native">Native English speaker</label></dt>
-				<dd><input type="text" name="comment_native" id="comment_native" {% if results %}{% for result in results %}{% ifequal result.key 'comment_native' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Are you a native English speaker? Type in "yes" or "no".</span></dd>
-
-				<dt><label for="comment_specialization">Background in a particular area of specialization</label>
-				</dt><dd><input type="text" name="comment_specialization" id="comment_specialization" {% if results %}{% for result in results %}{% ifequal result.key 'comment_specialization' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Background in a particular area of specialization?</span></dd>
+				<dt><label for="comment_wanted">Specific wanted students</label></dt><dd><input type="text" name="comment_wanted" id="comment_wanted" {% if results %}{% for result in results %}{% ifequal result.key 'comment_wanted' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Are there any students you specifically want?</span></dd>
+				<dt><label for="comment_unwanted">Specific unwanted students</label></dt><dd><input type="text" name="comment_unwanted" id="comment_unwanted" {% if results %}{% for result in results %}{% ifequal result.key 'comment_unwanted' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Are there any students you specifically don't want?</span></dd>
+				<dt><label for="comment_native">Native English speaker</label></dt><dd><input type="text" name="comment_native" id="comment_native" {% if results %}{% for result in results %}{% ifequal result.key 'comment_native' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Are you a native English speaker? Type in "yes" or "no".</span></dd>
+				<dt><label for="comment_specialization">Background in a particular area of specialization</label></dt><dd><input type="text" name="comment_specialization" id="comment_specialization" {% if results %}{% for result in results %}{% ifequal result.key 'comment_specialization' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Background in a particular area of specialization?</span></dd>
 			</dl>
 			<div><input type="submit" value="Submit" /></div>
 		</form>

@@ -27,8 +27,6 @@ class TestAdmin (unittest.TestCase) :
         self.assert_(not Validation.phone_number('123-45-67'))
     def testPhoneNumber6 (self) :
         self.assert_(not Validation.phone_number('123-4567-1'))
-	def testPhoneNumber7 (self) :
-		self.assert_(Validation.phone_number('(000)123-4567'))
     # ------------
     # phone_number_ext
     # ------------

@@ -48,9 +48,3 @@ def class_number (s) :
 # ------------
 def number (s) :
         return not re.search('^(\d)+$',s) is None
-
-# ------------
-# comment
-# ------------
-def comment (s) :
-        return not re.search('.+',s) is None

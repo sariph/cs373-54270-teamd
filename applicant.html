@@ -3,78 +3,30 @@
 	<head>
 		<title>C S 373: 54270: TA Matching: Applicant</title>
 
-		<link rel="stylesheet" type="text/css" href="style/reset.css" />
-		<link rel="stylesheet" type="text/css" href="style/main.css" />
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
 
-		<script type="text/javascript" src="js/load.js"></script>
-		<script type="text/javascript" src="js/setHighlight.js"></script>
-		<script type="text/javascript" src="js/formInputHighlight.js"></script>
-		<script type="text/javascript" src="js/formTextareaHighlight.js"></script>
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
 	</head>
 
 	<body>
 		<form action="applicant" method="post">
 			<dl>
-				<dt><label for="phone_applicant">Phone</label></dt><dd>
-				<input type="text" name="phone_applicant" id="phone_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'phone_applicant' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>What is your phone number?</span></dd>
-
-				<dt><label for="email_applicant">Email</label></dt><dd>
-				<input type="text" name="email_applicant" id="email_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'email_applicant' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>What is your email address?</span></dd>
-
-				<dt><label for="comment_major">Major field</label></dt><dd>
-				<input type="text" name="comment_major" id="comment_major" {% if results %}{% for result in results %}{% ifequal result.key 'comment_major' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>What is your major field?</span></dd>
-
-				<dt><label for="comment_admission">Admission date</label></dt>
-				<dd><input type="text" name="comment_admission" id="comment_admission" {% if results %}{% for result in results %}{% ifequal result.key 'comment_admission' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>What is your admission date?</span></dd>
-
-				<dt><label for="comment_phd">PhD or Masters</label></dt>
-				<dd><input type="text" name="comment_phd" id="comment_phd" {% if results %}{% for result in results %}{% ifequal result.key 'comment_phd' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Do you have a PhD or Masters? Type in "PhD" or "Masters".</span></dd>
-
-				<dt><label for="comment_supervising">Supervising professor</label></dt>
-				<dd><input type="text" name="comment_supervising" id="comment_supervising" {% if results %}{% for result in results %}{% ifequal result.key 'comment_supervising' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Who is your supervising professor?</span></dd>
-
-				<dt><label for="comment_citizen">Citizen or resident</label></dt>
-				<dd><input type="text" name="comment_citizen" id="comment_citizen" {% if results %}{% for result in results %}{% ifequal result.key 'comment_citizen' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Are you a citizen or resident? Type in "citizen" or "resident".</span></dd>
-
-				<dt><label for="comment_native">Native English speaker</label></dt>
-				<dd><input type="text" name="comment_native" id="comment_native" {% if results %}{% for result in results %}{% ifequal result.key 'comment_native' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Are you a native English speaker? Type in "yes" or "no".</span></dd>
-
-				<dt><label for="comment_ta">TA history</label></dt>
-				<dd><input type="text" name="comment_ta" id="comment_ta" {% if results %}{% for result in results %}{% ifequal result.key 'comment_ta' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Do you have a history being a TA? Type in "yes" or "no".</span></dd>
-
-				<dt><label for="comment_programming">Programming languages</label></dt>
-				<dd><input type="text" name="comment_programming" id="comment_programming" {% if results %}{% for result in results %}{% ifequal result.key 'comment_programming' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>What programming languages do you know?</span></dd>
-
-				<dt><label for="comment_area">Area of specialization</label></dt>
-				<dd><input type="text" name="comment_area" id="comment_area" {% if results %}{% for result in results %}{% ifequal result.key 'comment_area' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>What is your area of specialization?</span></dd>
-
-				<dt><label for="comment_qualified">Course qualified to teach</label></dt>
-				<dd><input type="text" name="comment_qualified" id="comment_qualified" {% if results %}{% for result in results %}{% ifequal result.key 'comment_qualified' %}{% if result.valid %}value="{{ result.value }}" />
-				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>What course(s) are you qualified to teach?</span></dd>
-
+				<dt><label for="phone_applicant">Phone</label></dt><dd><input type="text" name="phone_applicant" id="phone_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'phone_applicant' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your phone number?</span></dd>
+				<dt><label for="email_applicant">Email</label></dt><dd><input type="text" name="email_applicant" id="email_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'email_applicant' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your email address?</span></dd>
+				<dt><label for="comment_major">Major field</label></dt><dd><input type="text" name="comment_major" id="comment_major" {% if results %}{% for result in results %}{% ifequal result.key 'comment_major' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your major field?</span></dd>
+				<dt><label for="comment_admission">Admission date</label></dt><dd><input type="text" name="comment_admission" id="comment_admission" {% if results %}{% for result in results %}{% ifequal result.key 'comment_admission' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your admission date?</span></dd>
+				<dt><label for="comment_phd">PhD or Masters</label></dt><dd><input type="text" name="comment_phd" id="comment_phd" {% if results %}{% for result in results %}{% ifequal result.key 'comment_phd' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Do you have a PhD or Masters? Type in "PhD" or "Masters".</span></dd>
+				<dt><label for="comment_supervising">Supervising professor</label></dt><dd><input type="text" name="comment_supervising" id="comment_supervising" {% if results %}{% for result in results %}{% ifequal result.key 'comment_supervising' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Who is your supervising professor?</span></dd>
+				<dt><label for="comment_citizen">Citizen or resident</label></dt><dd><input type="text" name="comment_citizen" id="comment_citizen" {% if results %}{% for result in results %}{% ifequal result.key 'comment_citizen' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Are you a citizen or resident? Type in "citizen" or "resident".</span></dd>
+				<dt><label for="comment_native">Native English speaker</label></dt><dd><input type="text" name="comment_native" id="comment_native" {% if results %}{% for result in results %}{% ifequal result.key 'comment_native' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Are you a native English speaker? Type in "yes" or "no".</span></dd>
+				<dt><label for="comment_ta">TA history</label></dt><dd><input type="text" name="comment_ta" id="comment_ta" {% if results %}{% for result in results %}{% ifequal result.key 'comment_ta' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Do you have a history being a TA? Type in "yes" or "no".</span></dd>
+				<dt><label for="comment_programming">Programming languages</label></dt><dd><input type="text" name="comment_programming" id="comment_programming" {% if results %}{% for result in results %}{% ifequal result.key 'comment_programming' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What programming languages do you know?</span></dd>
+				<dt><label for="comment_area">Area of specialization</label></dt><dd><input type="text" name="comment_area" id="comment_area" {% if results %}{% for result in results %}{% ifequal result.key 'comment_area' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your area of specialization?</span></dd>
+				<dt><label for="comment_qualified">Course qualified to teach</label></dt><dd><input type="text" name="comment_qualified" id="comment_qualified" {% if results %}{% for result in results %}{% ifequal result.key 'comment_qualified' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What course(s) are you qualified to teach?</span></dd>
 			</dl>
 			<div><input type="submit" value="Submit" /></div>
 		</form>
