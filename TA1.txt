@@ -24,7 +24,7 @@ Unique: 54270
 E-mail address: lwiseman@mail.utexas.edu
 
 Name: Sariph Shrestha
-EID:sks732
+EID: sks732
 Unique: 54270
 E-mail address: sariph.shrestha@gmail.com
 
