@@ -15,14 +15,14 @@
 	<body>
 		<form action="applicant" method="post">
 			<dl>
-				<dt><label for="phone_applicant">Phone</label></dt>
+				<dt><label for="phone_applicant">Phone (xxx-xxx-xxxx)</label></dt>
 				<dd><input type="text" name="phone_applicant" id="phone_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'phone_applicant' %}{% if result.valid %}value="{{ result.value }}" />
 				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>What is your phone number?</span></dd>
 	
 				<br />
 
-				<dt><label for="email_applicant">Email</label></dt>
+				<dt><label for="email_applicant">Email (xxx@xxx.xxx)</label></dt>
 				<dd><input type="text" name="email_applicant" id="email_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'email_applicant' %}{% if result.valid %}value="{{ result.value }}" />
 				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>What is your email address?</span></dd>

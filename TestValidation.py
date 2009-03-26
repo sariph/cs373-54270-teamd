@@ -144,5 +144,48 @@ class TestAdmin (unittest.TestCase) :
     def testnumber3 (self) :
         self.assert_(Validation.number('12312323'))
 
+    # ------------
+    # comment
+    # ------------
+    def testcomment1 (self) :
+        self.assert_(Validation.comment('aaa'))
+
+    # ------------
+    # Degree type
+    # ------------
+    def testdegree1 (self) :
+        self.assert_(not Validation.degree_type('aaa'))
+    def testdegree2 (self) :
+        self.assert_(not Validation.degree_type(''))
+    def testdegree3 (self) :
+        self.assert_(Validation.degree_type('PhD'))
+    def testdegree4 (self) :
+        self.assert_(Validation.degree_type('Masters'))
+
+    # ------------
+    # Citizen or Resident
+    # ------------
+    def testcitizen1 (self) :
+        self.assert_(not Validation.citizen('aaa'))
+    def testcitizen2 (self) :
+        self.assert_(not Validation.citizen(''))
+    def testcitizen3 (self) :
+        self.assert_( Validation.citizen('citizen'))
+    def testcitizen4 (self) :
+        self.assert_(Validation.citizen('resident'))
+
+    # ------------
+    # Yes or No
+    # ------------
+    def testyesno1 (self) :
+        self.assert_(not Validation.yes_no('aaa'))
+    def testyesno2 (self) :
+        self.assert_(Validation.yes_no('yes'))
+    def testyesno3 (self) :
+        self.assert_(Validation.yes_no('no'))
+    def testyesno4 (self) :
+        self.assert_(not Validation.yes_no(''))
+
+
 if __name__ == "__main__" :
     unittest.main()
