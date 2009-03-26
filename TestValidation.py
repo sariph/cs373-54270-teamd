@@ -2,8 +2,81 @@
 
 import unittest
 import Validation
+from validator import Validator
 
 class TestAdmin (unittest.TestCase) :
+	
+	"""
+	Test the Validator class
+	"""
+	def testvalidator1 (self) :
+		form_data = [];
+		#The first item in the tuple is the name of the field on the webpage
+		#The second item is the value of the field
+		#This is just checking if the validator class functions correctly
+		#The individual validation functions are tested below
+		form_data.append(('phone_applicant', '210-423-4243'))
+		form_data.append(('email_applicant', 'flashki@hotmail.com'))
+		form_data.append(('comment_major', 'Computer Science'))
+		form_data.append(('comment_admission', '07-05-1988'))
+		form_data.append(('comment_phd', 'PhD'))
+		form_data.append(('comment_supervising', 'Downing'))
+		form_data.append(('comment_citizen', 'citizen'))
+		form_data.append(('comment_native', 'yes'))
+		form_data.append(('comment_ta', 'no'))
+		form_data.append(('comment_programming', 'C'))
+		form_data.append(('comment_area', 'Algorithms'))
+		form_data.append(('comment_qualified', 'Maybe'))
+		form_data.append(('comment_wanted', 'You'))
+		form_data.append(('comment_unwanted', 'Me'))
+		form_data.append(('comment_native', 'yes'))
+		form_data.append(('comment_specialization', 'None'))
+		form_data.append(('comment_class_name', 'CS373'))
+		form_data.append(('comment_inst_name', 'Downing'))
+		form_data.append(('comment_exp_enrollment', '10'))
+		form_data.append(('comment_num_ta_needed', '1'))
+		form_data.append(('comment_num_ta_assigned', '0'))
+		
+		v = Validator(form_data)
+		for r in v.results:
+			if r['valid'] == False:
+				print r['key'], r['value']
+			self.assert_(r['valid'] == True)
+
+	def testvalidator2 (self) :
+		form_data = [];
+		#The first item in the tuple is the name of the field on the webpage
+		#The second item is the value of the field
+		#This is just checking if the validator class functions correctly
+		#The individual validation functions are tested below
+		form_data.append(('phone_applicant', '210-423-42432'))
+		form_data.append(('email_applicant', 'flashki@hotmail.com r23r'))
+		form_data.append(('comment_major', ''))
+		form_data.append(('comment_admission', '07-05-198'))
+		form_data.append(('comment_phd', 'Ph'))
+		form_data.append(('comment_supervising', ''))
+		form_data.append(('comment_citizen', 'ht'))
+		form_data.append(('comment_native', ''))
+		form_data.append(('comment_ta', 'n'))
+		form_data.append(('comment_programming', ''))
+		form_data.append(('comment_area', ''))
+		form_data.append(('comment_qualified', ''))
+		form_data.append(('comment_wanted', ''))
+		form_data.append(('comment_unwanted', ''))
+		form_data.append(('comment_native', 'ye'))
+		form_data.append(('comment_specialization', ''))
+		form_data.append(('comment_class_name', ''))
+		form_data.append(('comment_inst_name', ''))
+		form_data.append(('comment_exp_enrollment', '10s'))
+		form_data.append(('comment_num_ta_needed', '1d'))
+		form_data.append(('comment_num_ta_assigned', ''))
+		
+		v = Validator(form_data)
+		for r in v.results:
+			if r['valid'] == True:
+				print r['key'], r['value']
+			self.assert_(r['valid'] == False)
+
 	"""
 	Test phone number validation.
 	"""
