@@ -1,20 +1,12 @@
 #!/usr/bin/env python
 
-# ------------
-# TestValidation.py
-# ------------
-
 import unittest
 import Validation
 
-# ---------
-# TestAdmin
-# ---------
-
 class TestAdmin (unittest.TestCase) :
-    # ------------
-    # phone_number
-    # ------------
+	"""
+	Test phone number validation.
+	"""
     def testPhoneNumber1 (self) :
         self.assert_(not Validation.phone_number('abc'))
     def testPhoneNumber2 (self) :
@@ -27,9 +19,10 @@ class TestAdmin (unittest.TestCase) :
         self.assert_(not Validation.phone_number('123-45-67'))
     def testPhoneNumber6 (self) :
         self.assert_(not Validation.phone_number('123-4567-1'))
-    # ------------
-    # phone_number_ext
-    # ------------
+
+	"""
+	Test phone number extension validation.
+	"""
     def testphone_number_ext1 (self) :
         self.assert_(not Validation.phone_number_ext('abc'))
     def testphone_number_ext2 (self) :
@@ -38,9 +31,10 @@ class TestAdmin (unittest.TestCase) :
         self.assert_(Validation.phone_number_ext('11'))
     def testphone_number_ext4 (self) :
         self.assert_(Validation.phone_number_ext('11111'))
-    # ------------
-    # email
-    # ------------
+
+	"""
+	Test e-mail validation.
+	"""
     def testemail1 (self) :
         self.assert_(not Validation.email('abc'))
     def testemail2 (self) :
@@ -67,9 +61,10 @@ class TestAdmin (unittest.TestCase) :
         self.assert_(not Validation.email('ab#$c@asdfasd.com'))
     def testemail13 (self) :
         self.assert_(not Validation.email('ab@c@asdfasd.com'))
-    # ------------
-    # date
-    # ------------
+
+	"""
+	Test date validation.
+	"""
     def testdate1 (self) :
         self.assert_(not Validation.date('00-12-1999'))
     def testdate2 (self) :
@@ -94,9 +89,10 @@ class TestAdmin (unittest.TestCase) :
         self.assert_(not Validation.date('04-31-1999'))
     def testdate12 (self) :
         self.assert_(Validation.date('04-30-1999'))
-    # ------------
-    # name
-    # ------------
+
+	"""
+	Test name validation.
+	"""
     def testname1 (self) :
         self.assert_(not Validation.name('aaa'))
     def testname2 (self) :
@@ -113,9 +109,10 @@ class TestAdmin (unittest.TestCase) :
         self.assert_(not Validation.name('Aa$'))
     def testname8 (self) :
         self.assert_(not Validation.name('Ba a'))
-    # ------------
-    # class_number
-    # ------------
+
+	"""
+	Test class number validation.
+	"""
     def testclass_number1 (self) :
         self.assert_(not Validation.class_number('aaa'))
     def testclass_number2 (self) :
@@ -134,9 +131,7 @@ class TestAdmin (unittest.TestCase) :
         self.assert_(not Validation.class_number('cS123'))
     def testclass_number9 (self) :
         self.assert_(not Validation.class_number('ee315'))
-    # ------------
-    # number
-    # ------------
+
     def testnumber1 (self) :
         self.assert_(not Validation.number('aaa'))
     def testnumber2 (self) :
@@ -144,15 +139,16 @@ class TestAdmin (unittest.TestCase) :
     def testnumber3 (self) :
         self.assert_(Validation.number('12312323'))
 
-    # ------------
-    # comment
-    # ------------
+
+	"""
+	Test comment validation.
+	"""
     def testcomment1 (self) :
         self.assert_(Validation.comment('aaa'))
 
-    # ------------
-    # Degree type
-    # ------------
+	"""
+	Test degree validation.
+	"""
     def testdegree1 (self) :
         self.assert_(not Validation.degree_type('aaa'))
     def testdegree2 (self) :
@@ -162,9 +158,9 @@ class TestAdmin (unittest.TestCase) :
     def testdegree4 (self) :
         self.assert_(Validation.degree_type('Masters'))
 
-    # ------------
-    # Citizen or Resident
-    # ------------
+	"""
+	Test citizen/resident validation.
+	"""
     def testcitizen1 (self) :
         self.assert_(not Validation.citizen('aaa'))
     def testcitizen2 (self) :
@@ -174,9 +170,9 @@ class TestAdmin (unittest.TestCase) :
     def testcitizen4 (self) :
         self.assert_(Validation.citizen('resident'))
 
-    # ------------
-    # Yes or No
-    # ------------
+	"""
+	Test yes/no validation.
+	"""
     def testyesno1 (self) :
         self.assert_(not Validation.yes_no('aaa'))
     def testyesno2 (self) :
