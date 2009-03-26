@@ -20,7 +20,7 @@ def phone_number_ext (s) :
 # email
 # ------------
 def email (s) :
-        return not re.search('(^(\w|\-|\_)+((\.)?(\w|\-|\_)+)*)\@(\w)+(\-|\w)*(\w)+((\.)?(\w)+(\-|\w)*(\w)+)*\.(com|net|org|gov|edu)$', s) is None
+        return not re.search('(^(\w|\-|\_)+((\.)?(\w|\-|\_)+)*)\@(\w)+(\-|\w)*(\w)+((\.)?(\w)+(\-|\w)*(\w)+)*\.(com|net|org|gov|edu|info|biz|us)$', s) is None
 # ------------
 # date
 # ------------
