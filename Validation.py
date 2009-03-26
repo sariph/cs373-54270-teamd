@@ -37,7 +37,7 @@ def date (s) :
 # name
 # ------------
 def name (s) :
-        return not re.search('^[A-Z][a-zA-Z\'\-]*[a-zA-Z]$',s) is None
+        return not re.search('^^([A-Z]([a-zA-Z]*(\-|\')?[a-zA-Z]*[a-zA-Z](\')?)*(\s))+$',s) is None
 # ------------
 # class_number
 # ------------
