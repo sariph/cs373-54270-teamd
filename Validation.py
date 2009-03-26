@@ -54,3 +54,21 @@ def number (s) :
 # ------------
 def comment (s) :
         return not re.search('.+',s) is None
+
+# ------------
+# Degree type
+# ------------
+def degree_type (s) :
+        return not re.search('^(PhD|Masters)$',s) is None
+
+# ------------
+# Citizen or Resident
+# ------------
+def citizen (s) :
+        return not re.search('^(citizen|resident)$',s) is None
+
+# ------------
+# Yes or No
+# ------------
+def yes_no (s) :
+        return not re.search('^(yes|no)$',s) is None

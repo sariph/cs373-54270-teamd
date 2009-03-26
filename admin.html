@@ -15,11 +15,38 @@
 	<body>
 		<form action="admin" method="post">
 			<dl>
-				<dt><label for="comment_class_name">Class number/name</label></dt><dd><input type="text" name="comment_class_name" id="comment_class_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_class_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is the class's number/name?</span></dd>
-				<dt><label for="comment_inst_name">Instructor's name</label></dt><dd><input type="text" name="comment_inst_name" id="comment_inst_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_inst_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What instructor will teach the class?</span></dd>
-				<dt><label for="comment_exp_enrollment">Expected enrollment</label></dt><dd><input type="text" name="comment_exp_enrollment" id="comment_exp_enrollment" {% if results %}{% for result in results %}{% ifequal result.key 'comment_exp_enrollment' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>How many students are expected to enroll?</span></dd>
-				<dt><label for="comment_num_ta_needed">Number of TAs needed</label></dt><dd><input type="text" name="comment_num_ta_needed" id="comment_num_ta_needed" {% if results %}{% for result in results %}{% ifequal result.key 'comment_num_ta_needed' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>How many TAs will be needed?</span></dd>
-				<dt><label for="comment_num_ta_assigned">Number of TAs assigned</label></dt><dd><input type="text" name="comment_num_ta_assigned" id="comment_num_ta_assigned" {% if results %}{% for result in results %}{% ifequal result.key 'comment_num_ta_assigned' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>How many TAs are assigned?</span></dd>
+				<dt><label for="comment_class_name">Class number/name</label></dt>
+				<dd><input type="text" name="comment_class_name" id="comment_class_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_class_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the class's number/name?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_inst_name">Instructor's name</label></dt>
+				<dd><input type="text" name="comment_inst_name" id="comment_inst_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_inst_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What instructor will teach the class?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_exp_enrollment">Expected enrollment</label></dt>
+				<dd><input type="text" name="comment_exp_enrollment" id="comment_exp_enrollment" {% if results %}{% for result in results %}{% ifequal result.key 'comment_exp_enrollment' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>How many students are expected to enroll?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_num_ta_needed">Number of TAs needed</label></dt>
+				<dd><input type="text" name="comment_num_ta_needed" id="comment_num_ta_needed" {% if results %}{% for result in results %}{% ifequal result.key 'comment_num_ta_needed' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>How many TAs will be needed?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_num_ta_assigned">Number of TAs assigned</label></dt>
+				<dd><input type="text" name="comment_num_ta_assigned" id="comment_num_ta_assigned" {% if results %}{% for result in results %}{% ifequal result.key 'comment_num_ta_assigned' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>How many TAs are assigned?</span></dd>
 			</dl>
 			<div><input type="submit" value="Submit" /></div>
 		</form>
