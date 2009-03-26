@@ -36,7 +36,7 @@
 
 				<br />
 
-				<dt><label for="comment_admission">Admission date (DD-MM-YYYY)</label></dt><dd><input type="text" name="comment_admission" id="comment_admission" {% if results %}{% for result in results %}{% ifequal result.key 'comment_admission' %}{% if result.valid %}value="{{ result.value }}" />
+				<dt><label for="comment_admission">Admission date (MM-DD-YYYY)</label></dt><dd><input type="text" name="comment_admission" id="comment_admission" {% if results %}{% for result in results %}{% ifequal result.key 'comment_admission' %}{% if result.valid %}value="{{ result.value }}" />
 				<span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>What is your admission date?</span></dd>
 
