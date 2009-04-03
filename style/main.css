@@ -24,10 +24,6 @@ form dl dd {
 	position: relative;
 }
 
-form dl dd input {
-	width: 250px;
-}
-
 form dl dd textarea {
 	height: 100px;
 	width: 250px;

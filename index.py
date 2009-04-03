@@ -129,7 +129,7 @@ class Is_valid(webapp.RequestHandler):
 		self.response.headers['Content-Type'] = 'text/xml'
 		self.response.out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
 		self.response.out.write("<fields>\n")
-		self.response.out.write("\t<field key=\"" + key + '" value="' + value + '" valid="' + str(validator.results[0]['valid']) + "\" />\n")
+		self.response.out.write("\t<field key=\"" + key + '" value="' + value + '" valid="' +  str(validator.results[0]['valid']) + "\" />\n")
 		self.response.out.write("</fields>\n")
 
 application = webapp.WSGIApplication([('/is_valid', Is_valid),
