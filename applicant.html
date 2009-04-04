@@ -75,8 +75,16 @@
 
 				<br />
 
-				<dt><label for="comment_area">Area of specialization</label></dt>
-				<dd><input type="text" name="comment_area" id="comment_area" {% if results %}{% for result in results %}{% ifequal result.key 'comment_area' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your area of specialization?</span></dd>
+				<dt><label for="comment_area">Areas of specialization</label></dt>
+				<dd><input type="text" name="comment_area" id="comment_area" {% if results %}{% for result in results %}{% ifequal result.key 'comment_area' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What are your areas of specialization?</span></dd>
+				<select name="drop_area">
+					<option value="compilers">Compilers</option>
+					<option value="parallel">Parallel Programming</option>
+					<option value="languages">Programming Languages</option>
+					<option value="graphics">Graphics</option>
+					<option value="number_theory">Number Theory</option>
+					<option value="security">Security</option>
+				</select>
 
 				<br />
 
