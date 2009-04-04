@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin Add Specializations</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminaddspecializations" method="post">
+			<dl>
+				<dt>Current Specializations</dt>
+				<dd> 
+				{% if specializations %}
+					{% for specialization in specializations %}
+						<l1>{{specialization.specialization}}</li><br/>
+					{% endfor %}
+				{% else %}
+					<li>There are no specializations at this time</li>
+				{% endif %}
+				</dd>	
+				<br />
+				<dt><label for="comment_specialization">Specialization</label></dt>
+				<dd><input type="text" name="comment_specialization" id="comment_specialization" {% if results %}{% for result in results %}{% ifequal result.key 'comment_specialization' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>Enter a specialization that does not already exist.</span></dd>
+			<div><input type="submit" value="Submit" /></div>
+		</form>
+	</body>
+</html>
+

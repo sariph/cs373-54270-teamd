@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin Add Classes</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminAddClasses" method="post">
+			<dl>
+				<dt>Current Courses to add Classes for</dt>
+				<dd> 
+				{% if course_names %}
+					<select name="course_name">
+					{% for course in course_names %}
+						<option name="course_name" value={{course.course_name}}>{{course.course_name}}</li><br/>
+					{% endfor %}
+					</select>
+				{% else %}
+					<li>There are no courses at this time</li>
+				{% endif %}
+				</dd>
+				<dt><label for="comment_unique">Unique ID</label></dt>
+				<dd><input type="text" name="comment_class_name" id="comment_class_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_class_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the class's unique id?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_inst_name">Instructor's name</label></dt>
+				<dd><input type="text" name="comment_inst_name" id="comment_inst_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_inst_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>Who will teach this class?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_exp_enrollment">Expected enrollment</label></dt>
+				<dd><input type="text" name="comment_exp_enrollment" id="comment_exp_enrollment" {% if results %}{% for result in results %}{% ifequal result.key 'comment_exp_enrollment' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>How many students are expected to enroll?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_num_ta_needed">Number of TAs needed</label></dt>
+				<dd><input type="text" name="comment_num_ta_needed" id="comment_num_ta_needed" {% if results %}{% for result in results %}{% ifequal result.key 'comment_num_ta_needed' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>How many TAs will be needed?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_num_ta_assigned">Number of TAs assigned</label></dt>
+				<dd><input type="text" name="comment_num_ta_assigned" id="comment_num_ta_assigned" {% if results %}{% for result in results %}{% ifequal result.key 'comment_num_ta_assigned' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>How many TAs are assigned?</span></dd>
+			</dl>
+			<div><input type="submit" value="Submit" /></div>
+		</form>
+	</body>
+</html>
+
