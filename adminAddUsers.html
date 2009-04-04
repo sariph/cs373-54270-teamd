@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminAddUser" method="post">
+			<dl>
+				<dt><label for="comment_UTEID">UTEID</label></dt>
+				<dd><input type="text" name="comment_UTEID" id="comment_UTEID" {% if results %}{% for result in results %}{% ifequal result.key 'comment_UTEID' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What will be the new user's UTEID?</span></dd>
+
+				<br />
+
+				<dt><label for="comment_first_name">First Name</label></dt>
+				<dd><input type="text" name="comment_first_name" id="comment_first_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_first_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the new user's first name?</span></dd>
+
+				<br />
+				<dt><label for="comment_middle_name">Middle Name (Optional)</label></dt>
+				<dd><input type="text" name="comment_middle_name" id="comment_middle_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_middle_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the new user's middle name?</span></dd>
+
+				<br />
+				<dt><label for="comment_last_name">Last Name</label></dt>
+				<dd><input type="text" name="comment_last_name" id="comment_last_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_last_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the new user's last name?</span></dd>
+
+				<br />
+				<dt><label for="comment_password">Password</label></dt>
+				<dd><input type="text" name="comment_password_name" id="comment_password_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_password_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the new user's password?</span></dd>
+
+				<br />
+				<dt><label for="phone_user">Phone number</label></dt>
+				<dd><input type="text" name="phone_user" id="phone_user" {% if results %}{% for result in results %}{% ifequal result.key 'phone_user' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the new user's phone number?</span></dd>
+
+				<br />
+				<dt><label for="email_user">E-mail</label></dt>
+				<dd><input type="text" name="email_user" id="email_user" {% if results %}{% for result in results %}{% ifequal result.key 'email_user' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the new user's e-mail?</span></dd>
+
+				<br />
+				<dt><label for="radio_position">Position</label></dt>
+				<dd><input type="text" name="radio_position" id="radio_position" {% if results %}{% for result in results %}{% ifequal result.key 'radio_position' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the new user's position?</span></dd>
+			</dl>
+			<div><input type="submit" value="Submit" /></div>
+		</form>
+	</body>
+</html>
+
