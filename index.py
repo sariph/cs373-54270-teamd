@@ -31,6 +31,7 @@ class TAApplicant(webapp.RequestHandler):
 		self.professors = [i for i in db.GqlQuery("SELECT * FROM User WHERE position = 'Professor'")]
 		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		self.majors = [i for i in db.GqlQuery("SELECT * FROM Major")]
+		self.programming_languages = [i for i in db.GqlQuery("SELECT * FROM Programming_Language")]
 
 	def get(self):
 		"""
@@ -104,8 +105,8 @@ class TAApplicant(webapp.RequestHandler):
 			'professors' : self.professors,
 			'courses' : self.courses,
 			'eids' : self.eids,
-			'majors' : self.majors
-			
+			'majors' : self.majors,
+			'programming_languages' : self.programming_languages
 		}
 		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
 		self.response.out.write(template.render(path, template_values))

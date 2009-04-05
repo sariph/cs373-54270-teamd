@@ -105,6 +105,17 @@
 
 
 				<dt><label for="comment_programming">Programming languages</label></dt>
+				<dd>
+				{% if programming_languages %}
+				<select name="comment_programming">
+				{% for programming_language in programming_languages %}
+				<option name="comment_programming" value = {{programming_language.language}}>{{programming_language.language}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no programming languages at this time</li>
+				{% endif %}
+				</dd>
 				<dd><input type="text" name="comment_programming" id="comment_programming" {% if results %}{% for result in results %}{% ifequal result.key 'comment_programming' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What programming languages do you know?</span></dd>
 
 				<br />
