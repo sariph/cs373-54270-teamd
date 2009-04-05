@@ -41,8 +41,51 @@ class Applicant(webapp.RequestHandler):
 		Validates form elements and will eventually submit the information to a database.
 		"""
 		validator = Validator(self.request.params.items())
+		check = True
+		for result in validator.results:
+			if result['valid'] == False:
+				check = False
+				break
+			
+		if check == True:
+			new_user = User()
+			for result in validator.results:
+				if result['key'] == "comment_UTEID":
+					new_user.UTEID = result['value']
+				elif result['key'] == "comment_first_name":
+					new_user.first_name = result['value']
+				elif result['key'] == "comment_middle_name":
+					new_user.middle_name = result['value']
+				elif result['key'] == "comment_last_name":
+					new_user.last_name = result['value']
+				elif result['key'] == "comment_password":
+					new_user.password= result['value']
+				elif result['key'] == "phone_user":
+					new_user.phone = db.PhoneNumber(result['value'])
+				elif result['key'] == "email_user":
+					new_user.email = db.Email(result['value'])
+				elif result['key'] == "radio_position":
+					new_user.position = result['value']
+					
+			if not self.UTEIDAlreadyExists(new_user.UTEID):
+				new_user.put()
+			else:
+				result['valid'] = False
+			
 		self.results.extend(validator.results)
 		self.template()
+		
+	
+	def UTEIDAlreadyExists(self, name):
+		try:		
+			check = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", name)
+		except:
+			return False
+		
+		if check.get() is None:
+			return False
+		else:
+			return True
 
 	def template(self):
 		"""
