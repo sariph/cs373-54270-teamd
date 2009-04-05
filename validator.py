@@ -63,7 +63,7 @@ class Validator:
 					#'comment_num_ta_assigned'	: lambda x: Validation.number(x),
 				}[key.split('_')[0]](value)
 			except:
-				pass
+				result['valid'] = True
 
 			result['valid'] = True if ghetto_switch else False
 			self.results.append(result)

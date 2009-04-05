@@ -32,6 +32,10 @@ class TAApplicant(webapp.RequestHandler):
 		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		self.majors = [i for i in db.GqlQuery("SELECT * FROM Major")]
 		self.programming_languages = [i for i in db.GqlQuery("SELECT * FROM Programming_Language")]
+		self.sel_languages = []
+		self.sel_history = []
+		self.sel_specializations = []
+		self.sel_qualified = []
 
 	def get(self):
 		"""
@@ -43,19 +47,29 @@ class TAApplicant(webapp.RequestHandler):
 		"""
 		Validates form elements and will eventually submit the information to a database.
 		"""
+		self.sel_languages = []
+		self.sel_history = []
+		self.sel_specializations = []
+		self.sel_qualified = []
 		validator = Validator(self.request.params.items())
 		check = True
-		for result in validator.results:
+		for result in validator.results: 
 			if result['valid'] == False:
 				check = False
 				break
+		
+		for result in validator.results:
+			if result['value'] == 'language':
+				self.sel_languages.append(result['key'])
+			elif result['value'] == 'history':
+				self.sel_history.append(result['key'])
+			elif result['value'] == 'specialization':
+				self.sel_specializations.append(result['key'])
+			elif result['value'] == 'qualified':
+				self.sel_qualified.append(result['key'])
 			
 		if check == True:
 			new_applicant = Applicant()
-			languages = []
-			history = []
-			specializations = []
-			qualified = []
 			for result in validator.results:
 				if result['key'] == "uniqueUTEID_UTEID":
 					new_applicant.UTEID = result['value']
@@ -79,33 +93,21 @@ class TAApplicant(webapp.RequestHandler):
 					new_applicant.specialization_comment = result['value']
 				elif result['key'] == "comment_qualified":
 					new_applicant.qualified_comment = result['value']
-				elif result['value'] == 'language':
-					result['valid'] = True
-					languages.append(result['key'])
-				elif result['value'] == 'history':
-					result['valid'] = True
-					history.append(result['key'])
-				elif result['value'] == 'specialization':
-					result['valid'] = True
-					specializations.append(result['key'])
-				elif result['value'] == 'qualified':
-					result['valid'] = True
-					qualified.append(result['key'])
 							
 			new_applicant.put()
-			for l in languages:
+			for l in self.sel_languages:
 				new_app_language = App_Programming_Language(UTEID=new_applicant.UTEID, language = l)
 				new_app_language.put()
 				
-			for h in history:
+			for h in self.sel_history:
 				new_course_history = App_History(UTEID=new_applicant.UTEID, course_id = l)
 				new_course_history.put()
 				
-			for s in specializations:
+			for s in self.sel_specializations:
 				new_specialization = App_Specialization(UTEID=new_applicant.UTEID, specialization = l)
 				new_specialization.put()
 				
-			for q in qualified:
+			for q in self.sel_qualified:
 				new_qualified_course = App_Qualified_Course(UTEID=new_applicant.UTEID, course_id = l)
 				new_qualified_course.put()
 			
@@ -136,7 +138,11 @@ class TAApplicant(webapp.RequestHandler):
 			'courses' : self.courses,
 			'eids' : self.eids,
 			'majors' : self.majors,
-			'programming_languages' : self.programming_languages
+			'programming_languages' : self.programming_languages,
+			'sel_languages': self.sel_languages,
+			'sel_history': self.sel_history,
+			'sel_specializations': self.sel_specializations,
+			'sel_qualified': self.sel_qualified,
 		}
 		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
 		self.response.out.write(template.render(path, template_values))

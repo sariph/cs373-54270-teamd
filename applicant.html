@@ -92,7 +92,7 @@
 				<dd>
 				{% if courses %}
 				{% for course in courses %}
-				{{course.course_id}}: {{course.course_name}}<input type="checkbox" name={{course.course_id}} value="history"><br />
+				{{course.course_id}}: {{course.course_name}}<input type="checkbox" name="{{course.course_id}}" value="history" {%for sel in sel_history%}{%ifequal sel course.course_id %}checked{%endifequal%}{%endfor%}><br />
 				{% endfor %}
 				{% else %}
 				<li>No past courses in database.</li>
@@ -108,7 +108,7 @@
 				<dd>
 				{% if programming_languages %}
 				{% for p in programming_languages %}
-				{{p.language}}<input type="checkbox" name={{p.language}} value="language"><br/>
+				{{p.language}}<input type="checkbox" name="{{p.language}}" value="language" {%for sel in sel_languages%}{%ifequal sel p.language%}checked{%endifequal%}{%endfor%}><br/>
 				{% endfor %}
 				{% else %}
 				<li>There are no programming languages at this time</li>
@@ -123,7 +123,7 @@
 				<dd>
 				{% if specializations %}
 				{% for s in specializations %}
-				{{s.specialization}}<input type="checkbox" name={{s.specialization}} value="specialization"><br/>
+				{{s.specialization}}<input type="checkbox" name="{{s.specialization}}" value="specialization" {%for sel in sel_specializations%}{%ifequal sel s.specialization%}checked{%endifequal%}{%endfor%}><br/>
 				{% endfor %}
 				</select>
 				{% else %}
@@ -139,7 +139,7 @@
 				<dd>
 				{% if courses %}
 				{% for course in courses %}
-				{{course.course_id}}: {{course.course_name}}<input type="checkbox" name={{course.course_id}} value="qualified"><br />
+				{{course.course_id}}: {{course.course_name}}<input type="checkbox" name="{{course.course_id}}" value="qualified" {%for sel in sel_qualified%}{%ifequal sel course.course_id%}checked{%endifequal%}{%endfor%}><br />
 				{% endfor %}
 				{% else %}
 				<li>There are no courses at this time</li>
