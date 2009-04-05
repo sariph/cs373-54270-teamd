@@ -110,7 +110,7 @@ class TAApplicant(webapp.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
 		self.response.out.write(template.render(path, template_values))
 
-class Instructor(webapp.RequestHandler):
+class InstructorMain(webapp.RequestHandler):
 	"""
 	Class for handling the instructor form and validation.
 	"""
@@ -144,7 +144,7 @@ class Instructor(webapp.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'instructor.html')
 		self.response.out.write(template.render(path, template_values))
 
-class Admin(webapp.RequestHandler):
+class AdminMain(webapp.RequestHandler):
 	"""
 	Class for handling the admin form and validation.
 	"""
@@ -284,6 +284,53 @@ class AdminViewUsers(webapp.RequestHandler):
 			'users': self.users,
 		}
 		path = os.path.join(os.path.dirname(__file__), 'adminViewUsers.html')
+		self.response.out.write(template.render(path, template_values))
+		
+class AdminViewApplicants(webapp.RequestHandler):
+	"""
+	Class for handling the admin form and validation.
+	"""
+	def __init__(self):
+		"""
+		Constructor initializes results.
+		"""
+		self.users= [i for i in db.GqlQuery("SELECT * FROM User")]
+		self.applicants = []
+		for user in self.users:
+			i = db.GqlQuery("SELECT * FROM Applicant WHERE UTEID = :1", user.UTEID).get()
+			if i is not None:
+				self.applicants.append(i)
+		if self.applicants != []:
+			for app in self.applicants:
+				
+				app.user_info = db.GqlQuery("SELECT * FROM User WHERE UTEID=:1", app.UTEID).get()
+				app.languages = [i for i in db.GqlQuery("SELECT * FROM App_Programming_Language WHERE UTEID=:1", app.UTEID)]
+				app.history = [i for i in db.GqlQuery("SELECT * FROM App_History WHERE UTEID=:1", app.UTEID)]
+				app.specializations = [i for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID=:1", app.UTEID)]
+				app.qualified_courses = [i for i in db.GqlQuery("SELECT * FROM App_Qualified_Course WHERE UTEID=:1", app.UTEID)]
+
+		
+
+	def get(self):
+		"""
+		Displays the class template upon get request.
+		"""
+		self.template()
+
+	def post(self):
+		"""
+		Validates form elements and will eventually submit the information to a database.
+		"""
+		self.template()
+
+	def template(self):
+		"""
+		Renders the template.
+		"""
+		template_values = {
+			'applicants': self.applicants,
+		}
+		path = os.path.join(os.path.dirname(__file__), 'adminViewApplicants.html')
 		self.response.out.write(template.render(path, template_values))
 		
 class AdminAddCourses(webapp.RequestHandler):
@@ -821,10 +868,11 @@ class Is_valid(webapp.RequestHandler):
 
 application = webapp.WSGIApplication([('/is_valid', Is_valid),
                                       ('/applicant', TAApplicant),
-                                      ('/instructor', Instructor),
-                                      ('/admin', Admin),
+                                      ('/instructor', InstructorMain),
+                                      ('/admin', AdminMain),
 				      ('/adminaddusers', AdminAddUsers),
 				      ('/adminviewusers', AdminViewUsers),
+				      ('/adminviewapplicants', AdminViewApplicants),
 				      ('/adminaddcourses', AdminAddCourses),
 				      ('/adminaddmajors', AdminAddMajors),
 				      ('/adminaddlanguages', AdminAddLanguages),

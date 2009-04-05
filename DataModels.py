@@ -75,7 +75,7 @@ class App_Qualified_Course(db.Model):
 	UTEID = db.StringProperty()
 	course_id = db.StringProperty()
 
-class Class_Specialization(db.Model):
+class Requested_Specialization(db.Model):
 	class_id = db.StringProperty()
 	specialization = db.StringProperty()
 
