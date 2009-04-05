@@ -1,4 +1,3 @@
-import cgi
 
 from google.appengine.ext import db
 from google.appengine.ext.db import polymodel
