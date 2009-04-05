@@ -26,6 +26,7 @@ class Applicant(webapp.RequestHandler):
 		Constructor initializes results.
 		"""
 		self.results = []
+		self.eids = [i for i in db.GqlQuery("SELECT * FROM User WHERE position = 'Graduate'")]
 		self.specializations = [i for i in db.GqlQuery("SELECT * FROM Specialization")]
 		self.professors = [i for i in db.GqlQuery("SELECT * FROM User WHERE position = 'Professor'")]
 		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
@@ -52,14 +53,6 @@ class Applicant(webapp.RequestHandler):
 			for result in validator.results:
 				if result['key'] == "comment_UTEID":
 					new_user.UTEID = result['value']
-				elif result['key'] == "comment_first_name":
-					new_user.first_name = result['value']
-				elif result['key'] == "comment_middle_name":
-					new_user.middle_name = result['value']
-				elif result['key'] == "comment_last_name":
-					new_user.last_name = result['value']
-				elif result['key'] == "comment_password":
-					new_user.password= result['value']
 				elif result['key'] == "phone_user":
 					new_user.phone = db.PhoneNumber(result['value'])
 				elif result['key'] == "email_user":
@@ -95,7 +88,8 @@ class Applicant(webapp.RequestHandler):
 			'results': self.results,
                         'specializations' : self.specializations,
 			'professors' : self.professors,
-			'courses' : self.courses
+			'courses' : self.courses,
+			'eids' : self.eids
 			
 		}
 		path = os.path.join(os.path.dirname(__file__), 'applicant.html')

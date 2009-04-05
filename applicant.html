@@ -15,15 +15,19 @@
 	<body>
 		<form action="applicant" method="post">
 			<dl>
-				<dt><label for="phone_applicant">Phone (xxx-xxx-xxxx)</label></dt>
-				<dd><input type="text" name="phone_applicant" id="phone_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'phone_applicant' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your phone number?</span></dd>
-	
-				<br />
-
-				<dt><label for="email_applicant">Email (xxx@xxx.xxx)</label></dt>
-				<dd><input type="text" name="email_applicant" id="email_applicant" {% if results %}{% for result in results %}{% ifequal result.key 'email_applicant' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your email address?</span></dd>
-
-				<br />
+				<dt><label for="comment_UTEID">UTEID</label></dt>
+				<dd>
+				{% if eids %}
+				<select name="comment_UTEID">
+				{% for eid in eids %}
+				<option name="comment_UTEID" value={{professors.first_name}}+{{professors.last_name}}>{{eid.UTEID}} {{eid.UTEID}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no UTEID at this time</li>
+				{% endif %}
+				</dd>
+				
 
 				<dt><label for="comment_major">Major field</label></dt>
 				<dd><input type="text" name="comment_major" id="comment_major" {% if results %}{% for result in results %}{% ifequal result.key 'comment_major' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your major field?</span></dd>
