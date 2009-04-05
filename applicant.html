@@ -15,12 +15,12 @@
 	<body>
 		<form action="applicant" method="post">
 			<dl>
-				<dt><label for="comment_UTEID">UTEID</label></dt>
+				<dt><label for="uniqueUTEID_UTEID">UTEID</label></dt>
 				<dd>
 				{% if eids %}
-				<select name="comment_UTEID">
+				<select name="uniqueUTEID_UTEID">
 				{% for eid in eids %}
-				<option name="comment_UTEID" value={{eid.UTEID}}>{{eid.UTEID}}</li><br/>
+				<option name="uniqueUTEID_UTEID" value={{eid.UTEID}}>{{eid.UTEID}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
@@ -88,66 +88,65 @@
 
 				<br />
 
-				<dt><label for="comment_ta">TA history</label></dt>
+				<dt><label>TA history</label></dt>
 				<dd>
 				{% if courses %}
-				<select multiple="comment_ta">
 				{% for course in courses %}
-				<option multiple="comment_ta" value={{course.course_id}}>{{course.course_id}}</li><br/>
+				{{course.course_id}}: {{course.course_name}}<input type="checkbox" name={{course.course_id}} value="history"><br />
 				{% endfor %}
-				</select>
 				{% else %}
-				<li>There are no course at this time</li>
+				<li>No past courses in database.</li>
 				{% endif %}
+				<dt><label>Other (Optional): </label></dt>
+				<input type="text" name="comment_ta" id="comment_ta" />
 				</dd>
+				<br />
 				<br />
 
 
-				<dt><label for="comment_programming">Programming languages</label></dt>
+				<dt><label">Programming languages</label></dt>
 				<dd>
 				{% if programming_languages %}
-				<select multiple="comment_programming">
-				{% for programming_language in programming_languages %}
-				<option multiple="comment_programming" value = {{programming_language.language}}>{{programming_language.language}}</li><br/>
+				{% for p in programming_languages %}
+				{{p.language}}<input type="checkbox" name={{p.language}} value="language"><br/>
 				{% endfor %}
-				</select>
 				{% else %}
 				<li>There are no programming languages at this time</li>
 				{% endif %}
+				<dt><label>Other (Optional): </label></dt>
+				<input type="text" name="comment_programming" id="comment_programming" />
 				</dd>
-				<dd><input type="text" name="comment_programming" id="comment_programming" {% if results %}{% for result in results %}{% ifequal result.key 'comment_programming' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What programming languages do you know?</span></dd>
-
+				<br />
 				<br />
 
-				<dt><label for="comment_area_drop">Areas of specialization</label></dt>
+				<dt><label>Areas of specialization</label></dt>
 				<dd>
 				{% if specializations %}
-				<select name="comment_area_drop">
-				{% for specialization in specializations %}
-				<option name="comment_area_drop" value={{specialization.specialization}}>{{specialization.specialization}}</li><br/>
+				{% for s in specializations %}
+				{{s.specialization}}<input type="checkbox" name={{s.specialization}} value="specialization"><br/>
 				{% endfor %}
 				</select>
 				{% else %}
-				<li>There are no specialization at this time</li>
+				<li>There are no specializations at this time</li>
 				{% endif %}
-
+				<dt><label>Other (Optional): </label></dt>
+				<input type="text" name="comment_area" id="comment_area" />
+				</dd>
+				<br />
 				<br />
 
-				<input type="text" name="comment_area" id="comment_area" {% if results %}{% for result in results %}{% ifequal result.key 'comment_area' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What are your areas of specialization?</span>
-</dd>
-				<br />
-
-				<dt><label for="comment_qualified">Course qualified to teach</label></dt>
+				<dt><label>Course qualified to teach</label></dt>
 				<dd>
 				{% if courses %}
-				<select name="comment_qualified">
 				{% for course in courses %}
-				<option name="comment_qualified" value = {{course.course_id}}>{{course.course_id}}</li><br/>
+				{{course.course_id}}: {{course.course_name}}<input type="checkbox" name={{course.course_id}} value="qualified"><br />
 				{% endfor %}
-				</select>
 				{% else %}
-				<li>There are no course at this time</li>
+				<li>There are no courses at this time</li>
 				{% endif %}
+				<dt><label>Other (Optional): </label></dt>
+				<input type="text" name="comment_qualified" id="comment_qualified"/>
+				</dd>
 				</dd>
 			</dl>
 			<div><input type="submit" value="Submit" /></div>

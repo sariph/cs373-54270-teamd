@@ -79,4 +79,6 @@ def yes_no (s) :
 	"""
 	yes/no validator.
 	"""
-	return not re.search('^(yes|no)$',s) is None
+	return not re.search('^(Yes|No)$',s) is None
+
+

@@ -30,6 +30,9 @@ class Validator:
 				'radio'		: lambda x: Validation.comment(x),
 				'number'	: lambda x: Validation.number(x),
 				'unique'	: lambda x: Validation.unique(x),
+				'yesno'		: lambda x: Validation.yes_no(x),
+				'text'		: lambda x: True,
+				'optional'	: lambda x: True,
 				#TA Applicant switches
 				#'phone_applicant'		: lambda x: Validation.phone_number(x),
 				#'email_applicant'		: lambda x: Validation.email(x),

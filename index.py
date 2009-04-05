@@ -52,8 +52,12 @@ class TAApplicant(webapp.RequestHandler):
 			
 		if check == True:
 			new_applicant = Applicant()
+			languages = []
+			history = []
+			specializations = []
+			qualified = []
 			for result in validator.results:
-				if result['key'] == "comment_UTEID":
+				if result['key'] == "uniqueUTEID_UTEID":
 					new_applicant.UTEID = result['value']
 				elif result['key'] == "comment_major":
 					new_applicant.major = result['value']
@@ -75,10 +79,36 @@ class TAApplicant(webapp.RequestHandler):
 					new_applicant.specialization_comment = result['value']
 				elif result['key'] == "comment_qualified":
 					new_applicant.qualified_comment = result['value']
-			##if not self.UTEIDAlreadyExists(new_applicant.UTEID):
+				elif result['value'] == 'language':
+					result['valid'] = True
+					languages.append(result['key'])
+				elif result['value'] == 'history':
+					result['valid'] = True
+					history.append(result['key'])
+				elif result['value'] == 'specialization':
+					result['valid'] = True
+					specializations.append(result['key'])
+				elif result['value'] == 'qualified':
+					result['valid'] = True
+					qualified.append(result['key'])
+							
 			new_applicant.put()
-			##else:
-				#result['valid'] = False
+			for l in languages:
+				new_app_language = App_Programming_Language(UTEID=new_applicant.UTEID, language = l)
+				new_app_language.put()
+				
+			for h in history:
+				new_course_history = App_History(UTEID=new_applicant.UTEID, course_id = l)
+				new_course_history.put()
+				
+			for s in specializations:
+				new_specialization = App_Specialization(UTEID=new_applicant.UTEID, specialization = l)
+				new_specialization.put()
+				
+			for q in qualified:
+				new_qualified_course = App_Qualified_Course(UTEID=new_applicant.UTEID, course_id = l)
+				new_qualified_course.put()
+			
 			
 		self.results.extend(validator.results)
 		self.template()
@@ -306,12 +336,12 @@ class AdminViewApplicants(webapp.RequestHandler):
 				self.applicants.append(i)
 		if self.applicants != []:
 			for app in self.applicants:
-				
 				app.user_info = db.GqlQuery("SELECT * FROM User WHERE UTEID=:1", app.UTEID).get()
 				app.languages = [i for i in db.GqlQuery("SELECT * FROM App_Programming_Language WHERE UTEID=:1", app.UTEID)]
 				app.history = [i for i in db.GqlQuery("SELECT * FROM App_History WHERE UTEID=:1", app.UTEID)]
 				app.specializations = [i for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID=:1", app.UTEID)]
 				app.qualified_courses = [i for i in db.GqlQuery("SELECT * FROM App_Qualified_Course WHERE UTEID=:1", app.UTEID)]
+				app.supervisor_info = db.GqlQuery("SELECT * FROM User WHERE UTEID=:1", app.supervisor).get()
 
 		
 
