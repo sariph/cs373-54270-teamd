@@ -28,6 +28,7 @@ class Applicant(webapp.RequestHandler):
 		self.results = []
 		self.specializations = [i for i in db.GqlQuery("SELECT * FROM Specialization")]
 		self.professors = [i for i in db.GqlQuery("SELECT * FROM User WHERE position = 'Professor'")]
+		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
 
 	def get(self):
 		"""
@@ -50,7 +51,9 @@ class Applicant(webapp.RequestHandler):
 		template_values = {
 			'results': self.results,
                         'specializations' : self.specializations,
-			'professors' : self.professors
+			'professors' : self.professors,
+			'courses' : self.courses
+			
 		}
 		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
 		self.response.out.write(template.render(path, template_values))

@@ -75,7 +75,17 @@
 				<br />
 
 				<dt><label for="comment_ta">TA history</label></dt>
-				<dd><input type="text" name="comment_ta" id="comment_ta" {% if results %}{% for result in results %}{% ifequal result.key 'comment_ta' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Do you have a history being a TA? Type in "yes" or "no".</span></dd>
+				<dd>
+				{% if courses %}
+				<select name="comment_ta">
+				{% for course in courses %}
+				<option name="comment_ta" value={{course.course_id}}>{{course.course_id}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no course at this time</li>
+				{% endif %}
+				</dd>
 
 				<br />
 
