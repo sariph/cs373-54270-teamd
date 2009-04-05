@@ -93,7 +93,7 @@
 				{% if courses %}
 				<select multiple="comment_ta">
 				{% for course in courses %}
-				<option multiple="comment_ta" multiple={{course.course_id}}>{{course.course_id}}</li><br/>
+				<option multiple="comment_ta" value={{course.course_id}}>{{course.course_id}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
@@ -107,9 +107,9 @@
 				<dt><label for="comment_programming">Programming languages</label></dt>
 				<dd>
 				{% if programming_languages %}
-				<select name="comment_programming">
+				<select multiple="comment_programming">
 				{% for programming_language in programming_languages %}
-				<option name="comment_programming" value = {{programming_language.language}}>{{programming_language.language}}</li><br/>
+				<option multiple="comment_programming" value = {{programming_language.language}}>{{programming_language.language}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
