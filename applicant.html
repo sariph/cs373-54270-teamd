@@ -44,7 +44,17 @@
 				<br />
 
 				<dt><label for="comment_supervising">Supervising professor</label></dt>
-				<dd><input type="text" name="comment_supervising" id="comment_supervising" {% if results %}{% for result in results %}{% ifequal result.key 'comment_supervising' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>Who is your supervising professor?</span></dd>
+				<dd>
+				{% if professors %}
+				<select name="comment_supervising">
+				{% for professor in professors %}
+				<option name="comment_supervising" value={{professors.first_name}}+{{professors.last_name}}>{{professor.first_name}} {{professor.last_name}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no supervising professor at this time</li>
+				{% endif %}
+				</dd>
 
 				<br />
 
