@@ -77,9 +77,9 @@
 				<dt><label for="comment_ta">TA history</label></dt>
 				<dd>
 				{% if courses %}
-				<select name="comment_ta">
+				<select multiple="comment_ta">
 				{% for course in courses %}
-				<option name="comment_ta" value={{course.course_id}}>{{course.course_id}}</li><br/>
+				<option multiple="comment_ta" multiple={{course.course_id}}>{{course.course_id}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
