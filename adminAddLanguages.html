@@ -30,7 +30,8 @@
 				<dd><input type="text" name="comment_language" id="comment_language" {% if results %}{% for result in results %}{% ifequal result.key 'comment_language' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
 				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>Enter a programming language that does not already exist.</span></dd>
-			<div><input type="submit" value="Submit" /></div>
+				<div><input type="submit" value="Submit" /></div>
+			</dl>
 		</form>
 	</body>
 </html>

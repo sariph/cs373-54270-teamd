@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin View Classess</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminviewclasses" method="post">
+			<dl>
+				<dt>Current Classes</dt>
+				{% if classes%}
+				{% for class in classes%}
+				<div>Course Name:{{class.course_name}}</div><br/>
+				<div>Unique Id:{{class.unique_id}}</div><br/>
+				<div>Semester:{{class.semester}}</div><br/>
+				<div>Year:{{class.year}}</div><br/>
+				<div>Instructor:{{class.instructor}}</div><br/>
+				<div>Instructor's Wanted Students Comment:{{class.wanted_comment}}</div><br/>
+				<div>Instructor's Unwanted Students Comment:{{class.unwanted_comment}}</div><br/>
+				<div>Instructor is a Native English Speaker:{{class.native_english}}</div><br/>
+				<div>Instructor's requested specialization(s):{{class.specialization_comment}}</div><br/>
+				<div>Expected Enrollment:{{class.expected_enrollment}}</div><br/>
+				<div>TAs needed:{{class.numTA_needed}}</div><br/>
+				{% endfor %}
+				{% else %}
+				<li>There are no classes at this time</li>
+				{% endif %}
+			</dl>
+		</form>
+	</body>
+</html>
+

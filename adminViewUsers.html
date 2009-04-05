@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>C S 373: 54270: TA Matching: Admin</title>
+		<title>C S 373: 54270: TA Matching: Admin View Users</title>
 
 		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
 		<link rel="stylesheet" type="text/css" href="/style/main.css" />
@@ -13,16 +13,22 @@
 	</head>
 
 	<body>
-		<form action="admin" method="post">
-			<div><a href="adminaddusers">Add Users</a></div>
-			<div><a href="adminviewusers">View Users</a></div>
-			<div><a href="adminaddmajors">Add Majors</a></div>
-			<div><a href="adminaddlanguages">Add Languages</a></div>
-			<div><a href="adminaddspecializations">Add Specializations</a></div>
-			<div><a href="adminaddcourses">Add Courses</a></div>
-			<div><a href="adminaddclasses">Add Classes</a></div>
-			<div><a href="adminviewclasses">View Classes</a></div>
-			<div><a href="admineditclasses">Edit Classes</a></div>
+		<form action="adminviewusers" method="post">
+			<dl>
+				<dt>Current Users</dt>
+				{% if users%}
+					{% for user in users %}
+						<div>UTEID:{{user.UTEID}}</div><br/>
+						<div>Name:{{user.first_name}} {{user.middle_name}} {{user.last_name}}</div><br/>
+						<div>Password:{{user.password}} (for debugging)</div><br/>
+						<div>Phone:{{user.phone}}</div><br/>
+						<div>E-mail:{{user.email}}</div><br/>
+						<div>Postion:{{user.position}}</div><br/>
+					{% endfor %}
+				{% else %}
+					<li>There are no users at this time</li>
+				{% endif %}
+			</dl>
 		</form>
 	</body>
 </html>

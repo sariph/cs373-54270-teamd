@@ -25,7 +25,11 @@ class Admin(db.Model):
 class Instructor(db.Model):
 	UTEID = db.StringProperty()	
 	class_id = db.IntegerProperty()		#class_id the Instructor is teaching
-	
+
+class Instructor_App(db.Model):
+	UTEID = db.StringProperty()	
+	class_id = db.IntegerProperty()		#class_id the Professor wishes to teach
+
 class Applicant(db.Model):
 	UTEID = db.StringProperty()	
 	admission = db.DateProperty()
@@ -42,7 +46,7 @@ class Applicant(db.Model):
 class Class(db.Model):
 	class_id = db.StringProperty()		#This is a combination of Unique id, semester, and year. Ex: 56025fall2000. This is the primary key
 	course_name = db.StringProperty()
-	unique_id = db.StringProperty()
+	unique_id = db.IntegerProperty()
 	instructor = db.StringProperty()
 	semester = db.StringProperty()
 	year = db.IntegerProperty()
@@ -70,6 +74,10 @@ class App_Specialization(db.Model):
 class App_Qualified_Course(db.Model):
 	UTEID = db.StringProperty()
 	course_name = db.StringProperty()
+
+class Class_Specialization(db.Model):
+	class_id = db.StringProperty()
+	specialization = db.StringProperty()
 
 class Unwanted_Student(db.Model):
 	class_id = db.IntegerProperty()

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="admineditclasses" method="post">
+			<dl>
+			Please select the course of the class you wish to edit:
+			{%if courses %}
+			{%if selected_course%}
+				<input type="hidden" name="select_course" value={{selected_course}} />
+				{{selected_course}}
+			{%else%}
+			<select name="select_course">
+			{%for course in courses%}
+				<option name="select_course" value={{course.course_name}}>{{course.course_name}}</option>
+			{%endfor%}
+			</select>
+			{%endif%}
+			{%else%}
+			<br />There are no courses at this time
+			{%endif%}
+			
+
+			<br />
+			
+			{%if course_classes%}
+			Please select the class you wish to edit:
+			{%if selected_class%}
+				<input type="hidden" name="select_class" value={{selected_class.class_id}} />
+				{{selected_class.course_name}} {{selected_class.semester}} {{selected_class.year}}
+			{%else%}
+			<select name="select_class">
+			{%for class in course_classes%}
+				<option name="select_class" value={{class.class_id}}>{{class.course_name}} {{class.semester}} {{class.year}}</option>
+			{%endfor%}
+			</select>
+			{%endif%}
+			{%else%}
+			{%if course_selected%}There are no instances of this course{%endif%}
+			{%endif%}
+
+			<br />
+
+			{%if selected_class%}
+			Select the operation you wish to perform:
+			{%if selected_option %}
+				<br />
+				<input type="hidden" name="select_option" value={{selected_option}} />
+				{%ifequal selected_option  "assign_instructor"%}
+				Assign or change this class's Instructor
+				{%endifequal%}
+				{%ifequal selected_option  "assign_ta"%}
+				Assign or change this class's Teaching Assistents
+				{%endifequal%}
+				{%ifequal selected_option  "change_enrollment"%}
+				Change this class's expected enrollment
+				{%endifequal%}
+				{%ifequal selected_option  "change_num_ta"%}
+				Change this class's expected number of needed TAs
+				{%endifequal%}
+				<br />
+			{%else%}
+			<select name="select_option">
+				<option name="select_option" value="assign_instructor">Assign or change this class's Instructor</option>
+				<option name="select_option" value="assign_ta">Assign or change this class's Teaching Assistents</option>
+				<option name="select_option" value="change_enrollment">Change this class's expected enrollment</option>
+				<option name="select_option" value="change_num_ta">Change this class's expected number of needed TAs</option>
+			</select>
+			{%endif%}
+			{%endif%}
+
+			<br />
+
+			{%ifequal selected_option "assign_instructor"%}
+			Select the instructor you wish to assign to this class
+			{%if instructors%}
+			{%for i in instructors%}
+			<select name="instructor">
+				<option name="instructor" value={{i.UTEID}}>{{i.first_name}}{%if i.last_name%} {{i.middle_name}} {%endif%}{{i.last_name}}</option>
+			</select>
+			<input type="hidden" name="finished" value=true />
+			{%endfor%}
+			{%else%}
+			<br />There are no professors appling for a teaching position at this time
+			<input type="hidden" name="finished" value=true />
+			{%endif%}
+			{%endifequal%}
+
+			<br />
+			{%ifequal selected_option "assign_ta"%}
+			Select the instructor you wish to assign to this class
+			{%if applicants%}
+			{%for a in applicants%}
+			<select name="applicant">
+				<option name="applicant" value={{a.UTEID}}>{{a.first_name}}{%if a.last_name%} {{a.middle_name}} {%endif%}{{a.last_name}}</option>
+			</select>
+			<input type="hidden" name="finished" value=true />
+			{%endfor%}
+			{%else%}
+			<br />No graduate students have applied to be an instructor
+			<input type="hidden" name="finished" value=true />
+			{%endif%}
+			{%endifequal%}
+
+			<br />
+			{%ifequal selected_option "change_enrollment"%}
+			Edit the expected enrollment for this class:
+			{%if submitted_number%}
+			{{submitted_number}}
+			<input type="hidden" name="number_exp_enrollment" value={{submitted_number}} />
+			{%else%}
+			<dd><input type="text" name="number_exp_enrollment" id="number_exp_enrollment" {% if results %}{% for result in results %}{% ifequal result.key 'number_exp_enrollment' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+			<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+			<span{% endif %}>How many students are expected to enroll?</span></dd>
+			<input type="hidden" name="finished" value=true />
+			{%endif%}
+			{%endifequal%}
+
+			<br />
+			{%ifequal selected_option "change_num_ta"%}
+			Edit the number of TAs needed for this class:
+			{%if submitted_number%}
+			{{submitted_number}}
+			<input type="hidden" name="number_num_ta_needed" value={{submitted_number}} />
+			{%else%}
+			<dd><input type="text" name="number_num_ta_needed" id="number_num_ta_needed" {% if results %}{% for result in results %}{% ifequal result.key 'number_num_ta_needed' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+			<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+			<span{% endif %}>How many TAs are expected to be needed?</span></dd>
+			<input type="hidden" name="finished" value=true />
+			{%endif%}
+			{%endifequal%}
+
+			</dl>
+			{%if finished%}
+			<div><a href="admin">Database updated, return to the admin page</a></div>
+			{%else%}
+			<div><input type="submit" value="Continue" /></div>
+			{%endif%}
+		</form>
+	</body>
+</html>
+

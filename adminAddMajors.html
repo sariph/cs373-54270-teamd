@@ -30,6 +30,7 @@
 				<dd><input type="text" name="comment_major" id="comment_major" {% if results %}{% for result in results %}{% ifequal result.key 'comment_major' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
 				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>Enter a major that does not already exist.</span></dd>
+			</dl>
 			<div><input type="submit" value="Submit" /></div>
 		</form>
 	</body>

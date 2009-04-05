@@ -51,6 +51,12 @@ def number (s) :
 	"""
 	return not re.search('^(\d)+$',s) is None
 
+def unique (s) :
+	"""
+	Number validator.
+	"""
+	return not re.search('^(\d)(\d)(\d)(\d)(\d)$',s) is None
+
 def comment (s) :
 	"""
 	Comment validator.

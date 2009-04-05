@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<form action="adminAddUser" method="post">
+		<form action="adminaddusers" method="post">
 			<dl>
 				<dt><label for="comment_UTEID">UTEID</label></dt>
 				<dd><input type="text" name="comment_UTEID" id="comment_UTEID" {% if results %}{% for result in results %}{% ifequal result.key 'comment_UTEID' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
@@ -41,7 +41,7 @@
 
 				<br />
 				<dt><label for="comment_password">Password</label></dt>
-				<dd><input type="text" name="comment_password_name" id="comment_password_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_password_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<dd><input type="text" name="comment_password" id="comment_password_" {% if results %}{% for result in results %}{% ifequal result.key 'comment_password' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
 				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>What is the new user's password?</span></dd>
 
@@ -59,9 +59,11 @@
 
 				<br />
 				<dt><label for="radio_position">Position</label></dt>
-				<dd><input type="text" name="radio_position" id="radio_position" {% if results %}{% for result in results %}{% ifequal result.key 'radio_position' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
-				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>What is the new user's position?</span></dd>
+				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_position' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>What is this user's position at the university?</span>
+				Undergraduate<input type="radio" name="radio_position" value="Undergraduate" id="radio_position" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_position' %}{% ifequal result.value 'Undergraduate' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				Graduate<input type="radio" name="radio_position" value="Graduate" id="radio_position" {% if results %}{% for result in results %}{% ifequal result.key 'radio_position' %}{% ifequal result.value 'Graduate' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				Professor<input type="radio" name="radio_position" value="Professor" id="radio_position" {% if results %}{% for result in results %}{% ifequal result.key 'radio_position' %}{% ifequal result.value 'Professor' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				</dd>
 			</dl>
 			<div><input type="submit" value="Submit" /></div>
 		</form>

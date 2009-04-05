@@ -1,5 +1,6 @@
 import os
 import Debug
+import Validation
 from DataModels import *
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -140,7 +141,6 @@ class AdminAddUsers(webapp.RequestHandler):
 		Validates form elements and will eventually submit the information to a database.
 		"""
 		validator = Validator(self.request.params.items())
-		self.results.extend(validator.results)
 		check = True
 		for result in validator.results:
 			if result['valid'] == False:
@@ -161,13 +161,18 @@ class AdminAddUsers(webapp.RequestHandler):
 				elif result['key'] == "comment_password":
 					new_user.password= result['value']
 				elif result['key'] == "phone_user":
-					new_user.phone = result['value']
+					new_user.phone = db.PhoneNumber(result['value'])
 				elif result['key'] == "email_user":
-					new_user.email = result['value']
+					new_user.email = db.Email(result['value'])
 				elif result['key'] == "radio_position":
 					new_user.position = result['value']
-			new_user.put()
 					
+			if not self.UTEIDAlreadyExists(new_user.UTEID):
+				new_user.put()
+			else:
+				result['valid'] = False
+			
+		self.results.extend(validator.results)
 		self.template()
 
 	def template(self):
@@ -178,6 +183,49 @@ class AdminAddUsers(webapp.RequestHandler):
 			'results': self.results,
 		}
 		path = os.path.join(os.path.dirname(__file__), 'adminAddUsers.html')
+		self.response.out.write(template.render(path, template_values))
+		
+	def UTEIDAlreadyExists(self, name):
+		try:		
+			check = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", name)
+		except:
+			return False
+		
+		if check.get() is None:
+			return False
+		else:
+			return True
+		
+class AdminViewUsers(webapp.RequestHandler):
+	"""
+	Class for handling the admin form and validation.
+	"""
+	def __init__(self):
+		"""
+		Constructor initializes results.
+		"""
+		self.users = [i for i in db.GqlQuery("SELECT * FROM User")]
+
+	def get(self):
+		"""
+		Displays the class template upon get request.
+		"""
+		self.template()
+
+	def post(self):
+		"""
+		Validates form elements and will eventually submit the information to a database.
+		"""
+		self.template()
+
+	def template(self):
+		"""
+		Renders the template.
+		"""
+		template_values = {
+			'users': self.users,
+		}
+		path = os.path.join(os.path.dirname(__file__), 'adminViewUsers.html')
 		self.response.out.write(template.render(path, template_values))
 		
 class AdminAddCourses(webapp.RequestHandler):
@@ -439,6 +487,37 @@ class AdminAddClasses(webapp.RequestHandler):
 		Validates form elements and will eventually submit the information to a database.
 		"""
 		validator = Validator(self.request.params.items())
+		check = True
+		for result in validator.results:
+			if result['valid'] == False:
+				check = False
+				break
+		if check == True:
+			new_class = Class()
+			for result in validator.results:
+				if result['key'] == "comment_course_name":
+					new_class.course_name = result['value']
+				elif result['key'] == "unique_id":
+					unique = result['value']
+					new_class.unique_id = int(result['value'])
+				elif result['key'] == "radio_class_semester":
+					semester = result['value']
+					new_class.semester = result['value']
+				elif result['key'] == "radio_class_year":
+					year = result['value']
+					new_class.year = int(result['value'])
+				elif result['key'] == "number_exp_enrollment":
+					new_class.expected_enrollment = int(result['value'])
+				elif result['key'] == "number_num_ta_needed":
+					new_class.numTA_needed = int(result['value'])
+			
+			new_class.class_id = unique + semester + year
+			
+			if not self.ClassAlreadyExists(new_class.class_id):
+				new_class.put()
+			else:
+				result['valid'] = False
+				
 		self.results.extend(validator.results)
 		self.template()
 
@@ -453,7 +532,19 @@ class AdminAddClasses(webapp.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'adminAddClasses.html')
 		self.response.out.write(template.render(path, template_values))
 		
-class AdminEditClasses(webapp.RequestHandler):
+	def ClassAlreadyExists(self, name):
+		try:		
+			check = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", name)
+		except:
+			return False
+		
+		if check.get() is None:
+			return False
+		else:
+			return True
+	
+	
+class AdminViewClasses(webapp.RequestHandler):
 	"""
 	Class for handling the admin form and validation.
 	"""
@@ -461,6 +552,7 @@ class AdminEditClasses(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
+		self.classes = [i for i in db.GqlQuery("SELECT * FROM Class")]
 		self.results = []
 
 	def get(self):
@@ -483,6 +575,97 @@ class AdminEditClasses(webapp.RequestHandler):
 		"""
 		template_values = {
 			'results': self.results,
+			'classes': self.classes
+		}
+		path = os.path.join(os.path.dirname(__file__), 'adminViewClasses.html')
+		self.response.out.write(template.render(path, template_values))
+	
+class AdminEditClasses(webapp.RequestHandler):
+	"""
+	Class for handling the admin form and validation.
+	"""
+	def __init__(self):
+		"""
+		Constructor initializes results.
+		"""
+		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course_Name")]
+		self.course_classes = None
+		self.selected_course = None
+		self.selected_class = None
+		self.selected_option = None
+		self.finished = None
+		self.submitted_number = None
+		self.results = []
+
+	def get(self):
+		"""
+		Displays the class template upon get request.
+		"""
+		self.template()
+
+	def post(self):
+		"""
+		Validates form elements and will eventually submit the information to a database.
+		"""
+		form_data = self.request.params.items()
+		result = {}
+		result['valid'] = True
+		self.finished = None
+		for field, option in form_data:
+			if field == "select_course":
+				self.selected_course = option
+				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_name = :1", option)]
+			elif field == "select_class":
+				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
+			elif field == "select_option":
+				self.selected_option = option
+			elif field == "instructor":
+				self.selected_class.instructor = option
+				self.selected_class.put()
+				new_instructor = Instructor(UTEID = option, class_id = selected_class.class_id)
+				new_instructor.put()
+			elif field == "applicant":
+				new_TA = TA(UTEID = option, class_id = selected_class.class_id)
+				new_TA.put()
+			elif field == "number_exp_enrollment":
+				result['key'] = field
+				result['value'] = option
+				result['valid'] = Validation.number(option)
+				self.results.append(result)
+				if result['valid']:
+					self.selected_class.expected_enrollment = int(option)
+					self.selected_class.put()
+					self.submitted_number = option
+			elif field == "number_num_ta_needed":
+				result['key'] = field
+				result['value'] = option
+				result['valid'] = Validation.number(option)
+				self.results.append(result)
+				if result['valid']:
+					self.selected_class.numTA_needed = int(option)
+					self.selected_class.put()
+					self.submitted_number = option
+			elif field == "finished":
+				self.finished = option
+		
+		if result['valid'] == False:
+			self.finished = None
+		
+		self.template()
+
+	def template(self):
+		"""
+		Renders the template.
+		"""
+		template_values = {
+			'results': self.results,
+			'courses': self.courses,
+			'course_classes': self.course_classes,
+			'selected_course': self.selected_course,
+			'selected_class': self.selected_class,
+			'selected_option': self.selected_option,
+			'submitted_number': self.submitted_number,
+			'finished': self.finished
 		}
 		path = os.path.join(os.path.dirname(__file__), 'adminEditClasses.html')
 		self.response.out.write(template.render(path, template_values))
@@ -506,11 +689,13 @@ application = webapp.WSGIApplication([('/is_valid', Is_valid),
                                       ('/instructor', Instructor),
                                       ('/admin', Admin),
 				      ('/adminaddusers', AdminAddUsers),
+				      ('/adminviewusers', AdminViewUsers),
 				      ('/adminaddcourses', AdminAddCourses),
 				      ('/adminaddmajors', AdminAddMajors),
 				      ('/adminaddlanguages', AdminAddLanguages),
 				      ('/adminaddspecializations', AdminAddSpecializations),
 				      ('/adminaddclasses', AdminAddClasses),
+				      ('/adminviewclasses', AdminViewClasses),
 				      ('/admineditclasses', AdminEditClasses),
                                       ('/.*', Index)],
                                      debug=True)
