@@ -32,14 +32,14 @@ class Instructor_App(db.Model):
 class Applicant(db.Model):
 	UTEID = db.StringProperty()
 	major = db.StringProperty()
-	admission = db.DateProperty()
+	admission = db.StringProperty()
 	degree = db.StringProperty()
 	supervisor = db.StringProperty()	
 	citizenship = db.StringProperty()
-	native_english = db.BooleanProperty()
+	native_english = db.StringProperty()		#"Yes" or "No"
 	history_comment = db.TextProperty()
 	programming_comment = db.TextProperty()
-	specializaion_comment = db.TextProperty()
+	specialization_comment = db.TextProperty()
 	qualified_comment = db.TextProperty()
 #End sub classes of User
 

@@ -17,7 +17,7 @@ class Index(webapp.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'index.html')
 		self.response.out.write(template.render(path, {}))
 
-class Applicant(webapp.RequestHandler):
+class TAApplicant(webapp.RequestHandler):
 	"""
 	Class for handling the applicant form and validation.
 	"""
@@ -74,10 +74,10 @@ class Applicant(webapp.RequestHandler):
 					new_applicant.specialization_comment = result['value']
 				elif result['key'] == "comment_qualified":
 					new_applicant.qualified_comment = result['value']
-			if not self.UTEIDAlreadyExists(new_applicant.UTEID):
-				new_applicant.put()
-			else:
-				result['valid'] = False
+			##if not self.UTEIDAlreadyExists(new_applicant.UTEID):
+			new_applicant.put()
+			##else:
+				#result['valid'] = False
 			
 		self.results.extend(validator.results)
 		self.template()
@@ -820,7 +820,7 @@ class Is_valid(webapp.RequestHandler):
 		self.response.out.write("</fields>\n")
 
 application = webapp.WSGIApplication([('/is_valid', Is_valid),
-                                      ('/applicant', Applicant),
+                                      ('/applicant', TAApplicant),
                                       ('/instructor', Instructor),
                                       ('/admin', Admin),
 				      ('/adminaddusers', AdminAddUsers),

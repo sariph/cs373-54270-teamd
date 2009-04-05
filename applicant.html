@@ -82,8 +82,8 @@
 
 				<dt><label for="radio_native">Are you a native English speaker?</label></dt>
 				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Are you a native English speaker? Please choose the correct option.</span>
-				Yes<input type="radio" name="radio_native" value="yes" id="radio_native" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifequal result.value 'yes' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
-				No<input type="radio" name="radio_native" value="no" id="radio_native" {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifequal result.value 'no' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				Yes<input type="radio" name="radio_native" value="Yes" id="radio_native" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifequal result.value 'yes' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				No<input type="radio" name="radio_native" value="No" id="radio_native" {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifequal result.value 'no' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
 				</dd>
 
 				<br />
@@ -109,12 +109,12 @@
 
 				<br />
 
-				<dt><label for="comment_area">Areas of specialization</label></dt>
+				<dt><label for="comment_area_drop">Areas of specialization</label></dt>
 				<dd>
 				{% if specializations %}
-				<select name="comment_area">
+				<select name="comment_area_drop">
 				{% for specialization in specializations %}
-				<option name="comment_area" value={{specialization.specialization}}>{{specialization.specialization}}</li><br/>
+				<option name="comment_area_drop" value={{specialization.specialization}}>{{specialization.specialization}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
@@ -123,7 +123,7 @@
 
 				<br />
 
-<input type="text" name="comment_area" id="comment_area" {% if results %}{% for result in results %}{% ifequal result.key 'comment_area' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What are your areas of specialization?</span>
+				<input type="text" name="comment_area" id="comment_area" {% if results %}{% for result in results %}{% ifequal result.key 'comment_area' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What are your areas of specialization?</span>
 </dd>
 				<br />
 
