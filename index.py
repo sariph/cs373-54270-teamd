@@ -249,17 +249,25 @@ class AdminAddCourses(webapp.RequestHandler):
 		"""
 		validator = Validator(self.request.params.items())
 		check = True
+		do_commit = False
 		for result in validator.results:
 			if result['valid'] == False:
 				check = False
 				break
 		if check == True:
+			new_course = Course()
 			for result in validator.results:
-				if not self.CourseAlreadyExists(result['value']):
-						course = Course(course_id=result['value'])
-						course.put()
-				else:
-					result['valid'] = False
+				if result['key'] == "comment_course_id":
+					if not self.CourseAlreadyExists(result['value']):
+						new_course.course_id = result['value']
+						do_commit = True
+					else:
+						result['valid'] = False
+				elif result['key'] == "comment_course_name":
+					new_course.course_name = result['value']
+
+			if do_commit == True:
+				new_course.put()
 				
 		self.results.extend(validator.results)
 		self.template()
@@ -270,7 +278,7 @@ class AdminAddCourses(webapp.RequestHandler):
 		"""
 		template_values = {
 			'results': self.results,
-			'course_ids': [i for i in db.GqlQuery("SELECT * FROM Course")],
+			'courses': [i for i in db.GqlQuery("SELECT * FROM Course")],
 		}
 		path = os.path.join(os.path.dirname(__file__), 'adminAddCourses.html')
 		self.response.out.write(template.render(path, template_values))
@@ -552,6 +560,8 @@ class AdminViewClasses(webapp.RequestHandler):
 		Constructor initializes results.
 		"""
 		self.classes = [i for i in db.GqlQuery("SELECT * FROM Class")]
+		for c in self.classes:
+			c.course_name = db.GqlQuery("SELECT * FROM Course WHERE course_id =:1", c.course_id).get()
 		self.results = []
 
 	def get(self):

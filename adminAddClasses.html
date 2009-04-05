@@ -20,7 +20,7 @@
 				{% if course_ids %}
 				<select name="comment_course_id">
 				{% for course in course_ids %}
-				<option name="comment_course_id" value={{course.course_id}}>{{course.course_id}}</li><br/>
+				<option name="comment_course_id" value={{course.course_id}}>{{course.course_id}}: {{course.course_name}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}

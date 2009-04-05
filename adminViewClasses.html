@@ -18,7 +18,7 @@
 				<dt>Current Classes</dt>
 				{% if classes%}
 				{% for class in classes%}
-				<div>Course Name:{{class.course_id}}</div><br/>
+				<div>Course: {{class.course_id}}: {{class.course_name}}</div><br/>
 				<div>Unique Id:{{class.unique_id}}</div><br/>
 				<div>Semester:{{class.semester}}</div><br/>
 				<div>Year:{{class.year}}</div><br/>
