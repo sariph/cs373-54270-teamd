@@ -48,7 +48,7 @@ class Applicant(webapp.RequestHandler):
 				break
 			
 		if check == True:
-			new_user = User()
+			new_user = Applicant()
 			for result in validator.results:
 				if result['key'] == "comment_UTEID":
 					new_user.UTEID = result['value']

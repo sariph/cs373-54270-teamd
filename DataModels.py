@@ -31,7 +31,8 @@ class Instructor_App(db.Model):
 	course_id = db.IntegerProperty()		#class_id the Professor wishes to teach
 
 class Applicant(db.Model):
-	UTEID = db.StringProperty()	
+	UTEID = db.StringProperty()
+	major = db.StringProperty()
 	admission = db.DateProperty()
 	degree = db.StringProperty()
 	supervisor = db.StringProperty()	
