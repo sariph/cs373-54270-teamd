@@ -20,7 +20,7 @@
 				{% if eids %}
 				<select name="comment_UTEID">
 				{% for eid in eids %}
-				<option name="comment_UTEID" value={{professors.first_name}}+{{professors.last_name}}>{{eid.UTEID}} {{eid.UTEID}}</li><br/>
+				<option name="comment_UTEID" value={{eid.UTEID}}>{{eid.UTEID}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
