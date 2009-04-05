@@ -23,7 +23,9 @@
 				<div>Semester:{{class.semester}}</div><br/>
 				<div>Year:{{class.year}}</div><br/>
 				<div>Instructor:{{class.instructor}}</div><br/>
+				<div>Instructor's Wanted Students:{%if class.wanted_students%}{%for s in class.wanted_students%}<li>{{s.first_name}}{%if s.middle_name%}} {{s.middle_namme}} {%endif%}{{s.last_name}}, {{s.UTEID}}{%endfor%}{%else%}None{%endif%}</li></div><br/>
 				<div>Instructor's Wanted Students Comment:{{class.wanted_comment}}</div><br/>
+				<div>Instructor's Unwanted Students:{%if class.unwanted_students%}{%for s in class.unwanted_students%}<li>{{s.first_name}}{%if s.middle_name%}} {{s.middle_namme}} {%endif%}{{s.last_name}}, {{s.UTEID}}{%endfor%}{%else%}None{%endif%}</li></div><br/>
 				<div>Instructor's Unwanted Students Comment:{{class.unwanted_comment}}</div><br/>
 				<div>Instructor is a Native English Speaker:{{class.native_english}}</div><br/>
 				<div>Instructor's requested specialization(s):{{class.specialization_comment}}</div><br/>

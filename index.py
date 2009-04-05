@@ -561,7 +561,17 @@ class AdminViewClasses(webapp.RequestHandler):
 		"""
 		self.classes = [i for i in db.GqlQuery("SELECT * FROM Class")]
 		for c in self.classes:
-			c.course_name = db.GqlQuery("SELECT * FROM Course WHERE course_id =:1", c.course_id).get()
+			c.course_name = db.GqlQuery("SELECT * FROM Course WHERE course_id =:1", c.course_id).get().course_name
+			c.unwanted_students = [db.GqlQuery("SELECT * FROM Users WHERE UTEID =:1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE course_id =:1", c.class_id)]
+			c.wanted_students = [db.GqlQuery("SELECT * FROM Users WHERE UTEID =:1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Wanted_Student WHERE course_id =:1", c.class_id)]
+			instructor = db.GqlQuery("SELECT * FROM User WHERE UTEID =:1", c.instructor).get()
+			
+			if instructor == None:
+				c.instructor_name = None
+			elif instructor.middle_name == None:
+				c.instructor_name = instructor.first_name + " " + instructor.last_name
+			else:
+				c.instructor_name = instructor.first_name + " " + instructor.middle_name + " " + instructor.last_name 
 		self.results = []
 
 	def get(self):
