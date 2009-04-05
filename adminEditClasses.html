@@ -47,7 +47,7 @@
 			</select>
 			{%endif%}
 			{%else%}
-			{%if course_selected%}There are no instances of this course{%endif%}
+			{%if selected_course%}There are no instances of this course{%endif%}
 			{%endif%}
 
 			<br />
@@ -143,7 +143,8 @@
 
 			</dl>
 			{%if finished%}
-			<div><a href="admin">Database updated, return to the admin page</a></div>
+			<div><a href="admin">Editting finished, click here return to the admin page</a></div><br />
+			<div><a href="admineditclasses">Or here to edit a different class</a></div>
 			{%else%}
 			<div><input type="submit" value="Continue" /></div>
 			{%endif%}

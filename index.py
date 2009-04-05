@@ -615,8 +615,12 @@ class AdminEditClasses(webapp.RequestHandler):
 			if field == "select_course":
 				self.selected_course = option
 				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_name = :1", option)]
+				if self.course_classes == []:
+					self.finished = True
 			elif field == "select_class":
 				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
+				if self.course_classes == None:
+					self.finished = True
 			elif field == "select_option":
 				self.selected_option = option
 			elif field == "instructor":
