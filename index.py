@@ -569,8 +569,8 @@ class AdminViewClasses(webapp.RequestHandler):
 		self.classes = [i for i in db.GqlQuery("SELECT * FROM Class")]
 		for c in self.classes:
 			c.course_name = db.GqlQuery("SELECT * FROM Course WHERE course_id =:1", c.course_id).get().course_name
-			c.unwanted_students = [db.GqlQuery("SELECT * FROM Users WHERE UTEID =:1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE course_id =:1", c.class_id)]
-			c.wanted_students = [db.GqlQuery("SELECT * FROM Users WHERE UTEID =:1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Wanted_Student WHERE course_id =:1", c.class_id)]
+			c.unwanted_students = [db.GqlQuery("SELECT * FROM Users WHERE UTEID =:1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE class_id =:1", c.class_id)]
+			c.wanted_students = [db.GqlQuery("SELECT * FROM Users WHERE UTEID =:1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Wanted_Student WHERE class_id =:1", c.class_id)]
 			instructor = db.GqlQuery("SELECT * FROM User WHERE UTEID =:1", c.instructor).get()
 			
 			if instructor == None:
@@ -696,6 +696,63 @@ class AdminEditClasses(webapp.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'adminEditClasses.html')
 		self.response.out.write(template.render(path, template_values))
 
+class AdminMatch(webapp.RequestHandler):
+	"""
+	Class for handling the admin form and validation.
+	"""
+	def __init__(self):
+		"""
+		Constructor initializes results.
+		"""
+		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
+		self.course_classes = None
+		self.selected_course = None
+		self.selected_class = None
+		self.results = []
+		self.finished = None
+		self.match = None
+
+	def get(self):
+		"""
+		Displays the class template upon get request.
+		"""
+		self.template()
+
+	def post(self):
+		"""
+		Validates form elements and will eventually submit the information to a database.
+		"""
+		form_data = self.request.params.items()
+		result = {}
+		result['valid'] = True
+		self.finished = None
+		for field, option in form_data:
+			if field == "select_course":
+				self.selected_course = option
+				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1", option)]
+			elif field == "select_class":
+				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
+		
+		if result['valid'] == False:
+			self.finished = None
+		
+		self.template()
+
+	def template(self):
+		"""
+		Renders the template.
+		"""
+		template_values = {
+			'results': self.results,
+			'courses': self.courses,
+			'course_classes': self.course_classes,
+			'selected_course': self.selected_course,
+			'selected_class': self.selected_class,
+			'finished': self.finished
+		}
+		path = os.path.join(os.path.dirname(__file__), 'adminMatch.html')
+		self.response.out.write(template.render(path, template_values))
+
 class Is_valid(webapp.RequestHandler):
 	"""
 	Validates each field entry upon get request.
@@ -723,6 +780,7 @@ application = webapp.WSGIApplication([('/is_valid', Is_valid),
 				      ('/adminaddclasses', AdminAddClasses),
 				      ('/adminviewclasses', AdminViewClasses),
 				      ('/admineditclasses', AdminEditClasses),
+				      ('/adminmatch', AdminMatch),
                                       ('/.*', Index)])
 
 def main():
