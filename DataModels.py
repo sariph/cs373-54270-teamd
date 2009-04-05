@@ -28,7 +28,7 @@ class Instructor(db.Model):
 
 class Instructor_App(db.Model):
 	UTEID = db.StringProperty()	
-	class_id = db.IntegerProperty()		#class_id the Professor wishes to teach
+	course_id = db.IntegerProperty()		#class_id the Professor wishes to teach
 
 class Applicant(db.Model):
 	UTEID = db.StringProperty()	
