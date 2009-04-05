@@ -84,8 +84,8 @@ class Applicant(webapp.RequestHandler):
 		
 	
 	def UTEIDAlreadyExists(self, name):
-		try:		
-			check = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", name)
+		try:
+			check = db.GqlQuery("SELECT * FROM Applicant WHERE UTEID = :1", name)
 		except:
 			return False
 		
