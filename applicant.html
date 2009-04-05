@@ -118,7 +118,7 @@
 				{% if courses %}
 				<select name="comment_qualified">
 				{% for course in courses %}
-				<option name="comment_qualified" value={{course.course_id}}>{{course.course_id}}</li><br/>
+				<option name="comment_qualified" value = value + {{course.course_id}}>{{course.course_id}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
