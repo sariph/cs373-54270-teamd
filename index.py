@@ -26,6 +26,7 @@ class Applicant(webapp.RequestHandler):
 		Constructor initializes results.
 		"""
 		self.results = []
+		self.specializations = [i for i in db.GqlQuery("SELECT * FROM Specialization")]
 
 	def get(self):
 		"""
@@ -47,6 +48,7 @@ class Applicant(webapp.RequestHandler):
 		"""
 		template_values = {
 			'results': self.results,
+                        'specializations' : self.specializations
 		}
 		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
 		self.response.out.write(template.render(path, template_values))
