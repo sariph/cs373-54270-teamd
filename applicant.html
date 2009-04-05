@@ -30,7 +30,17 @@
 				
 
 				<dt><label for="comment_major">Major field</label></dt>
-				<dd><input type="text" name="comment_major" id="comment_major" {% if results %}{% for result in results %}{% ifequal result.key 'comment_major' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your major field?</span></dd>
+				<dd>
+				{% if majors %}
+				<select name="comment_major">
+				{% for major in majors %}
+				<option name="comment_major" value={{major.major}}>{{major.major}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no major at this time</li>
+				{% endif %}
+				</dd>
 
 				<br />
 

@@ -30,6 +30,7 @@ class Applicant(webapp.RequestHandler):
 		self.specializations = [i for i in db.GqlQuery("SELECT * FROM Specialization")]
 		self.professors = [i for i in db.GqlQuery("SELECT * FROM User WHERE position = 'Professor'")]
 		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
+		self.majors = [i for i in db.GqlQuery("SELECT * FROM Major")]
 
 	def get(self):
 		"""
@@ -49,19 +50,32 @@ class Applicant(webapp.RequestHandler):
 				break
 			
 		if check == True:
-			new_user = Applicant()
+			new_applicant = Applicant()
 			for result in validator.results:
 				if result['key'] == "comment_UTEID":
-					new_user.UTEID = result['value']
-				elif result['key'] == "phone_user":
-					new_user.phone = db.PhoneNumber(result['value'])
-				elif result['key'] == "email_user":
-					new_user.email = db.Email(result['value'])
-				elif result['key'] == "radio_position":
-					new_user.position = result['value']
-					
-			if not self.UTEIDAlreadyExists(new_user.UTEID):
-				new_user.put()
+					new_applicant.UTEID = result['value']
+				elif result['key'] == "comment_major":
+					new_applicant.major = result['value']
+				elif result['key'] == "comment_admission":
+					new_applicant.admission = result['value']
+				elif result['key'] == "radio_phd":
+					new_applicant.degree = result['value']
+				elif result['key'] == "comment_supervising":
+					new_applicant.supervisor = result['value']
+				elif result['key'] == "radio_citizen":
+					new_applicant.citizenship = result['value']
+				elif result['key'] == "radio_native":
+					new_applicant.native_english = result['value']
+				elif result['key'] == "comment_ta":
+					new_applicant.history_comment = result['value']
+				elif result['key'] == "comment_programming":
+					new_applicant.programming_comment = result['value']
+				elif result['key'] == "comment_area":
+					new_applicant.specialization_comment = result['value']
+				elif result['key'] == "comment_qualified":
+					new_applicant.qualified_comment = result['value']
+			if not self.UTEIDAlreadyExists(new_applicant.UTEID):
+				new_applicant.put()
 			else:
 				result['valid'] = False
 			
@@ -89,7 +103,8 @@ class Applicant(webapp.RequestHandler):
                         'specializations' : self.specializations,
 			'professors' : self.professors,
 			'courses' : self.courses,
-			'eids' : self.eids
+			'eids' : self.eids,
+			'majors' : self.majors
 			
 		}
 		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
