@@ -256,7 +256,7 @@ class AdminAddCourses(webapp.RequestHandler):
 		if check == True:
 			for result in validator.results:
 				if not self.CourseAlreadyExists(result['value']):
-						course = Course_Name(course_name=result['value'])
+						course = Course(course_id=result['value'])
 						course.put()
 				else:
 					result['valid'] = False
@@ -270,14 +270,14 @@ class AdminAddCourses(webapp.RequestHandler):
 		"""
 		template_values = {
 			'results': self.results,
-			'course_names': [i for i in db.GqlQuery("SELECT * FROM Course_Name")],
+			'course_ids': [i for i in db.GqlQuery("SELECT * FROM Course")],
 		}
 		path = os.path.join(os.path.dirname(__file__), 'adminAddCourses.html')
 		self.response.out.write(template.render(path, template_values))
 
 	def CourseAlreadyExists(self, name):
 		try:		
-			check = db.GqlQuery("SELECT * FROM Course_Name WHERE course_name = :1", name)
+			check = db.GqlQuery("SELECT * FROM Course WHERE course_id = :1", name)
 		except:
 			return False
 		
@@ -472,7 +472,7 @@ class AdminAddClasses(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.course_names = [i for i in db.GqlQuery("SELECT * FROM Course_Name")]
+		self.course_ids = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		self.results = []
 
 	def get(self):
@@ -494,8 +494,8 @@ class AdminAddClasses(webapp.RequestHandler):
 		if check == True:
 			new_class = Class()
 			for result in validator.results:
-				if result['key'] == "comment_course_name":
-					new_class.course_name = result['value']
+				if result['key'] == "comment_course_id":
+					new_class.course_id = result['value']
 				elif result['key'] == "unique_id":
 					unique = result['value']
 					new_class.unique_id = int(result['value'])
@@ -526,7 +526,7 @@ class AdminAddClasses(webapp.RequestHandler):
 		"""
 		template_values = {
 			'results': self.results,
-			'course_names': self.course_names,
+			'course_ids': self.course_ids,
 		}
 		path = os.path.join(os.path.dirname(__file__), 'adminAddClasses.html')
 		self.response.out.write(template.render(path, template_values))
@@ -587,7 +587,7 @@ class AdminEditClasses(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course_Name")]
+		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		self.course_classes = None
 		self.selected_course = None
 		self.selected_class = None
@@ -613,7 +613,7 @@ class AdminEditClasses(webapp.RequestHandler):
 		for field, option in form_data:
 			if field == "select_course":
 				self.selected_course = option
-				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_name = :1", option)]
+				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1", option)]
 			elif field == "select_class":
 				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
 			elif field == "select_option":

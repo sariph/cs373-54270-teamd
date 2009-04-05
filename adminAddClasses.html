@@ -17,10 +17,10 @@
 			<dl>
 				<dt>Current Courses to add Classes for</dt>
 				<dd> 
-				{% if course_names %}
-				<select name="comment_course_name">
-				{% for course in course_names %}
-				<option name="comment_course_name" value={{course.course_name}}>{{course.course_name}}</li><br/>
+				{% if course_ids %}
+				<select name="comment_course_id">
+				{% for course in course_ids %}
+				<option name="comment_course_id" value={{course.course_id}}>{{course.course_id}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}

@@ -23,7 +23,7 @@
 			{%else%}
 			<select name="select_course">
 			{%for course in courses%}
-				<option name="select_course" value={{course.course_name}}>{{course.course_name}}</option>
+				<option name="select_course" value={{course.course_id}}>{{course.course_id}}</option>
 			{%endfor%}
 			</select>
 			{%endif%}
@@ -38,11 +38,11 @@
 			Please select the class you wish to edit:
 			{%if selected_class%}
 				<input type="hidden" name="select_class" value={{selected_class.class_id}} />
-				{{selected_class.course_name}} {{selected_class.semester}} {{selected_class.year}}
+				{{selected_class.course_id}} {{selected_class.semester}} {{selected_class.year}}
 			{%else%}
 			<select name="select_class">
 			{%for class in course_classes%}
-				<option name="select_class" value={{class.class_id}}>{{class.course_name}} {{class.semester}} {{class.year}}</option>
+				<option name="select_class" value={{class.class_id}}>{{class.course_id}} {{class.semester}} {{class.year}}</option>
 			{%endfor%}
 			</select>
 			{%endif%}

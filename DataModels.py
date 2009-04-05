@@ -45,7 +45,7 @@ class Applicant(db.Model):
 
 class Class(db.Model):
 	class_id = db.StringProperty()		#This is a combination of Unique id, semester, and year. Ex: 56025fall2000. This is the primary key
-	course_name = db.StringProperty()
+	course_id = db.StringProperty()
 	unique_id = db.IntegerProperty()
 	instructor = db.StringProperty()
 	semester = db.StringProperty()
@@ -65,7 +65,7 @@ class App_Programming_Language(db.Model):
 	
 class App_History(db.Model):
 	UTEID = db.StringProperty()
-	course_name = db.StringProperty()
+	course_id = db.StringProperty()
 	
 class App_Specialization(db.Model):
 	UTEID = db.StringProperty()
@@ -73,7 +73,7 @@ class App_Specialization(db.Model):
 	
 class App_Qualified_Course(db.Model):
 	UTEID = db.StringProperty()
-	course_name = db.StringProperty()
+	course_id = db.StringProperty()
 
 class Class_Specialization(db.Model):
 	class_id = db.StringProperty()
@@ -92,11 +92,12 @@ class Wanted_Student(db.Model):
 class Programming_Language(db.Model):
 	language = db.StringProperty()
 	
-#Table for course names. Admin can add or remove from it
+#Table for courses Admin can add or remove from it
 #The applicants select from a collection of checkboxes of these
 #Classes are instances of these courses that the admin can create
-class Course_Name(db.Model):
+class Course(db.Model):
 	course_name = db.StringProperty()
+	course_id = db.StringProperty()
 	
 #Table for majors. Admin can add or remove from it
 #The applicants select from a drop down box of these
