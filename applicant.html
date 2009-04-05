@@ -114,7 +114,17 @@
 				<br />
 
 				<dt><label for="comment_qualified">Course qualified to teach</label></dt>
-				<dd><input type="text" name="comment_qualified" id="comment_qualified" {% if results %}{% for result in results %}{% ifequal result.key 'comment_qualified' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What course(s) are you qualified to teach?</span></dd>
+				<dd>
+				{% if courses %}
+				<select name="comment_qualified">
+				{% for course in courses %}
+				<option name="comment_qualified" value={{course.course_id}}>{{course.course_id}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no course at this time</li>
+				{% endif %}
+				</dd>
 			</dl>
 			<div><input type="submit" value="Submit" /></div>
 		</form>
