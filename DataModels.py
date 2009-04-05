@@ -40,7 +40,7 @@ class Applicant(db.Model):
 	history_comment = db.TextProperty()
 	programming_comment = db.TextProperty()
 	specialization_comment = db.TextProperty()
-	qualified_comment = db.TextProperty()
+	qualified_comment = db.TextProperty()	
 #End sub classes of User
 
 class Class(db.Model):
