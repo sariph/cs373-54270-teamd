@@ -89,7 +89,7 @@ def validPassword (s) :
 	return not re.search('.+',s) is None
 
 def validPosition (s) :
-	return not re.search('.+',s) is None
+	return not re.search('(Undergraduate|Graduate|Professor)',s) is None
 
 def validClearance (s) :
 	return not re.search('.+',s) is None
@@ -98,62 +98,64 @@ def validClearance (s) :
 
 
 def validMajor (s) :
+	#depends on query results
 	return not re.search('.+',s) is None
 
 def validAdmission (s) :
-	return not re.search('.+',s) is None
+	return date(s)
 
 def validSupervisor (s) :
+	#depends on query results
 	return not re.search('.+',s) is None
 
 def validNativeEnglish (s) :
-	return not re.search('.+',s) is None
+	return not re.search('(Yes|No)',s) is None
 
 def validHistoryComment (s) :
-	return not re.search('.+',s) is None
+	return True
 
 def validProgrammingComment (s) :
-	return not re.search('.+',s) is None
+	return True
 
 def validSpecialiationComment (s) :
-	return not re.search('.+',s) is None
+	return True
 
 def validQualifiedComment (s) :
-	return not re.search('.+',s) is None
-
-
-
+	return True
 
 
 def validCourseID (s) :
+	#depends on query results
 	return not re.search('.+',s) is None
 
 def validInstructor (s) :
+	#depends on query results
 	return not re.search('.+',s) is None
 
 def validSemester (s) :
-	return not re.search('.+',s) is None
+	return not re.search('(Spring|Summer|Fall)',s) is None
 
 def validYear (s) :
-	return not re.search('.+',s) is None
+	return not re.search('[0-9][0-9][0-9][0-9]',s) is None
 
 def validWantedComment (s) :
-	return not re.search('.+',s) is None
+	return True
 
 def validUnwantedComment (s) :
-	return not re.search('.+',s) is None
+	return True
 
 def validExpectedEnrollment (s) :
-	return not re.search('.+',s) is None
-
-
+	return not re.search('[0-9]+',s) is None
 
 
 def validLanguage (s) :
+	#depends on query results
 	return not re.search('.+',s) is None
 def validSpecialization (s) :
+	#depends on query results
 	return not re.search('.+',s) is None
 def validCourseName (s) :
+	#depends on query results
 	return not re.search('.+',s) is None
 
 
@@ -166,9 +168,9 @@ def UserDataValidator(user):
 	if not validUTEID(user.UTEID):
 		return False
 	elif not name(user.first_name):
-		return False 
+		return False
 	elif not name(user.last_name):
-		return False 
+		return False
 	elif not validPassword(user.password):
 		return False
 	elif not phone_number(user.phone):
@@ -225,7 +227,7 @@ def InstructorApplicantDataValidator(instructorApplicant):
 
 def ApplicantDataValidator(applicant):
 	"""
-	
+	Validates applicant form	
 	"""
 	if not validUTEID(applicant.UTEID):
 		return False
@@ -279,7 +281,6 @@ def ClassDataValidator(c):
 		return False
 	elif not number(c.numTA_needed):
 		return False
-
 	return True
 
 
@@ -353,23 +354,3 @@ def specializationDataValidator(specialization):
 	if not validSpecialization(specialization.specialization):
 		return False
 	return True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
