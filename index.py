@@ -148,6 +148,17 @@ class TAApplicant(webapp.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
 		self.response.out.write(template.render(path, template_values))
 
+class InstructorMain(webapp.RequestHandler):
+	"""
+	Default class if nothing is passed to the index.
+	"""
+	def get(self):
+		"""
+		Displays the class template.
+		"""
+		path = os.path.join(os.path.dirname(__file__), 'instructor.html')
+		self.response.out.write(template.render(path, {}))
+
 class InstructorEdit(webapp.RequestHandler):
 	"""
 	Class for handling the instructor form and validation.
@@ -988,6 +999,7 @@ class Is_valid(webapp.RequestHandler):
 
 application = webapp.WSGIApplication([('/is_valid', Is_valid),
                                       ('/applicant', TAApplicant),
+				      ('/instructor', InstructorMain),
                                       ('/instructoredit', InstructorEdit),
 				      ('/instructorapp', InstructorApp),
                                       ('/admin', AdminMain),
