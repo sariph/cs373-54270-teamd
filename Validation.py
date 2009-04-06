@@ -63,7 +63,8 @@ def comment (s) :
 	"""
 	Comment validator.
 	"""
-	return not re.search('.+',s) is None
+	#return not re.search('.+',s) is None
+	return True
 
 def degree_type (s) :
 	"""
