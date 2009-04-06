@@ -880,7 +880,7 @@ class AdminEditClasses(webapp.RequestHandler):
 				if option == "assign_instructor":
 					self.instructors = [i for i in db.GqlQuery("SELECT * FROM Instructor_App WHERE course_id = :1",  self.selected_course)]
 					for i in self.instructors:
-						i.info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", app.UTEID).get()
+						i.info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", i.UTEID).get()
 				elif option == "assign_ta":
 					self.applicants = [i for i in db.GqlQuery("SELECT * FROM Applicant")]
 					for app in self.applicants:

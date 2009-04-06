@@ -86,11 +86,11 @@
 			{%ifequal selected_option "assign_instructor"%}
 			Select the instructor you wish to assign to this class
 			{%if instructors%}
-			{%for i in instructors%}
 			<select name="instructor">
+			{%for i in instructors%}
 				<option name="instructor" value={{i.UTEID}} >{{i.info.first_name}}{%if i.info.middle_name%} {{i.info.middle_name}} {%endif%}{{i.info.last_name}}</option>
-			</select>
 			{%endfor%}
+			</select>
 			<input type="hidden" name="finished" value=true />
 			{%else%}
 			<br />There are no professors applying to teach this course
@@ -102,11 +102,11 @@
 			{%ifequal selected_option "assign_ta"%}
 			Select the applicant you wish to assign to this class
 			{%if applicants%}
-			{%for a in applicants%}
 			<select name="applicant">
+			{%for a in applicants%}
 				<option name="applicant" value={{a.UTEID}} >{{a.info.first_name}}{%if a.info.middle_name%} {{a.info.middle_name}} {%endif%}{{a.info.last_name}}</option>
-			</select>
 			{%endfor%}
+			</select>
 			<input type="hidden" name="finished" value=true />
 			{%else%}
 			<br />No graduate students have applied to be an TA
