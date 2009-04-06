@@ -61,7 +61,7 @@ class Class(db.Model):
 #Using the Multivalued attributes design pattern from the DB book
 class App_Programming_Language(db.Model):
 	UTEID = db.StringProperty()
-	langauge = db.StringProperty()
+	language = db.StringProperty()
 	
 class App_History(db.Model):
 	UTEID = db.StringProperty()

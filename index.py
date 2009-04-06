@@ -72,6 +72,7 @@ class TAApplicant(webapp.RequestHandler):
 			new_applicant = Applicant()
 			for result in validator.results:
 				if result['key'] == "uniqueUTEID_UTEID":
+					App_UTEID = result['value']
 					new_applicant.UTEID = result['value']
 				elif result['key'] == "comment_major":
 					new_applicant.major = result['value']
@@ -95,20 +96,20 @@ class TAApplicant(webapp.RequestHandler):
 					new_applicant.qualified_comment = result['value']
 							
 			new_applicant.put()
-			for l in self.sel_languages:
-				new_app_language = App_Programming_Language(UTEID=new_applicant.UTEID, language = l)
+			for sel in self.sel_languages:
+				new_app_language = App_Programming_Language(UTEID=App_UTEID, language = sel)
 				new_app_language.put()
 				
-			for h in self.sel_history:
-				new_course_history = App_History(UTEID=new_applicant.UTEID, course_id = l)
+			for sel in self.sel_history:
+				new_course_history = App_History(UTEID=App_UTEID, course_id = sel)
 				new_course_history.put()
 				
-			for s in self.sel_specializations:
-				new_specialization = App_Specialization(UTEID=new_applicant.UTEID, specialization = l)
+			for sel in self.sel_specializations:
+				new_specialization = App_Specialization(UTEID=App_UTEID, specialization = sel)
 				new_specialization.put()
 				
-			for q in self.sel_qualified:
-				new_qualified_course = App_Qualified_Course(UTEID=new_applicant.UTEID, course_id = l)
+			for sel in self.sel_qualified:
+				new_qualified_course = App_Qualified_Course(UTEID=App_UTEID, course_id = sel)
 				new_qualified_course.put()
 			
 			
