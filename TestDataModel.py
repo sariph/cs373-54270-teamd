@@ -26,6 +26,14 @@ class Test () :
 		self.results.append(self.testInstructor_App2())
 		self.results.append(self.testApplicant1())
 		self.results.append(self.testClass1())
+		self.results.append(self.testSpecialization1())
+		self.results.append(self.testMajor1())
+		self.results.append(self.testCourse1())
+		self.results.append(self.testProgramming_Language1())
+		self.results.append()
+		self.results.append()
+		self.results.append()
+		self.results.append()
 
 	def testUser1 (self) :
 		u = User()
@@ -126,6 +134,27 @@ class Test () :
 		a.qualified_comment = "fdsa"
 		print "testApplicant1 =",Validation.ApplicantDataValidator(a)
 
+	def testProgramming_Language1 (self) :
+		p = Programming_Language()
+		p.language = "Java"
+		print "testProgramming_Language1 =",Validation.progLangDataValidator(p)
+		
+	def testCourse1 (self) :
+		c = Course()
+		c.course_name = "Theory"
+		c.course_id = "cs333"
+		print "testCourse1 =",Validation.courseDataValidator(c)
+		
+	def testMajor1 (self) :
+		m = Major()
+		m.major = "aaaa"
+		print "testMajor1 =",Validation.majorDataValidator(m)
+		
+	def testSpecialization1 (self) :
+		s = Specialization()
+		s.specialization = "aaaa"
+		print "testSpecialization1 =",Validation.specializationDataValidator(s)
+		
 	def testClass1 (self) :
 		c = Class()
 		c.class_id = "cs123"
