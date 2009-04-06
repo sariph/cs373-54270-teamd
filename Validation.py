@@ -159,7 +159,7 @@ def validExpectedEnrollment (s) :
 def validLanguage (s) :
 	#depends on query results
 	return not empty(s)
-def validSpecialization (s) :
+def validSpecializationComment (s) :
 	#depends on query results
 	return not empty(s)
 def validCourseName (s) :

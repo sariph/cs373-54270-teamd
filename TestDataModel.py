@@ -117,10 +117,10 @@ class Test () :
 		a.admission = "03-12-2008"
 		a.degree = "PhD"
 		a.supervisor = "dad"
-		a.citizenship = "Citizen"
+		a.citizenship = "Resident"
 		a.native_english = "Yes"
-		#a.history_comment
-		#a.programming_comment
-		#a.specialization_comment
-		#a.qualified_comment
+		a.history_comment = "fdsa"
+		a.programming_comment = "fdsa"
+		a.specialization_comment = "fdsa"
+		a.qualified_comment = "fdsa"
 		print "testApplicant1 =",Validation.ApplicantDataValidator(a)
