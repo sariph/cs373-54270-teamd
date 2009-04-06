@@ -107,6 +107,10 @@ def validMajor (s) :
 def validAdmission (s) :
 	return date(s)
 
+def validSpecialization (s) :
+	#depends on query results
+	return not empty(s)
+
 def validSupervisor (s) :
 	#depends on query results
 	return not empty(s)

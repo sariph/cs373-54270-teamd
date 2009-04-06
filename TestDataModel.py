@@ -30,6 +30,8 @@ class Test () :
 		self.results.append(self.testMajor1())
 		self.results.append(self.testCourse1())
 		self.results.append(self.testProgramming_Language1())
+		self.results.append(self.testAppProgrammingLanguage1())
+		self.results.append(self.testAppHistory1())
 
 	def testUser1 (self) :
 		u = User()
@@ -169,3 +171,9 @@ class Test () :
 		a.UTEID = "blah"
 		a.language = "Russian"
 		print "testAppProgramingLanguage1 =",Validation.AppProgrammingLanguageDataValidator(a)
+
+	def testAppHistory1 (self) :
+		a = App_History()
+		a.UTEID = "blah"
+		a.course_id = "Russian"
+		print "testHistory1 =",Validation.AppHistoryDataValidator(a)
