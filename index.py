@@ -1028,8 +1028,8 @@ class TestDataModel(webapp.RequestHandler):
 		template_values = {
 			'results' : self.results
 		}
-		path = os.path.join(os.path.dirname(__file__), 'testdatamodel.html')
-		self.response.out.write(template.render(path, template_values))
+		#path = os.path.join(os.path.dirname(__file__), 'testdatamodel.html')
+		#self.response.out.write(template.render(path, template_values))
 
 class Is_valid(webapp.RequestHandler):
 	"""
