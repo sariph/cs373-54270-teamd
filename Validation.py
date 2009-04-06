@@ -100,9 +100,6 @@ def validPosition (s) :
 def validClearance (s) :
 	return not empty(s)
 
-
-
-
 def validMajor (s) :
 	#depends on query results
 	return not empty(s)
@@ -117,15 +114,8 @@ def validSupervisor (s) :
 def validNativeEnglish (s) :
 	return not re.search('(Yes|No)',s) is None
 
-def validHistoryComment (s) :
-	return True
-
-def validProgrammingComment (s) :
-	return True
-
-def validQualifiedComment (s) :
-	return True
-
+def validComment (s) :
+	return comment(s) #always returns true since they're optional
 
 def validCourseID (s) :
 	#depends on query results
@@ -146,12 +136,6 @@ def validYear (s) :
 	except ValueError:
 		return False
 
-def validWantedComment (s) :
-	return True
-
-def validUnwantedComment (s) :
-	return True
-
 def validExpectedEnrollment (s) :
 	#return not re.search('[0-9]+',s) is None
 	if s > 0:
@@ -161,9 +145,6 @@ def validExpectedEnrollment (s) :
 def validLanguage (s) :
 	#depends on query results
 	return not empty(s)
-
-def validSpecializationComment (s) :
-	return True
 
 def validCourseName (s) :
 	#depends on query results
@@ -251,13 +232,13 @@ def ApplicantDataValidator(applicant):
 		return False
 	elif not validNativeEnglish(applicant.native_english):
 		return False
-	elif not validHistoryComment(applicant.history_comment):
+	elif not validComment(applicant.history_comment):
 		return False
-	elif not validProgrammingComment(applicant.programming_comment):
+	elif not validComment(applicant.programming_comment):
 		return False
-	elif not validSpecializationComment(applicant.specialization_comment):
+	elif not validComment(applicant.specialization_comment):
 		return False
-	elif not validQualifiedComment(applicant.qualified_comment):
+	elif not validComment(applicant.qualified_comment):
 		return False
 	return True
 
@@ -277,13 +258,13 @@ def ClassDataValidator(c):
 		return False
 	elif not validYear(c.year):
 		return False
-	elif not validWantedComment(c.wanted_comment):
+	elif not validComment(c.wanted_comment):
 		return False
-	elif not validUnwantedComment(c.unwanted_comment):
+	elif not validComment(c.unwanted_comment):
 		return False
 	elif not validNativeEnglish(c.native_english):
 		return False
-	elif not validSpecializationComment(c.specialization_comment):
+	elif not validComment(c.specialization_comment):
 		return False
 	elif not validExpectedEnrollment(c.expected_enrollment):
 		return False
