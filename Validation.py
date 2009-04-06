@@ -251,7 +251,7 @@ def ApplicantDataValidator(applicant):
 		return False
 	elif not validNativeEnglish(applicant.native_english):
 		return False
-	elif not validHistoryComment(applicant.history_cooment):
+	elif not validHistoryComment(applicant.history_comment):
 		return False
 	elif not validProgrammingComment(applicant.programming_comment):
 		return False

@@ -24,6 +24,7 @@ class Test () :
 		self.results.append(self.testInstructor2())
 		self.results.append(self.testInstructor_App1())
 		self.results.append(self.testInstructor_App2())
+		self.results.append(self.testApplicant1())
 
 	def testUser1 (self) :
 		u = User()
@@ -112,14 +113,14 @@ class Test () :
 	def testApplicant1 (self) :
 		a = Applicant()
 		a.UTEID = "fafea"
-		a.major
-		a.admission
-		a.degree
-		a.supervisor
-		a.citizenship
-		a.native_english
-		a.history_comment
-		a.programming_comment
-		a.specialization_comment
-		a.qualified_comment
+		a.major = "sleeping"
+		a.admission = "03-12-2008"
+		a.degree = "PhD"
+		a.supervisor = "dad"
+		a.citizenship = "Citizen"
+		a.native_english = "Yes"
+		#a.history_comment
+		#a.programming_comment
+		#a.specialization_comment
+		#a.qualified_comment
 		print "testApplicant1 =",Validation.ApplicantDataValidator(a)
