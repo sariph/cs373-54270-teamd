@@ -18,6 +18,8 @@ class Test () :
 		self.results.append(self.testUser2())
 		self.results.append(self.testUser3())
 		self.results.append(self.testUser4())
+		self.results.append(self.testTA1())
+		self.results.append(self.testTA2())
 
 	def testUser1 (self) :
 		u = User()
@@ -66,3 +68,16 @@ class Test () :
 		u.email = "jenny@onthewall.com"
 		u.position = "Professor"
 		print "testUser4 =",Validation.UserDataValidator(u)
+
+	def testTA1 (self) :
+		ta = TA()
+		ta.UTEID = "ab"
+		ta.class_id = "cs123"
+		print "testTA1 =",Validation.TADataValidator(ta)
+
+	def testTA2 (self) :
+		ta = TA()
+		ta.UTEID = "ab"
+		ta.class_id = "19809409432098"
+		print "testTA2 =",Validation.TADataValidator(ta)
+
