@@ -851,6 +851,8 @@ class AdminEditClasses(webapp.RequestHandler):
 		self.selected_option = None
 		self.finished = None
 		self.submitted_number = None
+		self.applicants = []
+		self.instructors = []
 		self.results = []
 
 	def get(self):
@@ -875,13 +877,23 @@ class AdminEditClasses(webapp.RequestHandler):
 				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
 			elif field == "select_option":
 				self.selected_option = option
+				if option == "assign_instructor":
+					self.instructors = [i for i in db.GqlQuery("SELECT * FROM Instructor_App WHERE course_id = :1",  self.selected_course)]
+					for i in self.instructors:
+						i.info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", app.UTEID).get()
+				elif option == "assign_ta":
+					self.applicants = [i for i in db.GqlQuery("SELECT * FROM Applicant")]
+					for app in self.applicants:
+						app.info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", app.UTEID).get()
+				#elif option == "change_enrollment":
+				#elif option == "change_num_ta":
 			elif field == "instructor":
 				self.selected_class.instructor = option
 				self.selected_class.put()
-				new_instructor = Instructor(UTEID = option, class_id = selected_class.class_id)
+				new_instructor = Instructor(UTEID = option, class_id = self.selected_class.class_id)
 				new_instructor.put()
 			elif field == "applicant":
-				new_TA = TA(UTEID = option, class_id = selected_class.class_id)
+				new_TA = TA(UTEID = option, class_id = self.selected_class.class_id)
 				new_TA.put()
 			elif field == "number_exp_enrollment":
 				result['key'] = field
@@ -921,6 +933,8 @@ class AdminEditClasses(webapp.RequestHandler):
 			'selected_class': self.selected_class,
 			'selected_option': self.selected_option,
 			'submitted_number': self.submitted_number,
+			'instructors': self.instructors,
+			'applicants': self.applicants,
 			'finished': self.finished
 		}
 		path = os.path.join(os.path.dirname(__file__), 'adminEditClasses.html')
