@@ -14,61 +14,8 @@
 
 	<body>
 		<form action="instructor" method="post">
-			<dl>
-				<dt><label for="comment_wanted">Specific wanted students</label></dt>
-				<dd>
-				{% if applicants %}
-				<select name="comment_wanted">
-				{% for applicant in applicants %}
-				<option name="comment_wanted" value={{applicant.UTEID}}>{{applicant.UTEID}}: {{applicant.info.first_name}} {{applicant.info.last_name}}</li><br/>
-				{% endfor %}
-				</select>
-				{% else %}
-				<li>There are no applicant at this time</li>
-				{% endif %}
-				</dd>
-				
-				<br />
-
-				<dt><label for="comment_unwanted">Specific wanted students</label></dt>
-				<dd>
-				{% if applicants %}
-				<select name="comment_unwanted">
-				{% for applicant in applicants %}
-				<option name="comment_unwanted" value={{applicant.UTEID}}>{{applicant.UTEID}}: {{applicant.info.first_name}} {{applicant.info.last_name}}</li><br/>
-				{% endfor %}
-				</select>
-				{% else %}
-				<li>There are no applicant at this time</li>
-				{% endif %}
-				</dd>
-
-				<br />
-
-				<dt><label for="radio_native">Native English speaker</label></dt>
-				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Are you a native English speaker? Please choose the correct option.</span>
-				Yes<input type="radio" name="radio_native" value="Yes" id="radio_native" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifequal result.value 'yes' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
-				No<input type="radio" name="radio_native" value="No" id="radio_native" {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifequal result.value 'no' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
-				</dd>
-
-				<br />
-
-
-				<dt><label for="comment_specialization_drop">Background in a particular area of specialization</label></dt>
-				<dd>{% if specializations %}
-				<select name="comment_specialization_drop">
-				{% for specialization in specializations %}
-				<option name="comment_specialization_drop" value={{specialization.specialization}}>{{specialization.specialization}}</li><br/>
-				{% endfor %}
-				</select>
-				{% else %}
-				<li>There are no specialization at this time</li>
-				{% endif %}
-<input type="text" name="comment_specialization" id="comment_specialization" {% if results %}{% for result in results %}{% ifequal result.key 'comment_specialization' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
-				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>Background in a particular area of specialization?</span></dd>
-			</dl>
-			<div><input type="submit" value="Submit" /></div>
+			<a href="instructorapp">Apply to be an instructor for a course</a>
+			<a href="instructoredit">Edit preferences for TAs for classes you've been assigned to</a>
 		</form>
 	</body>
 </html>
