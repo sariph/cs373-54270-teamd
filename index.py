@@ -245,8 +245,8 @@ class InstructorApp(webapp.RequestHandler):
 			for result in validator.results:
 				if result['key'] == "comment_uteid":
 					new_instructor_app.UTEID = result['value']
-				elif result['key'] == "comment_class_id":
-					new_instructor_app.class_id = result['value']
+				elif result['key'] == "comment_course_id":
+					new_instructor_app.course_id = result['value']
 			new_instructor_app.put()
 			
 		self.results.extend(validator.results)
