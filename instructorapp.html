@@ -20,7 +20,7 @@
 				{% if instructors %}
 				<select name="comment_uteid">
 				{% for instructor in instructors %}
-				<option name="comment_uteid" value={{instructors.UTEID}}>{{instructor.UTEID}}: {{instructor.first_name}} {{instructor.last_name}}</li><br/>
+				<option name="comment_uteid" value={{instructor.UTEID}}>{{instructor.UTEID}}: {{instructor.first_name}} {{instructor.last_name}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
