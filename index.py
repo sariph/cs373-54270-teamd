@@ -243,9 +243,9 @@ class InstructorApp(webapp.RequestHandler):
 			new_instructor_app = Instructor_App()
 			
 			for result in validator.results:
-				if result['key'] == "comment_wanted":
+				if result['key'] == "comment_uteid":
 					new_instructor_app.UTEID = result['value']
-				elif result['key'] == "comment_major":
+				elif result['key'] == "comment_class_id":
 					new_instructor_app.class_id = result['value']
 			new_instructor_app.put()
 			
@@ -989,7 +989,7 @@ class Is_valid(webapp.RequestHandler):
 application = webapp.WSGIApplication([('/is_valid', Is_valid),
                                       ('/applicant', TAApplicant),
                                       ('/instructor', InstructorMain),
-				      {'/instructorapp', InstructorApp},
+				      ('/instructorapp', InstructorApp),
                                       ('/admin', AdminMain),
 				      ('/adminaddusers', AdminAddUsers),
 				      ('/adminviewusers', AdminViewUsers),
