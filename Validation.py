@@ -358,6 +358,4 @@ def majorDataValidator(major):
 	return True
 
 def specializationDataValidator(specialization):
-	if not validSpecialization(specialization.specialization):
-		return False
 	return True
