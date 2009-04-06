@@ -56,7 +56,8 @@ def unique (s) :
 	"""
 	Number validator.
 	"""
-	return not re.search('^(\d)(\d)(\d)(\d)(\d)$',s) is None
+	#return not re.search('^(\d)(\d)(\d)(\d)(\d)$',s) is None
+	return s >= 0 and s < 100000
 
 def comment (s) :
 	"""
@@ -121,9 +122,6 @@ def validHistoryComment (s) :
 def validProgrammingComment (s) :
 	return True
 
-def validSpecialiationComment (s) :
-	return True
-
 def validQualifiedComment (s) :
 	return True
 
@@ -154,20 +152,21 @@ def validUnwantedComment (s) :
 	return True
 
 def validExpectedEnrollment (s) :
-	return not re.search('[0-9]+',s) is None
+	#return not re.search('[0-9]+',s) is None
+	if s > 0:
+		return True
+	return False
 
 def validLanguage (s) :
 	#depends on query results
 	return not empty(s)
+
 def validSpecializationComment (s) :
-	#depends on query results
-	return not empty(s)
+	return True
+
 def validCourseName (s) :
 	#depends on query results
 	return not empty(s)
-
-
-
 
 def UserDataValidator(user):
 	"""
@@ -287,7 +286,7 @@ def ClassDataValidator(c):
 		return False
 	elif not validExpectedEnrollment(c.expected_enrollment):
 		return False
-	elif not number(c.numTA_needed):
+	elif not validExpectedEnrollment(c.numTA_needed):
 		return False
 	return True
 

@@ -25,6 +25,7 @@ class Test () :
 		self.results.append(self.testInstructor_App1())
 		self.results.append(self.testInstructor_App2())
 		self.results.append(self.testApplicant1())
+		self.results.append(self.testClass1())
 
 	def testUser1 (self) :
 		u = User()
@@ -124,3 +125,16 @@ class Test () :
 		a.specialization_comment = "fdsa"
 		a.qualified_comment = "fdsa"
 		print "testApplicant1 =",Validation.ApplicantDataValidator(a)
+
+	def testClass1 (self) :
+		c = Class()
+		c.class_id = "cs123"
+		c.course_id = "python"
+		c.unique_id = 12345
+		c.instructor = "jenny"
+		c.semester = "Spring"
+		c.year = 2009
+		c.native_english = "Yes"
+		c.expected_enrollment = 1234567
+		c.numTA_needed = 1234
+		print "testClass1 =",Validation.ClassDataValidator(c)
