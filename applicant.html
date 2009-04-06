@@ -62,7 +62,7 @@
 				{% if professors %}
 				<select name="comment_supervising">
 				{% for professor in professors %}
-				<option name="comment_supervising" value={{professors.UTEID}}>{{professor.first_name}} {{professor.last_name}}</li><br/>
+				<option name="comment_supervising" value={{professor.UTEID}}>{{professor.first_name}} {{professor.last_name}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}

@@ -425,20 +425,15 @@ class AdminViewApplicants(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.users= [i for i in db.GqlQuery("SELECT * FROM User")]
-		self.applicants = []
-		for user in self.users:
-			i = db.GqlQuery("SELECT * FROM Applicant WHERE UTEID = :1", user.UTEID).get()
-			if i is not None:
-				self.applicants.append(i)
-		if self.applicants != []:
-			for app in self.applicants:
-				app.user_info = db.GqlQuery("SELECT * FROM User WHERE UTEID=:1", app.UTEID).get()
-				app.languages = [i for i in db.GqlQuery("SELECT * FROM App_Programming_Language WHERE UTEID=:1", app.UTEID)]
-				app.history = [i for i in db.GqlQuery("SELECT * FROM App_History WHERE UTEID=:1", app.UTEID)]
-				app.specializations = [i for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID=:1", app.UTEID)]
-				app.qualified_courses = [i for i in db.GqlQuery("SELECT * FROM App_Qualified_Course WHERE UTEID=:1", app.UTEID)]
-				app.supervisor_info = db.GqlQuery("SELECT * FROM User WHERE UTEID=:1", app.supervisor).get()
+		self.applicants = [i for i in db.GqlQuery("SELECT * FROM Applicant")]
+		
+		for app in self.applicants:
+			app.user_info = db.GqlQuery("SELECT * FROM User WHERE UTEID=:1", app.UTEID).get()
+			app.languages = [i for i in db.GqlQuery("SELECT * FROM App_Programming_Language WHERE UTEID=:1", app.UTEID)]
+			app.history = [i for i in db.GqlQuery("SELECT * FROM App_History WHERE UTEID=:1", app.UTEID)]
+			app.specializations = [i for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID=:1", app.UTEID)]
+			app.qualified_courses = [i for i in db.GqlQuery("SELECT * FROM App_Qualified_Course WHERE UTEID=:1", app.UTEID)]
+			app.supervisor_info = db.GqlQuery("SELECT * FROM User WHERE UTEID=:1", app.supervisor).get()
 
 		
 
