@@ -20,7 +20,7 @@ class TestAdmin (unittest.TestCase) :
 		form_data.append(('comment_admission', '07-05-1988'))
 		form_data.append(('comment_phd', 'PhD'))
 		form_data.append(('comment_supervising', 'Downing'))
-		form_data.append(('comment_citizen', 'citizen'))
+		form_data.append(('zitizen_citizen', 'Citizen'))
 		form_data.append(('comment_native', 'yes'))
 		form_data.append(('comment_ta', 'no'))
 		form_data.append(('comment_programming', 'C'))
@@ -51,23 +51,23 @@ class TestAdmin (unittest.TestCase) :
 		form_data.append(('phone_applicant', '210-423-42432'))
 		form_data.append(('email_applicant', 'flashki@hotmail.com r23r'))
 		form_data.append(('comment_major', ''))
-		form_data.append(('comment_admission', '07-05-198'))
-		form_data.append(('comment_phd', 'Ph'))
+		form_data.append(('date_admission', '07-05-198'))
+		form_data.append(('degree_phd', 'Ph'))
 		form_data.append(('comment_supervising', ''))
-		form_data.append(('comment_citizen', 'ht'))
+		form_data.append(('citizen_citizen', 'ht'))
 		form_data.append(('comment_native', ''))
-		form_data.append(('comment_ta', 'n'))
+		form_data.append(('comment_ta', ''))
 		form_data.append(('comment_programming', ''))
 		form_data.append(('comment_area', ''))
 		form_data.append(('comment_qualified', ''))
 		form_data.append(('comment_wanted', ''))
 		form_data.append(('comment_unwanted', ''))
-		form_data.append(('comment_native', 'ye'))
+		form_data.append(('yesno_native', 'Ye'))
 		form_data.append(('comment_specialization', ''))
 		form_data.append(('comment_class_name', ''))
 		form_data.append(('comment_inst_name', ''))
-		form_data.append(('comment_exp_enrollment', '10s'))
-		form_data.append(('comment_num_ta_needed', '1d'))
+		form_data.append(('number_exp_enrollment', '10s'))
+		form_data.append(('number_num_ta_needed', '1d'))
 		form_data.append(('comment_num_ta_assigned', ''))
 
 		v = Validator(form_data)
@@ -238,9 +238,9 @@ class TestAdmin (unittest.TestCase) :
 	def testcitizen2 (self) :
 		self.assert_(not Validation.citizen(''))
 	def testcitizen3 (self) :
-		self.assert_( Validation.citizen('citizen'))
+		self.assert_( Validation.citizen('Citizen'))
 	def testcitizen4 (self) :
-		self.assert_(Validation.citizen('resident'))
+		self.assert_(Validation.citizen('Resident'))
 
 	"""
 	Test yes/no validation.

@@ -28,8 +28,8 @@
 				<span{% endif %}>What is the new user's first name?</span></dd>
 
 				<br />
-				<dt><label for="comment_middle_name">Middle Name (Optional)</label></dt>
-				<dd><input type="text" name="comment_middle_name" id="comment_middle_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_middle_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<dt><label for="optional_middle_name">Middle Name (Optional)</label></dt>
+				<dd><input type="text" name="optional_middle_name" id="optional_middle_name" {% if results %}{% for result in results %}{% ifequal result.key 'optional_middle_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
 				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>What is the new user's middle name?</span></dd>
 

@@ -74,7 +74,7 @@ def citizen (s) :
 	"""
 	Resident/Citizen validator.
 	"""
-	return not re.search('^(citizen|resident)$',s) is None
+	return not re.search('^(Citizen|Resident)$',s) is None
 
 def yes_no (s) :
 	"""

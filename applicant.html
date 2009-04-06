@@ -44,8 +44,8 @@
 
 				<br />
 
-				<dt><label for="comment_admission">Admission date (MM-DD-YYYY)</label></dt>
-				<dd><input type="text" name="comment_admission" id="comment_admission" {% if results %}{% for result in results %}{% ifequal result.key 'comment_admission' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your admission date?</span></dd>
+				<dt><label for="date_admission">Admission date (MM-DD-YYYY)</label></dt>
+				<dd><input type="text" name="date_admission" id="date_admission" {% if results %}{% for result in results %}{% ifequal result.key 'date_admission' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your admission date?</span></dd>
 
 				<br />
 
@@ -74,8 +74,8 @@
 
 				<dt><label for="radio_citizen">Are you a citizen of the United States or a resident alien (Choose one)</label></dt>
 				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_citizen' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Are you a US citizen or resident alien? Please choose the correct option.</span>
-				US Citizen<input type="radio" name="radio_citizen" value="citizen" id="radio_citizen" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_citizen' %}{% ifequal result.value 'citizen' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
-				Resident Alien<input type="radio" name="radio_citizen" value="resident" id="radio_citizen" {% if results %}{% for result in results %}{% ifequal result.key 'radio_citizen' %}{% ifequal result.value 'resident' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				US Citizen<input type="radio" name="radio_citizen" value="Citizen" id="radio_citizen" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_citizen' %}{% ifequal result.value 'Citizen' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				Resident Alien<input type="radio" name="radio_citizen" value="Resident" id="radio_citizen" {% if results %}{% for result in results %}{% ifequal result.key 'radio_citizen' %}{% ifequal result.value 'Resident' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
 				</dd>
 
 				<br />

@@ -77,7 +77,7 @@ class TAApplicant(webapp.RequestHandler):
 					new_applicant.UTEID = result['value']
 				elif result['key'] == "comment_major":
 					new_applicant.major = result['value']
-				elif result['key'] == "comment_admission":
+				elif result['key'] == "date_admission":
 					new_applicant.admission = result['value']
 				elif result['key'] == "radio_phd":
 					new_applicant.degree = result['value']
@@ -344,7 +344,7 @@ class AdminAddUsers(webapp.RequestHandler):
 					new_user.UTEID = result['value']
 				elif result['key'] == "comment_first_name":
 					new_user.first_name = result['value']
-				elif result['key'] == "comment_middle_name":
+				elif result['key'] == "optional_middle_name":
 					new_user.middle_name = result['value']
 				elif result['key'] == "comment_last_name":
 					new_user.last_name = result['value']

@@ -27,6 +27,7 @@ class Validator:
 	
 					'phone'		: lambda x: Validation.phone_number(x),
 					'email'		: lambda x: Validation.email(x),
+					'date'		: lambda x: Validation.date(x),
 					'comment'	: lambda x: Validation.comment(x),
 					'radio'		: lambda x: Validation.comment(x),
 					'number'	: lambda x: Validation.number(x),
@@ -35,6 +36,8 @@ class Validator:
 					'text'		: lambda x: True,
 					'optional'	: lambda x: True,
 					'uniqueUTEID'	: lambda x: Validation.comment(x),
+					'degree'	: lambda x: Validation.degree_type(x),
+					'citizen'	: lambda x: Validation.citizen(x),
 					#TA Applicant switches
 					#'phone_applicant'		: lambda x: Validation.phone_number(x),
 					#'email_applicant'		: lambda x: Validation.email(x),
