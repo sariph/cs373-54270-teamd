@@ -118,14 +118,14 @@ class Unwanted_Student(db.Model):
 	"""
 	table for multivalued attributes
 	"""
-	class_id = db.IntegerProperty()
+	class_id = db.StringProperty()
 	UTEID = db.StringProperty()
 
 class Wanted_Student(db.Model):
 	"""
 	table for multivalued attributes
 	"""
-	class_id = db.IntegerProperty()
+	class_id = db.StringProperty()
 	UTEID = db.StringProperty()
 
 #Table for programming langauges. Admin can add or remove from it
