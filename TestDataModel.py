@@ -20,6 +20,10 @@ class Test () :
 		self.results.append(self.testUser4())
 		self.results.append(self.testTA1())
 		self.results.append(self.testTA2())
+		self.results.append(self.testInstructor1())
+		self.results.append(self.testInstructor2())
+		self.results.append(self.testInstructor_App1())
+		self.results.append(self.testInstructor_App2())
 
 	def testUser1 (self) :
 		u = User()
@@ -81,3 +85,41 @@ class Test () :
 		ta.class_id = "19809409432098"
 		print "testTA2 =",Validation.TADataValidator(ta)
 
+	def testInstructor1 (self) :
+		i = Instructor()
+		i.UTEID = "i"
+		i.class_id = "cs445"
+		print "testInstructor1 =",Validation.InstructorDataValidator(i)
+
+	def testInstructor2 (self) :
+		i = Instructor()
+		i.UTEID = ""
+		i.class_id = "cs445"
+		print "testInstructor2 =",Validation.InstructorDataValidator(i)
+
+	def testInstructor_App1 (self) :
+		i = Instructor_App()
+		i.UTEID = "i"
+		i.class_id = "cs445"
+		print "testInstructor_App1 =",Validation.InstructorApplicantDataValidator(i)
+
+	def testInstructor_App2 (self) :
+		i = Instructor_App()
+		i.UTEID = ""
+		i.class_id = "cs445"
+		print "testInstructor_App2 =",Validation.InstructorApplicantDataValidator(i)
+
+	def testApplicant1 (self) :
+		a = Applicant()
+		a.UTEID = "fafea"
+		a.major
+		a.admission
+		a.degree
+		a.supervisor
+		a.citizenship
+		a.native_english
+		a.history_comment
+		a.programming_comment
+		a.specialization_comment
+		a.qualified_comment
+		print "testApplicant1 =",Validation.ApplicantDataValidator(a)
