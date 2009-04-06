@@ -5,7 +5,6 @@ import Validation
 from validator import Validator
 
 class TestAdmin (unittest.TestCase) :
-	
 	"""
 	Test the Validator class
 	"""
@@ -36,7 +35,7 @@ class TestAdmin (unittest.TestCase) :
 		form_data.append(('comment_exp_enrollment', '10'))
 		form_data.append(('comment_num_ta_needed', '1'))
 		form_data.append(('comment_num_ta_assigned', '0'))
-		
+
 		v = Validator(form_data)
 		for r in v.results:
 			if r['valid'] == False:
@@ -70,7 +69,7 @@ class TestAdmin (unittest.TestCase) :
 		form_data.append(('comment_exp_enrollment', '10s'))
 		form_data.append(('comment_num_ta_needed', '1d'))
 		form_data.append(('comment_num_ta_assigned', ''))
-		
+
 		v = Validator(form_data)
 		for r in v.results:
 			if r['valid'] == True:
@@ -255,6 +254,59 @@ class TestAdmin (unittest.TestCase) :
 	def testyesno4 (self) :
 		self.assert_(not Validation.yes_no(''))
 
+	"""
+	Test empty validation
+	"""
+	def testempty1 (self) :
+		self.assert_(not Validation.empty("a"))
+	def testempty2 (self) :
+		self.assert_(not Validation.empty("12345"))
+	def testempty3 (self) :
+		self.assert_(not Validation.empty("!@$"))
+	def testempty4 (self) :
+		self.assert_(Validation.empty(""))
+
+	"""
+	Test semester validation
+	"""
+	def testsemester1 (self) :
+		self.assert_(Validation.validSemester("Spring"))
+	def testsemester2 (self) :
+		self.assert_(Validation.validSemester("Summer"))
+	def testsemester3 (self) :
+		self.assert_(Validation.validSemester("Fall"))
+	def testsemester4 (self) :
+		self.assert_(not Validation.validSemester("4321780"))
+	def testsemester5 (self) :
+		self.assert_(not Validation.validSemester(""))
+
+	"""
+	Test year validation
+	"""
+	def testyear1 (self) :
+		self.assert_(Validation.validYear("1999"))
+	def testyear2 (self) :
+		self.assert_(Validation.validYear("2009"))
+	def testyear3 (self) :
+		self.assert_(not Validation.validYear("1823"))
+	def testyear4 (self) :
+		self.assert_(not Validation.validYear("2011"))
+	def testyear5 (self) :
+		self.assert_(not Validation.validYear("99"))
+
+	"""
+	Test enrollment validation
+	"""
+	def testenrollment1 (self) :
+		self.assert_(Validation.validExpectedEnrollment("0"))
+	def testenrollment2 (self) :
+		self.assert_(Validation.validExpectedEnrollment("10000000000"))
+	def testenrollment3 (self) :
+		self.assert_(not Validation.validExpectedEnrollment("five"))
+	def testenrollment4 (self) :
+		self.assert_(not Validation.validExpectedEnrollment("afeh"))
+	def testenrollment5 (self) :
+		self.assert_(not Validation.validExpectedEnrollment(""))
 
 if __name__ == "__main__" :
 	unittest.main()

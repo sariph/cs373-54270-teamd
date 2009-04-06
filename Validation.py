@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import re
+import time
 
 def phone_number (s) :
 	"""
@@ -81,32 +82,35 @@ def yes_no (s) :
 	"""
 	return not re.search('^(yes|no)$',s) is None
 
+def empty (s) :
+	return re.search('.+',s) is None
+
 
 def validUTEID (s) :
-	return not re.search('.+',s) is None
+	return not empty(s)
 
 def validPassword (s) :
-	return not re.search('.+',s) is None
+	return not empty(s)
 
 def validPosition (s) :
 	return not re.search('(Undergraduate|Graduate|Professor)',s) is None
 
 def validClearance (s) :
-	return not re.search('.+',s) is None
+	return not empty(s)
 
 
 
 
 def validMajor (s) :
 	#depends on query results
-	return not re.search('.+',s) is None
+	return not empty(s)
 
 def validAdmission (s) :
 	return date(s)
 
 def validSupervisor (s) :
 	#depends on query results
-	return not re.search('.+',s) is None
+	return not empty(s)
 
 def validNativeEnglish (s) :
 	return not re.search('(Yes|No)',s) is None
@@ -126,17 +130,22 @@ def validQualifiedComment (s) :
 
 def validCourseID (s) :
 	#depends on query results
-	return not re.search('.+',s) is None
+	return not empty(s)
 
 def validInstructor (s) :
 	#depends on query results
-	return not re.search('.+',s) is None
+	return not empty(s)
 
 def validSemester (s) :
 	return not re.search('(Spring|Summer|Fall)',s) is None
 
 def validYear (s) :
-	return not re.search('[0-9][0-9][0-9][0-9]',s) is None
+	#return not re.search('([19]|[20])[0-9][0-9]',s) is None
+	#valid years are between 1900 and current year
+	try:
+		return int(s) >= 1900 and int(s) <= time.localtime(time.time())[0]
+	except ValueError:
+		return False
 
 def validWantedComment (s) :
 	return True
@@ -147,16 +156,15 @@ def validUnwantedComment (s) :
 def validExpectedEnrollment (s) :
 	return not re.search('[0-9]+',s) is None
 
-
 def validLanguage (s) :
 	#depends on query results
-	return not re.search('.+',s) is None
+	return not empty(s)
 def validSpecialization (s) :
 	#depends on query results
-	return not re.search('.+',s) is None
+	return not empty(s)
 def validCourseName (s) :
 	#depends on query results
-	return not re.search('.+',s) is None
+	return not empty(s)
 
 
 
