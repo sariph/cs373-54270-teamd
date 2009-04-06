@@ -62,7 +62,7 @@
 				{% if professors %}
 				<select name="comment_supervising">
 				{% for professor in professors %}
-				<option name="comment_supervising" value={{professors.first_name}}+{{professors.last_name}}>{{professor.first_name}} {{professor.last_name}}</li><br/>
+				<option name="comment_supervising" value={{professors.UTEID}>{{professor.first_name}} {{professor.last_name}}</li><br/>
 				{% endfor %}
 				</select>
 				{% else %}
@@ -98,7 +98,7 @@
 				<li>No past courses in database.</li>
 				{% endif %}
 				<dt><label>Other (Optional): </label></dt>
-				<input type="text" name="comment_ta" id="comment_ta" {%for result in results%}{%ifequal result.key "comment_ta" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
+				<input type="text" name="optional_ta" id="optional_ta" {%for result in results%}{%ifequal result.key "optional_ta" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
 				</dd>
 				<br />
 				<br />
@@ -114,7 +114,7 @@
 				<li>There are no programming languages at this time</li>
 				{% endif %}
 				<dt><label>Other (Optional): </label></dt>
-				<input type="text" name="comment_programming" id="comment_programming" {%for result in results%}{%ifequal result.key "comment_programming" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
+				<input type="text" name="optional_programming" id="optional_programming" {%for result in results%}{%ifequal result.key "optional_programming" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
 				</dd>
 				<br />
 				<br />
@@ -130,7 +130,7 @@
 				<li>There are no specializations at this time</li>
 				{% endif %}
 				<dt><label>Other (Optional): </label></dt>
-				<input type="text" name="comment_area" id="comment_area" {%for result in results%}{%ifequal result.key "comment_area" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
+				<input type="text" name="optional_area" id="optional_area" {%for result in results%}{%ifequal result.key "optional_area" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
 				</dd>
 				<br />
 				<br />
@@ -145,7 +145,7 @@
 				<li>There are no courses at this time</li>
 				{% endif %}
 				<dt><label>Other (Optional): </label></dt>
-				<input type="text" name="comment_qualified" id="comment_qualified" {%for result in results%}{%ifequal result.key "comment_qualified" %}value="{{result.value}}" {%endifequal%}{%endfor%}>/>
+				<input type="text" name="optional_qualified" id="optional_qualified" {%for result in results%}{%ifequal result.key "optional_qualified" %}value="{{result.value}}" {%endifequal%}{%endfor%}>
 				</dd>
 				</dd>
 			</dl>

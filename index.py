@@ -86,13 +86,13 @@ class TAApplicant(webapp.RequestHandler):
 					new_applicant.citizenship = result['value']
 				elif result['key'] == "radio_native":
 					new_applicant.native_english = result['value']
-				elif result['key'] == "comment_ta":
+				elif result['key'] == "optional_ta":
 					new_applicant.history_comment = result['value']
-				elif result['key'] == "comment_programming":
+				elif result['key'] == "optional_programming":
 					new_applicant.programming_comment = result['value']
-				elif result['key'] == "comment_area":
+				elif result['key'] == "optional_area":
 					new_applicant.specialization_comment = result['value']
-				elif result['key'] == "comment_qualified":
+				elif result['key'] == "optional_qualified":
 					new_applicant.qualified_comment = result['value']
 							
 			new_applicant.put()
