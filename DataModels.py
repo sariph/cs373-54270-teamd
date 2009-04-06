@@ -15,7 +15,7 @@ class User(db.Model):
 #Subclasses of User. Using the Relational scheme from the DB book
 class TA(db.Model):
 	UTEID = db.StringProperty()	
-	class_id = db.IntegerProperty()		#class_id the TA is assigned to
+	class_id = db.StringProperty()		#class_id the TA is assigned to
 	
 class Admin(db.Model):
 	UTEID = db.StringProperty()	
@@ -23,11 +23,11 @@ class Admin(db.Model):
 	
 class Instructor(db.Model):
 	UTEID = db.StringProperty()	
-	class_id = db.IntegerProperty()		#class_id the Instructor is teaching
+	class_id = db.StringProperty()		#class_id the Instructor is teaching
 
 class Instructor_App(db.Model):
 	UTEID = db.StringProperty()	
-	course_id = db.IntegerProperty()		#class_id the Professor wishes to teach
+	course_id = db.StringProperty()		#class_id the Professor wishes to teach
 
 class Applicant(db.Model):
 	UTEID = db.StringProperty()

@@ -187,7 +187,7 @@ def TADataValidator(ta):
 	"""
 	if not validUTEID(ta.UTEID):
 		return False
-	if not class_number(ta.class_id)
+	if not class_number(ta.class_id):
 		return False
 	return True
 
@@ -207,7 +207,7 @@ def InstructorDataValidator(instructor):
 	"""
 	if not validUTEID(instructor.UTEID):
 		return False
-	if not class_number(instructor.class_id);
+	if not class_number(instructor.class_id):
 		return False
 
 	return True
@@ -252,32 +252,32 @@ def ApplicantDataValidator(applicant):
 	return True
 
 
-def ClassDataValidator(class):
+def ClassDataValidator(c):
 	"""
 	"""
-	if not class_number(class.class_id):
+	if not class_number(c.class_id):
 		return False
-	elif not validCourseID(class.course_id):
+	elif not validCourseID(c.course_id):
 		return False
-	elif not unique(class.unique_id):
+	elif not unique(c.unique_id):
 		return False
-	elif not validInstructor(class.instructor):
+	elif not validInstructor(c.instructor):
 		return False
-	elif not validSemester(class.semester):
+	elif not validSemester(c.semester):
 		return False
-	elif not validYear(class.year):
+	elif not validYear(c.year):
 		return False
-	elif not validWantedComment(class.wanted_comment):
+	elif not validWantedComment(c.wanted_comment):
 		return False
-	elif not validUnwantedComment(class.unwanted_comment):
+	elif not validUnwantedComment(c.unwanted_comment):
 		return False
-	elif not validNativeEnglish(class.native_english):
+	elif not validNativeEnglish(c.native_english):
 		return False
-	elif not validSpecializationComment(class.specialization_comment):
+	elif not validSpecializationComment(c.specialization_comment):
 		return False
-	elif not validExpectedEnrollment(class.expected_enrollment):
+	elif not validExpectedEnrollment(c.expected_enrollment):
 		return False
-	elif not number(class.numTA_needed):
+	elif not number(c.numTA_needed):
 		return False
 
 	return True
@@ -296,7 +296,7 @@ def AppHistoryDataValidator(applicantHistory):
 	elif not validCourseID(applicantHistory.course_id):
 		return False
 	return True
-def AppSpecializationDataValidator(applicantSpecialization)
+def AppSpecializationDataValidator(applicantSpecialization):
 	if not validUTEID(applicantSpecialization.UTEID):
 		return False
 	elif not validSpecialization(applicantSpecialization.specialization):
