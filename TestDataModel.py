@@ -2,15 +2,23 @@
 
 import unittest
 import Validation
-import DataModels
+from DataModels import *
 from validator import Validator
 
-class Test (unittest.TestCase) :
+class Test () :
 	"""
 	Test database model
 	"""
+	def start (self) :
+		"""
+		Displays the class template upon get request.
+		"""
+		self.results = []
+		r = self.testUser1()
+		self.results.append(r)
+		
 	def testUser1 (self) :
-		u = DataModels.User()
+		u = User()
 		u.UTEID = "fafea"
 		u.first_name = "fa"
 		u.last_name = "fea"
@@ -19,7 +27,10 @@ class Test (unittest.TestCase) :
 		u.phone = "123-456-7890"
 		u.email = "fafea@utexas.edu"
 		u.position = "Undergraduate"
-		self.assert_(Validation.UserDataValidator(u))
+		print Validation.UserDataValidator(u)
+		#return "asdfsdaf"
+		#print "asdfasdfasdfasdf"
+		#self.results.append(self.assert_(Validation.UserDataValidator(u)))
 
 	def testUser2 (self) :
 		u = DataModels.User()
@@ -31,7 +42,7 @@ class Test (unittest.TestCase) :
 		u.phone = "123-456-7890"
 		u.email = "fafea@utexas.edu"
 		u.position = "Undergraduate"
-		self.assert_(Validation.UserDataValidator(u))
+		#self.results.append(self.assert_(Validation.UserDataValidator(u)))
 
 	def testUser3 (self) :
 		u = DataModels.User()
@@ -43,8 +54,6 @@ class Test (unittest.TestCase) :
 		u.phone = "123-456-7890"
 		u.email = "fafea@utexas.edu"
 		u.position = "Undergraduate"
-		self.assert_(Validation.UserDataValidator(u))
-
-
-if __name__ == "__main__" :
-	unittest.main()
+		#self.results.append(self.assert_(Validation.UserDataValidator(u)))
+#if __name__ == "__main__" :
+#	unittest.main()
