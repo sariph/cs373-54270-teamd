@@ -796,20 +796,11 @@ class AdminViewClasses(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.classes = [i for i in db.GqlQuery("SELECT * FROM Class")]
-		for c in self.classes:
-			c.course_name = db.GqlQuery("SELECT * FROM Course WHERE course_id =:1", c.course_id).get().course_name
-			c.unwanted_students = [db.GqlQuery("SELECT * FROM Users WHERE UTEID =:1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE class_id =:1", c.class_id)]
-			c.wanted_students = [db.GqlQuery("SELECT * FROM Users WHERE UTEID =:1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Wanted_Student WHERE class_id =:1", c.class_id)]
-			instructor = db.GqlQuery("SELECT * FROM User WHERE UTEID =:1", c.instructor).get()
-			
-			if instructor == None:
-				c.instructor_name = None
-			elif instructor.middle_name == None:
-				c.instructor_name = instructor.first_name + " " + instructor.last_name
-			else:
-				c.instructor_name = instructor.first_name + " " + instructor.middle_name + " " + instructor.last_name 
-		self.results = []
+		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
+		self.selected_course = None
+		self.selected_class = None
+		self.course_classes = []
+		self.finished = None
 
 	def get(self):
 		"""
@@ -821,8 +812,23 @@ class AdminViewClasses(webapp.RequestHandler):
 		"""
 		Validates form elements and will eventually submit the information to a database.
 		"""
-		validator = Validator(self.request.params.items())
-		self.results.extend(validator.results)
+		form_data = self.request.params.items()
+		for field, option in form_data:
+			if field == "select_course":
+				self.selected_course = option
+				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1", option)]
+			elif field == "select_class":
+				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
+				self.selected_class.instructor_info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", self.selected_class.instructor).get()
+				TAs = [i for i in db.GqlQuery("SELECT * FROM TA WHERE class_id = :1", self.selected_class.class_id)]
+				for ta in TAs:
+					ta.info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", ta.UTEID).get()
+					
+				self.selected_class.wanted_students = [db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Wanted_Student WHERE class_id = :1", self.selected_class.class_id)]
+				
+				self.selected_class.unwanted_students = [db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE class_id = :1", self.selected_class.class_id)]
+				self.finished = True
+		
 		self.template()
 
 	def template(self):
@@ -830,8 +836,11 @@ class AdminViewClasses(webapp.RequestHandler):
 		Renders the template.
 		"""
 		template_values = {
-			'results': self.results,
-			'classes': self.classes
+			'courses': self.courses,
+			'selected_course': self.selected_course,
+			'selected_class': self.selected_class,
+			'course_classes': self.course_classes,
+			'finished': self.finished,
 		}
 		path = os.path.join(os.path.dirname(__file__), 'adminViewClasses.html')
 		self.response.out.write(template.render(path, template_values))
