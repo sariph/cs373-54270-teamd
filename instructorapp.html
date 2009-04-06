@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Instructor Apply</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="instructorapp" method="post">
+			<dl>
+				<dt><label for="comment_uteid">Instructor's UTEID</label></dt>
+				<dd>
+				{% if instructors %}
+				<select name="comment_uteid">
+				{% for instructor in instructors %}
+				<option name="comment_uteid" value={{instructors.UTEID}}>{{instructor.UTEID}}: {{instructor.first_name}} {{instructor.last_name}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no applicant at this time</li>
+				{% endif %}
+				</dd>
+				
+				<br />
+
+				<dt><label for="comment_course_id">Course ID to Apply</label></dt>
+				<dd>
+				{% if courses %}
+				<select name="comment_course_id">
+				{% for course in courses %}
+				<option name="comment_course_id" value={{course.course_id}}>{{course.course_id}}: {{course.course_name}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no course at this time</li>
+				{% endif %}
+				</dd>
+			</dl>
+			<div><input type="submit" value="Submit" /></div>
+		</form>
+	</body>
+</html>
+
