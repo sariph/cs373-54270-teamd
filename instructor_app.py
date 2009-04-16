@@ -59,6 +59,6 @@ class InstructorApp(webapp.RequestHandler):
 			'instructors' : self.instructors,
 			'courses' : self.courses
 		}
-		path = os.path.join(os.path.dirname(__file__), 'instructorapp.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'instructorapp.html')
 		self.response.out.write(template.render(path, template_values))
 

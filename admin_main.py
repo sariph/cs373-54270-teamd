@@ -39,6 +39,6 @@ class AdminMain(webapp.RequestHandler):
 		template_values = {
 			'results': self.results,
 		}
-		path = os.path.join(os.path.dirname(__file__), 'admin.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'admin.html')
 		self.response.out.write(template.render(path, template_values))
 

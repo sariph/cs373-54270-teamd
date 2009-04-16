@@ -70,7 +70,7 @@ class AdminAddUsers(webapp.RequestHandler):
 		template_values = {
 			'results': self.results,
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminAddUsers.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminAddUsers.html')
 		self.response.out.write(template.render(path, template_values))
 
 	def UTEIDAlreadyExists(self, name):

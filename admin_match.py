@@ -62,6 +62,6 @@ class AdminMatch(webapp.RequestHandler):
 			'selected_class': self.selected_class,
 			'finished': self.finished
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminMatch.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminMatch.html')
 		self.response.out.write(template.render(path, template_values))
 

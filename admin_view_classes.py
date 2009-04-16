@@ -62,6 +62,6 @@ class AdminViewClasses(webapp.RequestHandler):
 			'course_classes': self.course_classes,
 			'finished': self.finished,
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminViewClasses.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminViewClasses.html')
 		self.response.out.write(template.render(path, template_values))
 

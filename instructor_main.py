@@ -16,5 +16,6 @@ class InstructorMain(webapp.RequestHandler):
 		"""
 		Displays the class template.
 		"""
-		path = os.path.join(os.path.dirname(__file__), 'instructor.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'instructor.html')
 		self.response.out.write(template.render(path, {}))
+

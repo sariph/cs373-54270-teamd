@@ -72,7 +72,7 @@ class AdminAddClasses(webapp.RequestHandler):
 			'results': self.results,
 			'course_ids': self.course_ids,
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminAddClasses.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminAddClasses.html')
 		self.response.out.write(template.render(path, template_values))
 
 	def ClassAlreadyExists(self, name):

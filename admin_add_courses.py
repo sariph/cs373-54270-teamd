@@ -61,7 +61,7 @@ class AdminAddCourses(webapp.RequestHandler):
 			'results': self.results,
 			'courses': [i for i in db.GqlQuery("SELECT * FROM Course")],
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminAddCourses.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminAddCourses.html')
 		self.response.out.write(template.render(path, template_values))
 
 	def CourseAlreadyExists(self, name):

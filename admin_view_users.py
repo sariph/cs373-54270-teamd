@@ -37,6 +37,6 @@ class AdminViewUsers(webapp.RequestHandler):
 		template_values = {
 			'users': self.users,
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminViewUsers.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminViewUsers.html')
 		self.response.out.write(template.render(path, template_values))
 

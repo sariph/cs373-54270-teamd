@@ -136,6 +136,6 @@ class TAApplicant(webapp.RequestHandler):
 			'sel_specializations': self.sel_specializations,
 			'sel_qualified': self.sel_qualified,
 		}
-		path = os.path.join(os.path.dirname(__file__), 'applicant.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'applicant.html')
 		self.response.out.write(template.render(path, template_values))
 

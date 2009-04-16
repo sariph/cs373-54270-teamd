@@ -53,7 +53,7 @@ class AdminAddMajors(webapp.RequestHandler):
 			'results': self.results,
 			'majors': [i for i in db.GqlQuery("SELECT * FROM Major")],
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminAddMajors.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminAddMajors.html')
 		self.response.out.write(template.render(path, template_values))
 
 	def MajorAlreadyExists(self, name):

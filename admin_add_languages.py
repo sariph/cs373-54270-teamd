@@ -53,7 +53,7 @@ class AdminAddLanguages(webapp.RequestHandler):
 			'results': self.results,
 			'languages': [i for i in db.GqlQuery("SELECT * FROM Programming_Language")],
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminAddLanguages.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminAddLanguages.html')
 		self.response.out.write(template.render(path, template_values))
 
 	def LanguageAlreadyExists(self, name):

@@ -53,7 +53,7 @@ class AdminAddSpecializations(webapp.RequestHandler):
 			'results': self.results,
 			'specializations': [i for i in db.GqlQuery("SELECT * FROM Specialization")],
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminAddSpecializations.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminAddSpecializations.html')
 		self.response.out.write(template.render(path, template_values))
 
 	def SpecializationAlreadyExists(self, name):

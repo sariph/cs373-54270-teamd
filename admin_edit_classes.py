@@ -109,6 +109,6 @@ class AdminEditClasses(webapp.RequestHandler):
 			'applicants': self.applicants,
 			'finished': self.finished
 		}
-		path = os.path.join(os.path.dirname(__file__), 'adminEditClasses.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminEditClasses.html')
 		self.response.out.write(template.render(path, template_values))
 

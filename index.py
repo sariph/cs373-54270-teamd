@@ -34,7 +34,7 @@ class Index(webapp.RequestHandler):
 		"""
 		Displays the class template.
 		"""
-		path = os.path.join(os.path.dirname(__file__), 'index.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'index.html')
 		self.response.out.write(template.render(path, {}))
 
 application = webapp.WSGIApplication([('/is_valid', is_valid.Is_valid),

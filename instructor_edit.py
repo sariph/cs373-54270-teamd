@@ -65,6 +65,6 @@ class InstructorEdit(webapp.RequestHandler):
 			'applicants' : self.applicants,
 			'instructors' : self.instructors
 		}
-		path = os.path.join(os.path.dirname(__file__), 'instructorEdit.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'instructorEdit.html')
 		self.response.out.write(template.render(path, template_values))
 
