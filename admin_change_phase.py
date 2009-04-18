@@ -16,7 +16,7 @@ class AdminChangePhase(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.results=[]
+		self.results = []
 
 	def get(self):
 		"""
@@ -30,12 +30,10 @@ class AdminChangePhase(webapp.RequestHandler):
 		"""
 		validator = Validator(self.request.params.items())
 		check = True
-		do_commit = False
 		for result in validator.results:
 			if result['valid'] == False:
 				check = False
 				break
-		print result['valid']
 		if check == True:
 			p = Phase.all()
 			phase = p.fetch(1)
@@ -45,6 +43,8 @@ class AdminChangePhase(webapp.RequestHandler):
                                         phase = Phase()
                                         phase.phase = int(result['value'])
                                         db.put(phase)
+                                        break
+                                break
 		self.results.extend(validator.results)
 		self.template()
 
