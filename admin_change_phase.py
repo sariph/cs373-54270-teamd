@@ -16,7 +16,7 @@ class AdminChangePhase(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.phase = db.GqlQuery("SELECT * FROM Phase)
+		self.phase = db.GqlQuery("SELECT * FROM Phase")
 
 	def get(self):
 		"""
