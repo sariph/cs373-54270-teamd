@@ -41,7 +41,7 @@ class AdminChangePhase(webapp.RequestHandler):
 			phase = p.fetch(1)
 			db.delete(phase)
 			for result in validator.results:
-				if result['key'] == "comment_phase":
+				if result['key'] == "radio_phase":
                                         phase = Phase()
                                         phase.phase = int(result['value'])
                                         db.put(phase)

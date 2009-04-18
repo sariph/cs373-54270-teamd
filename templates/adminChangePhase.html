@@ -26,9 +26,17 @@
 				{% endif %}
 				</dd>	
 				<br />
-				<dt><label for="comment_phase">New Phase</label></dt>
-				<dd><input type="number" name="comment_phase" id="comment_phase" value="{{ result.value }}" /></dd>
 
+
+
+
+<dt><label for="radio_phase">New Phase</label></dt>
+<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_phase' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>New Phase.</span>
+				
+1 : Admin<input type="radio" name="radio_phase" value="1" id="radio_phase"><br>			
+2 : TAs<input type="radio" name="radio_phase" value="2" id="radio_phase"><br>
+3 : Instructors<input type="radio" name="radio_phase" value="3" id="radio_phase"><br>
+</dd>
 
 			<div><input type="submit" value="Submit" /></div>
 			<div><a href="admin"><button type="button">Back to Admin Page</button></a></div>

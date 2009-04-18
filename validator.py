@@ -38,7 +38,8 @@ class Validator:
 					'uniqueUTEID'	: lambda x: Validation.comment(x),
 					'degree'	: lambda x: Validation.degree_type(x),
 					'citizen'	: lambda x: Validation.citizen(x),
-                                        'comment_phase' : lambda x: Validation.number(x)
+                                        'comment_phase' : lambda x: Validation.number(x),
+                                        'radio_phase' : lambda x: Validation.number(x)
 					#TA Applicant switches
 					#'phone_applicant'		: lambda x: Validation.phone_number(x),
 					#'email_applicant'		: lambda x: Validation.email(x),
