@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminchangephase" method="post">
+			<dl>
+				<dt>Current Phase</dt>
+				<dd> 
+				{% if phase %}
+					{% for p in phase%}
+						Current Phasesss : {{p.phase}}<br/>
+					{% endfor %}
+				{% else %}
+					<li>No currnet phase</li>
+				{% endif %}
+				</dd>	
+				<br />
+				<dt><label for="comment_phase">New Phase</label></dt>
+				<dd><input type="number" name="comment_phase" id="comment_phase" {% if results %}{% for result in results %}{% ifequal result.key 'comment_phase' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>New Phase(1, 2, or 3).</span></dd>
+
+			<div><input type="submit" value="Submit" /></div>
+			<div><a href="admin"><button type="button">Back to Admin Page</button></a></div>
+		</form>
+	</body>
+</html>
+
+

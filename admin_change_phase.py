@@ -16,7 +16,7 @@ class AdminChangePhase(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.phase = db.GqlQuery("SELECT * FROM Phase")
+		self.results=[]
 
 	def get(self):
 		"""
@@ -35,14 +35,14 @@ class AdminChangePhase(webapp.RequestHandler):
 			if result['valid'] == False:
 				check = False
 				break
+		print result['valid']
 		if check == True:
-			new_phase = Phase()
+			phase = db.GqlQuery("SELECT * FROM Phase")
 			for result in validator.results:
 				if result['key'] == "comment_phase":
-                                        new_phase.phase = result['value']
-                                        new_phase.put()
-                                        break
-
+                                        #phase.phase = result['value']
+                                        phase.phase = 1
+                                        db.put(phase)
 		self.results.extend(validator.results)
 		self.template()
 
@@ -51,7 +51,8 @@ class AdminChangePhase(webapp.RequestHandler):
 		Renders the template.
 		"""
 		template_values = {
-                        'phase' : self.phase
+                    'results' : self.results,
+                    'phase': [i for i in db.GqlQuery("SELECT * FROM Phase")]
 		}
 		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminChangePhase.html')
 		self.response.out.write(template.render(path, template_values))
