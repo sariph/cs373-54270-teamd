@@ -8,7 +8,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from validator import Validator
 
-class AdminChangePhases(webapp.RequestHandler):
+class AdminChangePhase(webapp.RequestHandler):
 	"""
 	Class for handling the admin form and validation.
 	"""
