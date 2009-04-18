@@ -30,9 +30,9 @@
 <dt><label for="radio_phase">New Phase</label></dt>
 <dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_phase' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>New Phase.</span>
 				
-1 : Admin<input type="radio" name="radio_phase" value="1" id="radio_phase" checked><br>			
-2 : TAs<input type="radio" name="radio_phase" value="2" id="radio_phase"><br>
-3 : Instructors<input type="radio" name="radio_phase" value="3" id="radio_phase"><br>
+1 : Admin<input type="radio" name="radio_phase" value="1" id="radio_phase" {% if results %}{% for result in results %}{% ifequal result.key 'radio_phase' %}{% ifequal result.value '1' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br>			
+2 : TAs<input type="radio" name="radio_phase" value="2" id="radio_phase" {% if results %}{% for result in results %}{% ifequal result.key 'radio_phase' %}{% ifequal result.value '2' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br>
+3 : Instructors<input type="radio" name="radio_phase" value="3" id="radio_phase" {% if results %}{% for result in results %}{% ifequal result.key 'radio_phase' %}{% ifequal result.value '3' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br>
 </dd></dl>
 
 			<div><input type="submit" value="Submit" /></div>
