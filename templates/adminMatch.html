@@ -15,54 +15,62 @@
 	<body>
 		<form action="adminmatch" method="post">
 			<dl>
-			Please select the course of the class you wish to match TAs for:
-			{%if courses %}
-			{%if selected_course%}
-				<input type="hidden" name="select_course" value={{selected_course}} />
-				{{selected_course}}
-			{%else%}
-			<select name="select_course">
-			{%for course in courses%}
-				<option name="select_course" value={{course.course_id}}>{{course.course_id}}</option>
-			{%endfor%}
-			</select>
-			{%endif%}
-			{%else%}
-			<br />There are no courses at this time
-			{%endif%}
-			
-
-			<br />
-			
-			{%if course_classes%}
-			Please select the class you wish to match TAs for:
-			{%if selected_class%}
-				<input type="hidden" name="select_class" value={{selected_class.class_id}} />
-				{{selected_class.course_id}} {{selected_class.semester}} {{selected_class.year}}
-			{%else%}
-			<select name="select_class">
-			{%for class in course_classes%}
-				<option name="select_class" value={{class.class_id}}>{{class.course_id}} {{class.semester}} {{class.year}}</option>
-			{%endfor%}
-			</select>
-			{%endif%}
-			{%else%}
-			{%if selected_course%}There are no instances of this course{%endif%}
-			{%endif%}
-			
-			
-			<br />
-			
-			{%if selected_class%}
-			{%if match%}
-			TA(s): <br/>
-			Professor: <br />
-			{%else%}
-			No matchings can be made for this class at this time. (No graduate students or professors have yet applied)
-			{%endif%}
-			{%endif%}
-			<div><input type="submit" value="Continue" /></div>
+				<dt>Applicants</dt>
+				<dd>{%if applicants%}{%for applicant in applicants%}{{applicant.first_name}} {{applicant.last_name}}{%endfor%}{%else%}No applicants at this time{%endif%}</dd>
+				<dt>Classes</dt>
+				<dd>{%if classes%}{%for class in classes%}{{class.class_id}}{%endfor%}{%else%}No classes at this time{%endif%}</dd>
+				<dt>Proposed matches</dt>
+				<dd>{%if matches%}{%for match in matches%}{{match.first_name}} {{match.last_name}} - {{match.course_id}}{%endfor%}{%else%}No matches at this time{%endif%}</dd>
+			</dl>
 		</form>
+<!--
+		<form action="adminmatch" method="post">
+			<dl>
+				Please select the course of the class you wish to match TAs for:
+{%if courses %}
+	{%if selected_course%}
+				<input type="hidden" name="select_course" value={{selected_course}} />
+		{{selected_course}}
+	{%else%}
+				<select name="select_course">
+		{%for course in courses%}
+					<option name="select_course" value={{course.course_id}}>{{course.course_id}}</option>
+		{%endfor%}
+				</select>
+	{%endif%}
+{%else%}
+				<br />There are no courses at this time
+{%endif%}
+				<br />
+{%if course_classes%}
+				Please select the class you wish to match TAs for:
+	{%if selected_class%}
+				<input type="hidden" name="select_class" value={{selected_class.class_id}} />
+		{{selected_class.course_id}} {{selected_class.semester}} {{selected_class.year}}
+	{%else%}
+				<select name="select_class">
+		{%for class in course_classes%}
+					<option name="select_class" value={{class.class_id}}>{{class.course_id}} {{class.semester}} {{class.year}}</option>
+		{%endfor%}
+				</select>
+	{%endif%}
+{%else%}
+	{%if selected_course%}
+				There are no instances of this course
+	{%endif%}
+{%endif%}
+				<br />
+{%if selected_class%}
+	{%if match%}
+				TA(s): <br/>
+				Professor: <br />
+	{%else%}
+				No matchings can be made for this class at this time. (No graduate students or professors have yet applied)
+	{%endif%}
+{%endif%}
+				<div><input type="submit" value="Continue" /></div>
+		</form>
+-->
 	</body>
 </html>
 

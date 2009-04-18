@@ -57,7 +57,7 @@ def unique (s) :
 	Number validator.
 	"""
 	#return not re.search('^(\d)(\d)(\d)(\d)(\d)$',s) is None
-	return s >= 0 and s < 100000
+	return int(s) >= 0 and int(s) < 100000
 
 def comment (s) :
 	"""
