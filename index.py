@@ -56,6 +56,7 @@ application = webapp.WSGIApplication([('/is_valid', is_valid.Is_valid),
                                       ('/admineditclasses', admin_edit_classes.AdminEditClasses),
                                       ('/adminmatch', admin_match.AdminMatch),
                                       ('/testdatamodel', test_data_model.TestDataModel),
+                                      ('/adminchangephase',admin_change_phase.AdminChangePhase),
                                       ('/.*', Index)])
 
 def main():
