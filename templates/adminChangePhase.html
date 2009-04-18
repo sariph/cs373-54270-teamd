@@ -19,7 +19,7 @@
 				<dd> 
 				{% if phase %}
 					{% for p in phase%}
-						Current Phasesss : {{p.phase}}<br/>
+						Current Phase : {{p.phase}}<br/>
 					{% endfor %}
 				{% else %}
 					<li>No currnet phase</li>
@@ -27,12 +27,12 @@
 				</dd>	
 				<br />
 				<dt><label for="comment_phase">New Phase</label></dt>
-				<dd><input type="number" name="comment_phase" id="comment_phase" {% if results %}{% for result in results %}{% ifequal result.key 'comment_phase' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
-				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
-				<span{% endif %}>New Phase(1, 2, or 3).</span></dd>
+				<dd><input type="number" name="comment_phase" id="comment_phase" value="{{ result.value }}" /></dd>
+
 
 			<div><input type="submit" value="Submit" /></div>
 			<div><a href="admin"><button type="button">Back to Admin Page</button></a></div>
+			</dl>
 		</form>
 	</body>
 </html>

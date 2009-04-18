@@ -37,11 +37,13 @@ class AdminChangePhase(webapp.RequestHandler):
 				break
 		print result['valid']
 		if check == True:
-			phase = db.GqlQuery("SELECT * FROM Phase")
+			p = Phase.all()
+			phase = p.fetch(1)
+			db.delete(phase)
 			for result in validator.results:
 				if result['key'] == "comment_phase":
-                                        #phase.phase = result['value']
-                                        phase.phase = 1
+                                        phase = Phase()
+                                        phase.phase = int(result['value'])
                                         db.put(phase)
 		self.results.extend(validator.results)
 		self.template()
