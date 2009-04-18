@@ -17,6 +17,7 @@ class AdminMatch(webapp.RequestHandler):
 		Constructor initializes results.
 		"""
 		self.applicants = []
+		self.classes = []
 		'''
 		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		self.course_classes = None
@@ -32,11 +33,15 @@ class AdminMatch(webapp.RequestHandler):
 		Displays the class template upon get request.
 		"""
 		query = db.GqlQuery("SELECT * FROM Applicant")
+		for applicant in query:
+			user = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", applicant.UTEID).get()
+			applicant.first_name = user.first_name
+			applicant.last_name = user.last_name
+			self.applicants.append(applicant)
+			self.response.out.write(vars(applicant))
+		query = db.GqlQuery("SELECT * FROM Class")
 		for lcv in query:
-			needRef = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", lcv.UTEID).get()
-			self.applicants += set(dir(lcv) + dir(needRef))
-			self.response.out.write(self.applicants)
-#			self.applicants += needRef.first_name + ' ' + needRef.last_name + ': ' + lcv.UTEID
+			self.classes.append(lcv)
 		'''
 		self.applicants = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		for lcv in self.applicants:
@@ -73,7 +78,8 @@ class AdminMatch(webapp.RequestHandler):
 		Renders the template.
 		"""
 		template_values = {
-			'applicants': self.applicants
+			'applicants': self.applicants,
+			'classes': self.classes
 		}
 		'''
 		template_values = {
