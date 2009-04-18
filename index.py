@@ -18,6 +18,7 @@ import admin_edit_classes
 import admin_match
 import test_data_model
 import is_valid
+import admin_change_phase
 
 from TestDataModel import *
 from DataModels import *
