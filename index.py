@@ -31,11 +31,27 @@ class Index(webapp.RequestHandler):
 	"""
 	Default class if nothing is passed to the index.
 	"""
+	def __init__(self):
+		"""
+		Constructor initializes results.
+		"""
+		self.results = []
+	
 	def get(self):
 		"""
 		Displays the class template.
 		"""
-		path = os.path.join(os.path.dirname(__file__), 'templates', 'index.html')
+		self.template()
+		
+	def template(self):
+		"""
+		Renders the template.
+		"""
+		template_values = {
+                    'results' : self.results,
+                    'phase': [i for i in db.GqlQuery("SELECT * FROM Phase")]
+		}
+                path = os.path.join(os.path.dirname(__file__), 'templates', 'index.html')
 		self.response.out.write(template.render(path, {}))
 
 application = webapp.WSGIApplication([('/is_valid', is_valid.Is_valid),
