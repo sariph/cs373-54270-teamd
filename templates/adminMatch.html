@@ -16,11 +16,11 @@
 		<form action="adminmatch" method="post">
 			<dl>
 				<dt>Applicants</dt>
-				<dd>{%if applicants%}{%for applicant in applicants%}{{applicant.first_name}} {{applicant.last_name}}: {{applicant.UTEID}}{%endfor%}{%else%}No applicants at this time{%endif%}</dd>
+				{%if applicants%}{%for applicant in applicants%}<dd>{{applicant.first_name}} {{applicant.last_name}}</dd>{%endfor%}{%else%}<dd>No applicants at this time</dd>{%endif%}
 				<dt>Classes</dt>
-				<dd>{%if classes%}{%for class in classes%}{{class.class_id}}{%endfor%}{%else%}No classes at this time{%endif%}</dd>
+				{%if classes%}{%for class in classes%}<dd>{{class.unique_id}}: {{class.semester}} {{class.year}} ({{class.numTA_needed}} needed)</dd>{%endfor%}{%else%}<dd>No classes at this time</dd>{%endif%}
 				<dt>Proposed matches</dt>
-				<dd>{%if matches%}{%for match in matches%}{{match.first_name}} {{match.last_name}} - {{match.course_id}}{%endfor%}{%else%}No matches at this time{%endif%}</dd>
+				{%if matches%}{%for match in matches%}<dd>{{match.first_name}} {{match.last_name}} - {{match.course_id}}</dd>{%endfor%}{%else%}<dd>No matches at this time</dd>{%endif%}
 			</dl>
 		</form>
 <!--
