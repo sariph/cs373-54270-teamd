@@ -72,6 +72,8 @@ class AdminMatch(webapp.RequestHandler):
 				applicant.specializations = [i.specialization for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID = :1", applicant.UTEID)]
 				if(lcv.native_english == "yes" and applicant.native_english == "no"):
 					lcv.points[applicant.key()] -= 10
+				elif(lcv.native_english == "yes" and applicant.native_english == "yes"):
+					lcv.points[applicant.key()] += 10
 				if applicant.UTEID in lcv.unwanted:
 					lcv.points[applicant.key()] -= 100
 				if applicant.UTEID in lcv.wanted:
