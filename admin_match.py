@@ -69,7 +69,7 @@ class AdminMatch(webapp.RequestHandler):
 			lcv.points = {} # holds points for each applicant in dictionary indexed by applicant key
 			for applicant in applicants:
 				lcv.points[applicant.key()] = 0
-				applicant.specializations = [i.specilization for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID = :1", applicant.UTEID)]
+				applicant.specializations = [i.specialization for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID = :1", applicant.UTEID)]
 				if(lcv.native_english == "yes" and applicant.native_english == "no"):
 					lcv.points[applicant.key()] -= 10
 				if applicant.UTEID in lcv.unwanted:
