@@ -50,7 +50,7 @@ class AdminMatch(webapp.RequestHandler):
 				applicant.points[lcv.key()] = 0
 				if(applicant.specialization_comment == lcv.specialization_comment):
 					applicant.points[lcv.key()] += 1
-				elif(applicant.qualified_comment == lcv.course_id):
+				if(applicant.qualified_comment == lcv.course_id):
 					applicant.points[lcv.key()] += 1
 			# expose it
 			self.applicants[applicant.key()] = applicant
