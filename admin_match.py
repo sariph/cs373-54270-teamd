@@ -35,26 +35,33 @@ class AdminMatch(webapp.RequestHandler):
 		"""
 		applicants = db.GqlQuery("SELECT * FROM Applicant")
 		classes = db.GqlQuery("SELECT * FROM Class")
+
 		for applicant in applicants:
+			# handle join in ghetto fasion
 			user = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", applicant.UTEID).get()
-#			applicant.__dict__.update(user.__dict__)
+#			applicant.__dict__.update(user.__dict__) # this almost works but prepends "_" to user fields, Django doesn't like
 			applicant.first_name = user.first_name
 			applicant.last_name = user.last_name
-#			applicant.free = True
-			applicant.points = {}
+
+			# point system for applicant rating of classes
+#			applicant.free = True # don't even need free field for applicants if we have equal applicants and TA spots to fill
+			applicant.points = {} # holds points for each class in dictionary indexed by class key
 			for lcv in classes:
 				applicant.points[lcv.key()] = 0
 				if(applicant.specialization_comment == lcv.specialization_comment):
 					applicant.points[lcv.key()] += 1
 				elif(applicant.qualified_comment == lcv.course_id):
 					applicant.points[lcv.key()] += 1
+			# expose it
 			self.applicants[applicant.key()] = applicant
 		self.response.out.write(self.applicants)
 		self.response.out.write("<br />\n")
+
 		for lcv in classes:
-			lcv.assigned = []
-			lcv.free = True
-			lcv.points = {}
+			# point system for class rating of applicants
+			lcv.assigned = [] # because each class can have multiple TAs, need a list of assigned applicant keys
+			lcv.free = True # start off with at least one empty spot
+			lcv.points = {} # holds points for each applicant in dictionary indexed by applicant key
 			for applicant in applicants:
 				lcv.points[applicant.key()] = 0
 				if(lcv.native_english == "yes" and applicant.native_english == "no"):
@@ -65,11 +72,13 @@ class AdminMatch(webapp.RequestHandler):
 					lcv.points[applicant.key()] += 100
 				elif(lcv.specialization_comment == applicant.specialization_comment):
 					lcv.points[applicant.key()] += 1
+			# expose it
 			self.classes[lcv.key()] = lcv
 		self.response.out.write(self.classes)
 		self.response.out.write("<br />\n")
+
+		# compute SMP
 		self.matches = self.SMP(self.applicants, self.classes)
-		self.response.out.write("<br />\n")
 		self.response.out.write(self.matches)
 		self.response.out.write("<br />\n")
 		'''
@@ -93,6 +102,7 @@ class AdminMatch(webapp.RequestHandler):
 					if(len(classes_with_points[highest_key_points[0]].assigned) == classes_with_points[highest_key_points[0]].numTA_needed):
 						classes_with_points[highest_key_points[0]].free = False
 					self.response.out.write("Assigning " + applicant.first_name + ' ' + applicant.last_name + " to " + classes_with_points[highest_key_points[0]].class_id)
+					self.response.out.write("<br />\n")
 					break
 				# highest class is not free
 				else:
@@ -101,18 +111,17 @@ class AdminMatch(webapp.RequestHandler):
 						if(classes_with_points[highest_key_points[0]].points[key] > classes_with_points[highest_key_points[0]].points[existing_applicant_key]):
 # TODO swap them
 							self.response.out.write("We found a replacement!")
+							self.response.out.write("<br />\n")
 							break
 						# this else is for debugging, remove it
 						else:
 							self.response.out.write("We found no replacement")
+							self.response.out.write("<br />\n")
 		return dict([(applicant, classes_with_points[applicant.assigned]) for key, applicant in applicants_with_points.items()])
-#		self.response.out.write("<br />\n")
-#		self.response.out.write(temp)
-#		self.response.out.write("<br />\n")
-#		return {}
 
 	def sortfunc(self, x, y):
-		return cmp(x[1], y[1])
+		return cmp(x[1], y[1]) # TODO I dunno if this is right order
+#		return cmp(y[1], x[1]) # uncomment if wrong result
 
 	def post(self):
 		"""
