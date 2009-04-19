@@ -5,9 +5,44 @@
 	</head>
 
 	<body>
-		<div><a href="applicant">Applicants</a></div>
+		<dd> 
+		{% if phase %}
+			{% for p in phase%}
+				Current Phase : {{p.phase}}<br/>
+
+
+				{%ifequal p.phase 2%}
+					<div><a href="admin"><strike>Admins</strike></a></div>
+				{%else%}
+					{%ifequal p.phase 3%}
+						<div><a href="admin"><strike>Admins</strike></a></div>
+					{%else%}
+						<div><a href="admin">Admins</a></div>
+					{%endifequal%}
+				{%endifequal%}
+
+				{%ifnotequal p.phase 2%}
+					<div><a href="applicant"><strike>Applicants</strike></a></div>
+				{%else%}
+					<div><a href="applicant">Applicants</a></div>
+				{%endifnotequal%}
+				
+				{%ifnotequal p.phase 3%}
+					<div><a href="instructor"><strike>Instructors</strike></a></div>
+				{%else%}
+					<div><a href="instructor">Instructors</a></div>
+				{%endifnotequal%}
+				
+				{% endfor %}
+		{% else %}
+			Need to set up the phase first
+			<div><a href="admin">Admins</a></div>
+		{% endif %}
+		</dd>
+		<br><br>
+		<!--<div><a href="applicant">Applicants</a></div>
 		<div><a href="instructor">Instructors</a></div>
-		<div><a href="admin">Admins</a></div>
+		<div><a href="admin">Admins</a></div>-->
 		<div><a href="debug">Debug</a></div>
 		<div><a href="testdatamodel">Test</a></div>
 	</body>

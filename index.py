@@ -52,7 +52,7 @@ class Index(webapp.RequestHandler):
                     'phase': [i for i in db.GqlQuery("SELECT * FROM Phase")]
 		}
                 path = os.path.join(os.path.dirname(__file__), 'templates', 'index.html')
-		self.response.out.write(template.render(path, {}))
+		self.response.out.write(template.render(path, template_values))
 
 application = webapp.WSGIApplication([('/is_valid', is_valid.Is_valid),
                                       ('/applicant', ta_applicant.TAApplicant),
@@ -81,6 +81,7 @@ def main():
 	Runs the program when called.
 	"""
 	run_wsgi_app(application)
+	
 
 if __name__ == "__main__":
 	main()
