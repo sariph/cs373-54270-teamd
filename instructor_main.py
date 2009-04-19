@@ -12,10 +12,25 @@ class InstructorMain(webapp.RequestHandler):
 	"""
 	Default class if nothing is passed to the index.
 	"""
+	def __init__(self):
+		"""
+		Constructor initializes results.
+		"""
+		self.results = []
 	def get(self):
 		"""
 		Displays the class template.
 		"""
+		self.template()
+
+	def template(self):
+		"""
+		Renders the template.
+		"""
+		template_values = {
+                    'results' : self.results,
+                    'phase': [i for i in db.GqlQuery("SELECT * FROM Phase")]
+		}
 		path = os.path.join(os.path.dirname(__file__), 'templates', 'instructor.html')
-		self.response.out.write(template.render(path, {}))
+		self.response.out.write(template.render(path, template_values))
 

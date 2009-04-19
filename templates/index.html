@@ -2,9 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<title>C S 373: 54270: TA Matching</title>
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+
 	</head>
 
-	<body>
+	<body><form>
 		<dd> 
 		{% if phase %}
 			{% for p in phase%}
@@ -45,6 +53,6 @@
 		<div><a href="admin">Admins</a></div>-->
 		<div><a href="debug">Debug</a></div>
 		<div><a href="testdatamodel">Test</a></div>
-	</body>
+	</form></body>
 </html>
 
