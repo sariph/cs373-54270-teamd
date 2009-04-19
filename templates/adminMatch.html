@@ -20,7 +20,7 @@
 				<dt>Classes</dt>
 				{%if classes%}{%for item in classes.items%}<dd>{{item.1.unique_id}}: {{item.1.semester}} {{item.1.year}} ({{item.1.numTA_needed}} needed)</dd>{%endfor%}{%else%}<dd>No classes at this time</dd>{%endif%}
 				<dt>Proposed matches</dt>
-				{%if matches%}{%for item in matches.items%}<dd>{{item.0.first_name}} {{item.0.last_name}} &lt;insert checkbox&gt; {{item.1.course_id}}</dd>{%endfor%}{%else%}<dd>No matches at this time</dd>{%endif%}
+				{%if matches%}{%for item in matches.items%}<dd>{{item.0.first_name}} {{item.0.last_name}} &lt;insert checkbox&gt; {{item.1.unique_id}}:{{item.1.semester}} {{item.1.year}}</dd>{%endfor%}{%else%}<dd>No matches at this time</dd>{%endif%}
 			</dl>
 		</form>
 <!--
