@@ -18,6 +18,7 @@ class AdminMatch(webapp.RequestHandler):
 		"""
 		self.applicants = {}
 		self.classes = {}
+		self.matches = {}
 		'''
 		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		self.course_classes = None
@@ -67,7 +68,10 @@ class AdminMatch(webapp.RequestHandler):
 			self.classes[lcv.key()] = lcv
 		self.response.out.write(self.classes)
 		self.response.out.write("<br />\n")
-		result = self.SMP(self.applicants, self.classes)
+		self.matches = self.SMP(self.applicants, self.classes)
+		self.response.out.write("<br />\n")
+		self.response.out.write(self.matches)
+		self.response.out.write("<br />\n")
 		'''
 		self.applicants = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		for lcv in self.applicants:
@@ -76,7 +80,6 @@ class AdminMatch(webapp.RequestHandler):
 		self.template()
 
 	def SMP(self, applicants_with_points, classes_with_points):
-		result = {}
 		for key, applicant in applicants_with_points.items():
 			# order tuples (class key, class points) by highest class points
 			for highest_key_points in sorted(applicant.points.items(), self.sortfunc):
@@ -102,7 +105,11 @@ class AdminMatch(webapp.RequestHandler):
 						# this else is for debugging, remove it
 						else:
 							self.response.out.write("We found no replacement")
-		return result
+		return dict([(applicant, classes_with_points[applicant.assigned]) for key, applicant in applicants_with_points.items()])
+#		self.response.out.write("<br />\n")
+#		self.response.out.write(temp)
+#		self.response.out.write("<br />\n")
+#		return {}
 
 	def sortfunc(self, x, y):
 		return cmp(x[1], y[1])
@@ -137,7 +144,8 @@ class AdminMatch(webapp.RequestHandler):
 		"""
 		template_values = {
 			'applicants': self.applicants,
-			'classes': self.classes
+			'classes': self.classes,
+			'matches': self.matches
 		}
 		'''
 		template_values = {
