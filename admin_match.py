@@ -90,6 +90,7 @@ class AdminMatch(webapp.RequestHandler):
 					if(len(classes_with_points[highest_key_points[0]].assigned) == classes_with_points[highest_key_points[0]].numTA_needed):
 						classes_with_points[highest_key_points[0]].free = False
 					self.response.out.write("Assigning " + applicant.first_name + ' ' + applicant.last_name + " to " + classes_with_points[highest_key_points[0]].class_id)
+					break
 				# highest class is not free
 				else:
 					# check if current applicant is better match than any of the existing applicant(s)
