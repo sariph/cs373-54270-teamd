@@ -38,7 +38,7 @@
 						<div>Comment: {{app.specialization_comment}}</div><br />
 						<div>Qualified Course(s): {%for i in app.qualified_courses%}<li>{{i.course_id}}</li>{%endfor%}</div><br/>
 						<div>Comment: {{app.qualified_comment}}</div><br />
-						<br />
+						<hr>
 					{% endfor %}
 				{% else %}
 					<li>There are no applicants at this time</li>

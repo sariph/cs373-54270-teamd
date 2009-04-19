@@ -38,10 +38,10 @@ class InstructorEdit(webapp.RequestHandler):
 		"""
 		validator = Validator(self.request.params.items())
 		self.results = validator.results
-		selected_class_id = self.request.params['comment_class']
-		selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", selected_class_id)
-		wanted = self.request.params["comment_wanted"]
-		unwanted = self.request.params["comment_unwanted"]
+		selected_class_id = self.request.get("comment_class")
+		selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", selected_class_id).get()
+		wanted = self.request.get("comment_wanted", allow_multiple=True)
+		unwanted = self.request.get("comment_unwanted", allow_multiple=True)
 		
 		for w in wanted:
 			for u in unwanted:
@@ -55,7 +55,8 @@ class InstructorEdit(webapp.RequestHandler):
 			for old_unwanted in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE class_id = :1", selected_class_id):
 				old_unwanted.delete()
 			
-			selected_class.native_english = self.request.params["radio_native"]
+			selected_class.native_english = self.request.get("radio_native")
+			selected_class.put()
 			for w in wanted:
 				new_wanted = Wanted_Student(class_id = selected_class_id, UTEID = w)
 				new_wanted.put()
@@ -63,6 +64,8 @@ class InstructorEdit(webapp.RequestHandler):
 			for u in unwanted:
 				new_unwanted = Unwanted_Student(class_id = selected_class_id, UTEID = u)
 				new_unwanted.put()
+		
+			Requested_Specialization(specialization = self.request.params["comment_specialization_drop"], class_id = selected_class_id).put()
 		
 			self.done = True
 			
