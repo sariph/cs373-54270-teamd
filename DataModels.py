@@ -66,6 +66,7 @@ class Class(db.Model):
 	"""
 	class_id = db.StringProperty()		#This is a combination of Unique id, semester, and year. Ex: 56025fall2000. This is the primary key
 	course_id = db.StringProperty()
+	course_name = db.StringProperty()
 	unique_id = db.IntegerProperty()
 	instructor = db.StringProperty()
 	semester = db.StringProperty()
@@ -118,14 +119,14 @@ class Unwanted_Student(db.Model):
 	"""
 	table for multivalued attributes
 	"""
-	class_id = db.IntegerProperty()
+	class_id = db.StringProperty()
 	UTEID = db.StringProperty()
 
 class Wanted_Student(db.Model):
 	"""
 	table for multivalued attributes
 	"""
-	class_id = db.IntegerProperty()
+	class_id = db.StringProperty()
 	UTEID = db.StringProperty()
 
 #Table for programming langauges. Admin can add or remove from it

@@ -35,8 +35,8 @@ class AdminViewClasses(webapp.RequestHandler):
 		form_data = self.request.params.items()
 		for field, option in form_data:
 			if field == "select_course":
-				self.selected_course = option
-				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1", option)]
+				self.selected_course = db.get(db.Key(option))
+				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1 AND course_name = :2", self.selected_course.course_id, self.selected_course.course_name)]
 			elif field == "select_class":
 				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
 				self.selected_class.instructor_info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", self.selected_class.instructor).get()

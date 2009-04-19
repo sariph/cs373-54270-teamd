@@ -16,7 +16,7 @@ class AdminAddClasses(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.course_ids = [i for i in db.GqlQuery("SELECT * FROM Course")]
+		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
 		self.results = []
 
 	def get(self):
@@ -38,8 +38,10 @@ class AdminAddClasses(webapp.RequestHandler):
 		if check == True:
 			new_class = Class()
 			for result in validator.results:
-				if result['key'] == "comment_course_id":
-					new_class.course_id = result['value']
+				if result['key'] == "comment_course":
+					course = db.get(db.Key(result['value']))
+					new_class.course_id = course.course_id
+					new_class.course_name = course.course_name
 				elif result['key'] == "unique_id":
 					unique = result['value']
 					new_class.unique_id = int(result['value'])
@@ -70,7 +72,7 @@ class AdminAddClasses(webapp.RequestHandler):
 		"""
 		template_values = {
 			'results': self.results,
-			'course_ids': self.course_ids,
+			'courses': self.courses,
 		}
 		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminAddClasses.html')
 		self.response.out.write(template.render(path, template_values))

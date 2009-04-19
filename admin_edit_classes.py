@@ -43,14 +43,15 @@ class AdminEditClasses(webapp.RequestHandler):
 		self.finished = None
 		for field, option in form_data:
 			if field == "select_course":
-				self.selected_course = option
-				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1", option)]
+				self.selected_course = db.get(db.Key(option))
+				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1 AND course_name = :2", self.selected_course.course_id, self.selected_course.course_name)]
 			elif field == "select_class":
 				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
 			elif field == "select_option":
 				self.selected_option = option
 				if option == "assign_instructor":
-					self.instructors = [i for i in db.GqlQuery("SELECT * FROM Instructor_App WHERE course_id = :1",  self.selected_course)]
+					self.instructors = [i for i in db.GqlQuery("SELECT * FROM Instructor")]
+					#self.instructors = [i for i in db.GqlQuery("SELECT * FROM Instructor_App WHERE course_id = :1",  self.selected_course)]
 					for i in self.instructors:
 						i.info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", i.UTEID).get()
 				elif option == "assign_ta":

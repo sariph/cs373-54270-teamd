@@ -20,12 +20,12 @@
 				Please select the course of the class you wish to view:
 				{%if courses %}
 				{%if selected_course%}
-					<input type="hidden" name="select_course" value={{selected_course}} />
-					{{selected_course}}
+					<input type="hidden" name="select_course" value="{{selected_course.key}}" />
+					{{selected_course.course_id}} {{selected_course.course_name}}
 				{%else%}
 				<select name="select_course">
 				{%for course in courses%}
-					<option name="select_course" value={{course.course_id}}>{{course.course_id}}</option>
+					<option name="select_course" value={{course.key}}>{{course.course_id}} {{course.course_name}}</option>
 				{%endfor%}
 				</select>
 				{%endif%}
@@ -40,11 +40,11 @@
 				Please select the class you wish to view::
 				{%if selected_class%}
 					<input type="hidden" name="select_class" value={{selected_class.class_id}} />
-					{{selected_class.course_id}} {{selected_class.semester}} {{selected_class.year}}
+					{{selected_class.unique_id}} {{selected_class.semester}} {{selected_class.year}}
 				{%else%}
 				<select name="select_class">
 				{%for class in course_classes%}
-					<option name="select_class" value={{class.class_id}}>{{class.course_id}} {{class.semester}} {{class.year}}</option>
+					<option name="select_class" value={{class.class_id}}>{{class.unique_id}} {{class.semester}} {{class.year}}</option>
 				{%endfor%}
 				</select>
 				{%endif%}

@@ -60,18 +60,26 @@ class AdminMatch(webapp.RequestHandler):
 		for lcv in classes:
 			# point system for class rating of applicants
 			lcv.assigned = [] # because each class can have multiple TAs, need a list of assigned applicant keys
+			lcv.unwanted = [i.UTEID for i in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE class_id = :1", lcv.class_id)]
+				
+			lcv.wanted = [i.UTEID for i in db.GqlQuery("SELECT * FROM Wanted_Student WHERE class_id = :1", lcv.class_id)]
+			
+			lcv.specializations = [i.specialization for i in db.GqlQuery("SELECT * FROM  Requested_Specialization WHERE class_id = :1", lcv.class_id)]
 			lcv.free = True # start off with at least one empty spot
 			lcv.points = {} # holds points for each applicant in dictionary indexed by applicant key
 			for applicant in applicants:
 				lcv.points[applicant.key()] = 0
+				applicant.specializations = [i.specilization for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID = :1", applicant.UTEID)]
 				if(lcv.native_english == "yes" and applicant.native_english == "no"):
 					lcv.points[applicant.key()] -= 10
-				elif(lcv.unwanted_comment == applicant.UTEID):
+				if applicant.UTEID in lcv.unwanted:
 					lcv.points[applicant.key()] -= 100
-				elif(lcv.wanted_comment == applicant.UTEID):
+				if applicant.UTEID in lcv.wanted:
 					lcv.points[applicant.key()] += 100
-				elif(lcv.specialization_comment == applicant.specialization_comment):
-					lcv.points[applicant.key()] += 1
+				
+				for spec in lcv.specializations:
+					if spec in applicant.specializations:
+						lcv.points[applicant.key()] += 1
 			# expose it
 			self.classes[lcv.key()] = lcv
 		self.response.out.write(self.classes)
