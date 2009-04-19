@@ -43,6 +43,7 @@ class AdminMatch(webapp.RequestHandler):
 			applicant.first_name = user.first_name
 			applicant.last_name = user.last_name
 			applicant.specializations = [i.specialization for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID = :1", applicant.UTEID)]
+			applicant.qualifiedcourses = [i.course_id for i in db.GqlQuery("SELECT * FROM App_Qualified_Course WHERE UTEID = :1", applicant.UTEID)]
 
 			# point system for applicant rating of classes
 #			applicant.free = True # don't even need free field for applicants if we have equal applicants and TA spots to fill
@@ -54,7 +55,10 @@ class AdminMatch(webapp.RequestHandler):
 				"""
 				if(lcv.specialization_comment in applicant.specializations):
 					applicant.points[lcv.key()] += 1
-				if(applicant.qualified_comment == lcv.course_id):
+				"""if(applicant.qualified_comment == lcv.course_id):
+					applicant.points[lcv.key()] += 1
+				"""
+				if(lcv.course_id in applicant.qualifiedcourses):
 					applicant.points[lcv.key()] += 1
 			# expose it
 			self.applicants[applicant.key()] = applicant
