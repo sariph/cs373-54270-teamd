@@ -42,13 +42,17 @@ class AdminMatch(webapp.RequestHandler):
 #			applicant.__dict__.update(user.__dict__) # this almost works but prepends "_" to user fields, Django doesn't like
 			applicant.first_name = user.first_name
 			applicant.last_name = user.last_name
+			applicant.specializations = [i.specialization for i in db.GqlQuery("SELECT * FROM App_Specialization WHERE UTEID = :1", applicant.UTEID)]
 
 			# point system for applicant rating of classes
 #			applicant.free = True # don't even need free field for applicants if we have equal applicants and TA spots to fill
 			applicant.points = {} # holds points for each class in dictionary indexed by class key
 			for lcv in classes:
 				applicant.points[lcv.key()] = 0
-				if(applicant.specialization_comment == lcv.specialization_comment):
+				"""if(applicant.specialization_comment == lcv.specialization_comment):
+					applicant.points[lcv.key()] += 1
+				"""
+				if(lcv.specialization_comment in applicant.specializations):
 					applicant.points[lcv.key()] += 1
 				if(applicant.qualified_comment == lcv.course_id):
 					applicant.points[lcv.key()] += 1
