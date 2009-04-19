@@ -17,8 +17,8 @@ class InstructorEdit(webapp.RequestHandler):
 		Constructor initializes results.
 		"""
 		self.results = []
-		self.check_selection = None
-		self.done = None
+		self.show_error = False
+		self.done = False
 		self.classes = [i for i in db.GqlQuery("SELECT * FROM Class")]
 		self.instructors = [i for i in db.GqlQuery("SELECT * FROM Instructor")]
 		self.specializations = [i for i in db.GqlQuery("SELECT * FROM Specialization")]
@@ -43,12 +43,14 @@ class InstructorEdit(webapp.RequestHandler):
 		wanted = self.request.get("comment_wanted", allow_multiple=True)
 		unwanted = self.request.get("comment_unwanted", allow_multiple=True)
 		
+		self.show_error = False
+		
 		for w in wanted:
 			for u in unwanted:
 				if u == w:
-					self.check_selection = False
+					self.show_error = True
 		
-		if self.check_selection != False:
+		if self.show_error != True:
 			for old_wanted in db.GqlQuery("SELECT * FROM Wanted_Student WHERE class_id = :1", selected_class_id):
 				old_wanted.delete()
 			
@@ -83,7 +85,7 @@ class InstructorEdit(webapp.RequestHandler):
 			'applicants' : self.applicants,
 			'instructors' : self.instructors,
 			'classes'	: self.classes,
-			'check_selection': self.check_selection,
+			'error': self.show_error,
 			'done': self.done
 		}
 		path = os.path.join(os.path.dirname(__file__), 'templates', 'instructorEdit.html')
