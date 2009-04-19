@@ -15,6 +15,13 @@
 	<body>
 		<form action="applicant" method="post">
 			<dl>
+			{% if phase %}
+			{% for p in phase%}
+				Current Phase : {{p.phase}}<br/><br/>
+
+
+				{%ifequal p.phase 2%}
+
 				<dt><label for="uniqueUTEID_UTEID">UTEID</label></dt>
 				<dd>
 				{% if eids %}
@@ -148,8 +155,19 @@
 				<input type="text" name="optional_qualified" id="optional_qualified" {%for result in results%}{%ifequal result.key "optional_qualified" %}value="{{result.value}}" {%endifequal%}{%endfor%}>
 				</dd>
 				</dd>
+
+				<div><input type="submit" value="Submit" /></div>
+				{%else%}
+					Phase 2 needed <br>
+				{%endifequal%}
+				{%endfor%}
+			{%else%}
+				Need to set up the phase first
+				<div><a href="admin">Admins</a></div>
+			{%endif%}
 			</dl>
-			<div><input type="submit" value="Submit" /></div>
+			
+			<div><a href="/">Home</a></div>
 		</form>
 	</body>
 </html>

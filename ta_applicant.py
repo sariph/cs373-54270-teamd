@@ -135,6 +135,7 @@ class TAApplicant(webapp.RequestHandler):
 			'sel_history': self.sel_history,
 			'sel_specializations': self.sel_specializations,
 			'sel_qualified': self.sel_qualified,
+            'phase': [i for i in db.GqlQuery("SELECT * FROM Phase")]
 		}
 		path = os.path.join(os.path.dirname(__file__), 'templates', 'applicant.html')
 		self.response.out.write(template.render(path, template_values))

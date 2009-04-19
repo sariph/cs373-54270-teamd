@@ -38,6 +38,7 @@ class AdminMain(webapp.RequestHandler):
 		"""
 		template_values = {
 			'results': self.results,
+            'phase': [i for i in db.GqlQuery("SELECT * FROM Phase")]
 		}
 		path = os.path.join(os.path.dirname(__file__), 'templates', 'admin.html')
 		self.response.out.write(template.render(path, template_values))
