@@ -26,13 +26,13 @@
 				{% endif %}
 				</dd>	
 				<br />
-				<dt><label for="comment_course_id">Course Id</label></dt>
-				<dd><input type="text" name="comment_course_id" id="comment_course_id" {% if results %}{% for result in results %}{% ifequal result.key 'comment_course_id' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<dt><label for="courseid">Course Id (Example: "CS373")</label></dt>
+				<dd><input type="text" name="courseid" id="courseid" {% if results %}{% for result in results %}{% ifequal result.key 'courseid' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
 				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>Enter a course id that does not already exist.</span></dd>
 
-				<dt><label for="comment_course_name">Course Name</label></dt>
-				<dd><input type="text" name="comment_course_name" id="comment_course_name" {% if results %}{% for result in results %}{% ifequal result.key 'comment_course_name' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<dt><label for="coursename">Course Name (Capitalize the beginning of each word)</label></dt>
+				<dd><input type="text" name="coursename" id="coursename" {% if results %}{% for result in results %}{% ifequal result.key 'coursename' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
 				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
 				<span{% endif %}>Enter the new course's name.</span></dd>
 			<div><input type="submit" value="Submit" /></div>

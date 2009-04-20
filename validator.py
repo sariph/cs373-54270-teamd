@@ -39,7 +39,9 @@ class Validator:
 					'degree'	: lambda x: Validation.degree_type(x),
 					'citizen'	: lambda x: Validation.citizen(x),
                                         'comment_phase' : lambda x: Validation.number(x),
-                                        'radio_phase' : lambda x: Validation.number(x)
+                                        'radio_phase' 	: lambda x: Validation.number(x),
+					'courseid'	: lambda x: Validation.validCourseID(x),
+					'coursename'	: lambda x: Validation.validCourseName(x),
 					#TA Applicant switches
 					#'phone_applicant'		: lambda x: Validation.phone_number(x),
 					#'email_applicant'		: lambda x: Validation.email(x),

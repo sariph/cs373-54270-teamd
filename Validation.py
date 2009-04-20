@@ -123,7 +123,7 @@ def validComment (s) :
 
 def validCourseID (s) :
 	#depends on query results
-	return not empty(s)
+	return (re.search('^([A-Z])+(\d\d\d)([a-z])*$', s) is not None)
 
 def validInstructor (s) :
 	#depends on query results
@@ -152,7 +152,7 @@ def validLanguage (s) :
 
 def validCourseName (s) :
 	#depends on query results
-	return not empty(s)
+	return (re.search('^([A-Z](\w)*(\s)*)+$', s) is not None)
 
 def UserDataValidator(user):
 	"""
