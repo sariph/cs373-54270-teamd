@@ -19,7 +19,13 @@
 			{% for p in phase%}
 				Current Phase : {{p.phase}}<br/>
 
+			{%ifnotequal p.phase 4%}
 			<div><a href="adminaddusers">Add Users</a></div>
+			{%else%}
+			<div>Phase 1, 2, or 3 required <a href="adminaddusers"><strike>Add Users</strike></a></div>
+			{%endifnotequal%}
+
+
 			<div><a href="adminviewusers">View Users</a></div>
 
 			{%ifequal p.phase 1%}
