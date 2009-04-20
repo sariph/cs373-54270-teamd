@@ -19,15 +19,8 @@
 				Current Phase : {{p.phase}}<br/>
 
 
-				{%ifequal p.phase 2%}
-					<div><a href="admin"><strike>Admins</strike></a></div>
-				{%else%}
-					{%ifequal p.phase 3%}
-						<div><a href="admin"><strike>Admins</strike></a></div>
-					{%else%}
-						<div><a href="admin">Admins</a></div>
-					{%endifequal%}
-				{%endifequal%}
+				<div><a href="admin">Admins</a></div>
+
 
 				{%ifnotequal p.phase 2%}
 					<div><a href="applicant"><strike>Applicants</strike></a></div>

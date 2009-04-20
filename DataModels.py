@@ -164,9 +164,10 @@ class Specialization(db.Model):
 	specialization = db.StringProperty()
 
 #Table for time phases. Admin can change of it.
-#During the phase 1, the admin can add and modify courses etc.
-#During the second stage, the applicant can apply for classes.
-#During the third, the faculty choose applicants.
+#Phase 1 for Admin
+#Phase 2 for TA
+#Phase 3 for Instructors
+#Phase 4 for Match
 class Phase(db.Model) :
 	phase = db.IntegerProperty()
 

@@ -47,8 +47,12 @@
 			<div><a href="adminviewclasses">View Classes</a></div>
 			<div><a href="admineditclasses">Edit Classes: Assign Professors, TAs, and other options</a></div>
 			<div><a href="adminchangephase">Change Phase</a></div>
-			<div><a href="adminmatch">Match TAs and Professors for a class</a></div>
 			
+			{%ifequal p.phase 4%}
+			<div><a href="adminmatch">Match TAs and Professors for a class</a></div>
+			{%else%}
+			<div>Phase 4 required <a href="adminmatch"><strike>Match TAs and Professors for a class</strike></a></div>
+			{%endifequal%}
 
 			{%endfor%}
 		{%else%}
