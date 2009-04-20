@@ -21,8 +21,13 @@
 
 			<div><a href="adminaddusers">Add Users</a></div>
 			<div><a href="adminviewusers">View Users</a></div>
+
+			{%ifequal p.phase 1%}
+			<div>Phase 2 or 3 required <a href="adminviewapplicants"><strike>View TA Applicants</strike></a></div>
+			{%else%}
 			<div><a href="adminviewapplicants">View TA Applicants</a></div>
-			
+			{%endifequal%}
+
 			{%ifequal p.phase 1%}
 			<div><a href="adminaddmajors">Add Majors</a></div>
 			<div><a href="adminaddlanguages">Add Languages</a></div>
@@ -30,11 +35,11 @@
 			<div><a href="adminaddcourses">Add Courses</a></div>
 			<div><a href="adminaddclasses">Add Classes</a></div>
 			{%else%}
-			<div><a href="adminaddmajors"><strike>Add Majors</strike></a></div>
-			<div><a href="adminaddlanguages"><strike>Add Languages</strike></a></div>
-			<div><a href="adminaddspecializations"><strike>Add Specializations</strike></a></div>
-			<div><a href="adminaddcourses"><strike>Add Courses</strike></a></div>
-			<div><a href="adminaddclasses"><strike>Add Classes</strike></a></div>
+			<div>Phase 1 required <a href="adminaddmajors"><strike>Add Majors</strike></a></div>
+			<div>Phase 1 required <a href="adminaddlanguages"><strike>Add Languages</strike></a></div>
+			<div>Phase 1 required <a href="adminaddspecializations"><strike>Add Specializations</strike></a></div>
+			<div>Phase 1 required <a href="adminaddcourses"><strike>Add Courses</strike></a></div>
+			<div>Phase 1 required <a href="adminaddclasses"><strike>Add Classes</strike></a></div>
 			{%endifequal%}
 
 			
