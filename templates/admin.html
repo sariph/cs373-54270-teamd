@@ -13,19 +13,44 @@
 	</head>
 
 	<body>
-		<form action="admin" method="post">
+		<form>
+
+		{% if phase %}
+			{% for p in phase%}
+				Current Phase : {{p.phase}}<br/>
+
 			<div><a href="adminaddusers">Add Users</a></div>
 			<div><a href="adminviewusers">View Users</a></div>
 			<div><a href="adminviewapplicants">View TA Applicants</a></div>
+			
+			{%ifequal p.phase 1%}
 			<div><a href="adminaddmajors">Add Majors</a></div>
 			<div><a href="adminaddlanguages">Add Languages</a></div>
 			<div><a href="adminaddspecializations">Add Specializations</a></div>
 			<div><a href="adminaddcourses">Add Courses</a></div>
 			<div><a href="adminaddclasses">Add Classes</a></div>
+			{%else%}
+			<div><a href="adminaddmajors"><strike>Add Majors</strike></a></div>
+			<div><a href="adminaddlanguages"><strike>Add Languages</strike></a></div>
+			<div><a href="adminaddspecializations"><strike>Add Specializations</strike></a></div>
+			<div><a href="adminaddcourses"><strike>Add Courses</strike></a></div>
+			<div><a href="adminaddclasses"><strike>Add Classes</strike></a></div>
+			{%endifequal%}
+
+			
+
 			<div><a href="adminviewclasses">View Classes</a></div>
 			<div><a href="admineditclasses">Edit Classes: Assign Professors, TAs, and other options</a></div>
 			<div><a href="adminchangephase">Change Phase</a></div>
 			<div><a href="adminmatch">Match TAs and Professors for a class</a></div>
+			
+
+			{%endfor%}
+		{%else%}
+			Need to set up the phase first
+			<div><a href="adminchangephase">Change Phase</a></div>
+		{%endif%}
+			<br>
 			<div><a href="/">Home</a></div>
 		</form>
 	</body>
