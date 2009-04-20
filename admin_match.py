@@ -50,14 +50,13 @@ class AdminMatch(webapp.RequestHandler):
 			applicant.points = {} # holds points for each class in dictionary indexed by class key
 			for lcv in classes:
 				applicant.points[lcv.key()] = 0
-				"""if(applicant.specialization_comment == lcv.specialization_comment):
-					applicant.points[lcv.key()] += 1
-				"""
-				if(lcv.specialization_comment in applicant.specializations):
-					applicant.points[lcv.key()] += 1
-				"""if(applicant.qualified_comment == lcv.course_id):
-					applicant.points[lcv.key()] += 1
-				"""
+				lcv.specializations = [i.specialization for i in db.GqlQuery("SELECT * FROM  Requested_Specialization WHERE class_id = :1", lcv.class_id)]
+				
+				for i in lcv.specializations:
+					for a in applicant.specializations:
+						if(lcv.specialization_comment in applicant.specializations):
+							applicant.points[lcv.key()] += 1
+							
 				if(lcv.course_id in applicant.qualifiedcourses):
 					applicant.points[lcv.key()] += 1
 			# expose it
