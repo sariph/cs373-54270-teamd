@@ -43,7 +43,7 @@
 			
 				<dt><label for="radio_class_year">Year</label></dt>
 				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Which year will this class take place in?</span>
-				2008<input type="radio" name="radio_class_year" value="2009" id="radio_class_year" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifequal result.value '2009' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				2008<input type="radio" name="radio_class_year" value="2008" id="radio_class_year" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifequal result.value '2008' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
 				2009<input type="radio" name="radio_class_year" value="2009" id="radio_class_year" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifequal result.value '2009' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
 				2010<input type="radio" name="radio_class_year" value="2010" id="radio_class_year" {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifequal result.value '2010' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
 
