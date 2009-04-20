@@ -53,11 +53,10 @@ class AdminMatch(webapp.RequestHandler):
 				lcv.specializations = [i.specialization for i in db.GqlQuery("SELECT * FROM  Requested_Specialization WHERE class_id = :1", lcv.class_id)]
 				
 				for i in lcv.specializations:
-					for a in applicant.specializations:
-						if(lcv.specialization_comment in applicant.specializations):
-							applicant.points[lcv.key()] += 1
+					if i in applicant.specializations:
+						applicant.points[lcv.key()] += 1
 							
-				if(lcv.course_id in applicant.qualifiedcourses):
+				if lcv.course_id in applicant.qualifiedcourses:
 					applicant.points[lcv.key()] += 1
 			# expose it
 			self.applicants[applicant.key()] = applicant
