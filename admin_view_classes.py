@@ -16,11 +16,8 @@ class AdminViewClasses(webapp.RequestHandler):
 		"""
 		Constructor initializes results.
 		"""
-		self.courses = [i for i in db.GqlQuery("SELECT * FROM Course")]
-		self.selected_course = None
 		self.selected_class = None
-		self.course_classes = []
-		self.finished = None
+		self.classes = [i for i in db.GqlQuery("SELECT * FROM Class")]
 
 	def get(self):
 		"""
@@ -34,19 +31,22 @@ class AdminViewClasses(webapp.RequestHandler):
 		"""
 		form_data = self.request.params.items()
 		for field, option in form_data:
-			if field == "select_course":
-				self.selected_course = db.get(db.Key(option))
-				self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1 AND course_name = :2", self.selected_course.course_id, self.selected_course.course_name)]
-			elif field == "select_class":
+			#if field == "select_course":
+				#self.selected_course = db.get(db.Key(option))
+				#self.course_classes = [i for i in db.GqlQuery("SELECT * FROM Class WHERE course_id = :1 AND course_name = :2", self.selected_course.course_id, self.selected_course.course_name)]
+			if field == "select_class":
 				self.selected_class = db.GqlQuery("SELECT * FROM Class WHERE class_id = :1", option).get()
 				self.selected_class.instructor_info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", self.selected_class.instructor).get()
 				TAs = [i for i in db.GqlQuery("SELECT * FROM TA WHERE class_id = :1", self.selected_class.class_id)]
 				for ta in TAs:
 					ta.info = db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", ta.UTEID).get()
 
-				self.selected_class.wanted_students = [db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Wanted_Student WHERE class_id = :1", self.selected_class.class_id)]
+				self.selected_class.wanted_students = [db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", i.UTEID).get() for i in db.GqlQuery("SELECT * FROM Wanted_Student WHERE class_id = :1", self.selected_class.class_id)]
 
-				self.selected_class.unwanted_students = [db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", i.UTEID) for i in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE class_id = :1", self.selected_class.class_id)]
+				self.selected_class.unwanted_students = [db.GqlQuery("SELECT * FROM User WHERE UTEID = :1", i.UTEID).get() for i in db.GqlQuery("SELECT * FROM Unwanted_Student WHERE class_id = :1", self.selected_class.class_id)]
+				
+				self.selected_class.req_spec = [i.specialization for i in db.GqlQuery("SELECT * FROM Requested_Specialization WHERE class_id = :1", self.selected_class.class_id)]
+				
 				self.finished = True
 
 		self.template()
@@ -56,11 +56,8 @@ class AdminViewClasses(webapp.RequestHandler):
 		Renders the template.
 		"""
 		template_values = {
-			'courses': self.courses,
-			'selected_course': self.selected_course,
+			'classes': self.classes,
 			'selected_class': self.selected_class,
-			'course_classes': self.course_classes,
-			'finished': self.finished,
 		}
 		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminViewClasses.html')
 		self.response.out.write(template.render(path, template_values))

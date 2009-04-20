@@ -16,66 +16,38 @@
 		<form action="adminviewclasses" method="post">
 			<dl>
 				<dt>Current Classes</dt>
-
-				Please select the course of the class you wish to view:
-				{%if courses %}
-				{%if selected_course%}
-					<input type="hidden" name="select_course" value="{{selected_course.key}}" />
-					{{selected_course.course_id}} {{selected_course.course_name}}
-				{%else%}
-				<select name="select_course">
-				{%for course in courses%}
-					<option name="select_course" value={{course.key}}>{{course.course_id}} {{course.course_name}}</option>
-				{%endfor%}
-				</select>
-				{%endif%}
-				{%else%}
-				<br />There are no courses at this time
-				{%endif%}
-				
-	
-				<br />
-				
-				{%if course_classes%}
-				Please select the class you wish to view::
-				{%if selected_class%}
-					<input type="hidden" name="select_class" value={{selected_class.class_id}} />
-					{{selected_class.unique_id}} {{selected_class.semester}} {{selected_class.year}}
-				{%else%}
+				{%if classes%}
+				Please select the class you wish to view
 				<select name="select_class">
-				{%for class in course_classes%}
-					<option name="select_class" value={{class.class_id}}>{{class.unique_id}} {{class.semester}} {{class.year}}</option>
+				{%for class in classes%}
+					<option name="select_class" value={{class.class_id}}> {{class.unique_id}} {{class.course_id}} {{class.semester}} {{class.year}}</option>
 				{%endfor%}
 				</select>
-				{%endif%}
 				{%else%}
-				{%if selected_course%}There are no instances of this course{%endif%}
+				There are no classes
 				{%endif%}
 
 				<br />
 				<br />
 				{% if selected_class%}
-				<div>Course: {{selected_class.course_id}}: {{selected_class.course_name}}</div><br/>
-				<div>Unique Id:{{selected_class.unique_id}}</div><br/>
-				<div>Semester:{{selected_class.semester}}</div><br/>
-				<div>Year:{{selected_class.year}}</div><br/>
-				<div>Instructor:{{selected_class.instructor}}{%if selected_class.instructor%}: {%endif%}{{selected_class.instructor.info.first_name}}{%if selected_class.instructor.info.middle_name%} {{selected_class.instructor.info.middle_name}} {%endif%}{{selected_class.instructor.info.last_name}}</div><br/>
-				<div>Instructor's Wanted Students:{%if selected_class.wanted_students%}{%for s in selected_class.wanted_students%}<li>{{s.first_name}}{%if s.middle_name%}} {{s.middle_namme}} {%endif%}{{s.last_name}}, {{s.UTEID}}{%endfor%}{%else%}None{%endif%}</li></div><br/>
+				<div>Course: {{selected_class.course_id}}</div><br/>
+				<div>Unique Id: {{selected_class.unique_id}}</div><br/>
+				<div>Semester: {{selected_class.semester}}</div><br/>
+				<div>Year: {{selected_class.year}}</div><br/>
+				<div>Instructor: {%if selected_class.instructor%}{{selected_class.instructor}} - {{selected_class.instructor_info.first_name}}{%if selected_class.instructor_info.middle_name%} {{selected_class.instructor_info.middle_name}} {%endif%} {{selected_class.instructor_info.last_name}}{%else%}Not Assigned{%endif%}</div><br/>
+				<div>Instructor's Wanted Students:{%if selected_class.wanted_students%}{%for s in selected_class.wanted_students%}<li>{{s.UTEID}} - {{s.first_name}}{%if s.middle_name%}} {{s.middle_name}} {%endif%} {{s.last_name}} {%endfor%}{%else%}None{%endif%}</li></div><br/>
 				<div>Instructor's Wanted Students Comment:{{selected_class.wanted_comment}}</div><br/>
-				<div>Instructor's Unwanted Students:{%if selected_class.unwanted_students%}{%for s in selected_class.unwanted_students%}<li>{{s.first_name}}{%if s.middle_name%}} {{s.middle_namme}} {%endif%}{{s.last_name}}, {{s.UTEID}}{%endfor%}{%else%}None{%endif%}</li></div><br/>
+				<div>Instructor's Unwanted Students:{%if selected_class.unwanted_students%}{%for s in selected_class.unwanted_students%}<li>{{s.UTEID}} - {{s.first_name}}{%if s.middle_name%}} {{s.middle_name}} {%endif%} {{s.last_name}}{%endfor%}{%else%}None{%endif%}</li></div><br/>
 				<div>Instructor's Unwanted Students Comment:{{selected_class.unwanted_comment}}</div><br/>
-				<div>Instructor is a Native English Speaker:{{selected_class.native_english}}</div><br/>
+				<div>Instructor requests a Native English Speaker:{{selected_class.native_english}}</div><br/>
 				<div>Instructor's requested specialization(s):{{selected_class.specialization_comment}}</div><br/>
 				<div>Expected Enrollment:{{selected_class.expected_enrollment}}</div><br/>
 				<div>TAs needed:{{selected_class.numTA_needed}}</div><br/>
-				<div>TAs Assigned:{%if selected_class.TAs%}}{%for ta in selected_class.TAs%}<li>{{ta.first_name}}{%if ta.middle_name%}} {{ta.middle_namme}} {%endif%}{{ta.last_name}}, {{ta.UTEID}}{%endfor%}{%else%}None{%endif%}</li></div><br/>
+				<div>TAs Assigned:{%if selected_class.TAs%}}{%for ta in selected_class.TAs%}<li>{{ta.UTEID}} - {{ta.first_name}}{%if ta.middle_name%}} {{ta.middle_name}} {%endif%} {{ta.last_name}}{%endfor%}{%else%}None{%endif%}</li></div><br/>
 				{% endif %}
 			</dl>
-			{%if finished%}
-			<div><a href="adminviewclasses">View a different class</button></a></div>
-			{%else%}
+
 			<div><input type="submit" value="Continue" /></div>
-			{%endif%}
 			<div><a href="admin"><button type="button">Back to Admin Page</button></a></div>
 		</form>
 	</body>
