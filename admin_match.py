@@ -117,22 +117,22 @@ class AdminMatch(webapp.RequestHandler):
 					classes_with_points[highest_key_points[0]].assigned.append(key)
 					if(len(classes_with_points[highest_key_points[0]].assigned) == classes_with_points[highest_key_points[0]].numTA_needed):
 						classes_with_points[highest_key_points[0]].free = False
-					self.response.out.write("Assigning " + applicant.first_name + ' ' + applicant.last_name + " to " + classes_with_points[highest_key_points[0]].class_id)
-					self.response.out.write("<br />\n")
+#					self.response.out.write("Assigning " + applicant.first_name + ' ' + applicant.last_name + " to " + classes_with_points[highest_key_points[0]].class_id)
+#					self.response.out.write("<br />\n")
 					break
 				# highest class is not free
 				else:
 					# check if current applicant is better match than any of the existing applicant(s)
 					for existing_applicant_key in classes_with_points[highest_key_points[0]].assigned:
 						if(classes_with_points[highest_key_points[0]].points[key] > classes_with_points[highest_key_points[0]].points[existing_applicant_key]):
-# TODO swap them
-							self.response.out.write("We found a replacement!")
-							self.response.out.write("<br />\n")
+							pass
+#							self.response.out.write("We found a replacement!")
+#							self.response.out.write("<br />\n")
 							break
 						# this else is for debugging, remove it
-						else:
-							self.response.out.write("We found no replacement")
-							self.response.out.write("<br />\n")
+#						else:
+#							self.response.out.write("We found no replacement")
+#							self.response.out.write("<br />\n")
 		return dict([(applicant, classes_with_points[applicant.assigned]) for key, applicant in applicants_with_points.items()])
 
 	def sortfunc(self, x, y):
