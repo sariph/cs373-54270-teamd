@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin View TA Applicants</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminviewapplicants" method="post">
+			<dl>
+				<dt>Current TA Applicants</dt>
+				{% if applicants%}
+					{% for app in applicants %}
+						<div>UTEID: {{app.UTEID}}</div><br/>
+						<div>Name: {{app.user_info.first_name}}{%if app.user_info.middle_name%} {{app.user_info.middle_name}} {%endif%}{{app.user_info.last_name}}</div><br/>
+						<div>Password: {{app.user_info.password}} (for debugging)</div><br/>
+						<div>Phone: {{app.user_info.phone}}</div><br/>
+						<div>E-mail: {{app.user_info.email}}</div><br/>
+						<div>Postion: {{app.user_info.position}}</div><br/>
+						<div>Admission Data: {{app.admission}}</div><br />
+						<div>Degree: {{app.degree}}</div><br />
+						<div>Major: {{app.major}}</div><br />
+						<div>Supervisor: {{app.supervisor_info.first_name}}{%if app.supervisor_info.middle_name%} {{app.supervisor_info.middle_name}} {%endif%}{{app.supervisor_info.last_name}}</div><br />
+						<div>Citizenship: {{app.citizenship}}</div><br />
+						<div>Native English Speaker: {{app.native_english}}</div><br />
+						<div>TA Course History: {%for i in app.history%}<li>{{i.course_id}}</li>{%endfor%}</div><br/>
+						<div>Comment: {{app.history_comment}}</div><br />
+						<div>Programming Language(s): {%for i in app.languages%}<li>{{i.language}}</li>{%endfor%}</div><br/>
+						<div>Comment: {{app.programming_comment}}</div><br />
+						<div>Specialization(s): {%for i in app.specializations%}<li>{{i.specialization}}</li>{%endfor%}</div><br/>
+						<div>Comment: {{app.specialization_comment}}</div><br />
+						<div>Qualified Course(s): {%for i in app.qualified_courses%}<li>{{i.course_id}}</li>{%endfor%}</div><br/>
+						<div>Comment: {{app.qualified_comment}}</div><br />
+						<hr>
+					{% endfor %}
+				{% else %}
+					<li>There are no applicants at this time</li>
+				{% endif %}				
+			</dl>
+			<div><a href="admin"><button type="button">Back to Admin Page</button></a></div>
+		</form>
+	</body>
+</html>
+

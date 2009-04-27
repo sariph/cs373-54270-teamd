@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form>
+
+		{% if phase %}
+			{% for p in phase%}
+				Current Phase : {{p.phase}}<br/>
+
+			{%ifnotequal p.phase 4%}
+			<div><a href="adminaddusers">Add Users</a></div>
+			{%else%}
+			<div>Phase 1, 2, or 3 required <a href="adminaddusers"><strike>Add Users</strike></a></div>
+			{%endifnotequal%}
+
+
+			<div><a href="adminviewusers">View Users</a></div>
+
+			{%ifequal p.phase 1%}
+			<div>Phase 2 or 3 required <a href="adminviewapplicants"><strike>View TA Applicants</strike></a></div>
+			{%else%}
+			<div><a href="adminviewapplicants">View TA Applicants</a></div>
+			{%endifequal%}
+
+			{%ifequal p.phase 1%}
+			<div><a href="adminaddmajors">Add Majors</a></div>
+			<div><a href="adminaddlanguages">Add Languages</a></div>
+			<div><a href="adminaddspecializations">Add Specializations</a></div>
+			<div><a href="adminaddcourses">Add Courses</a></div>
+			<div><a href="adminaddclasses">Add Classes</a></div>
+			{%else%}
+			<div>Phase 1 required <a href="adminaddmajors"><strike>Add Majors</strike></a></div>
+			<div>Phase 1 required <a href="adminaddlanguages"><strike>Add Languages</strike></a></div>
+			<div>Phase 1 required <a href="adminaddspecializations"><strike>Add Specializations</strike></a></div>
+			<div>Phase 1 required <a href="adminaddcourses"><strike>Add Courses</strike></a></div>
+			<div>Phase 1 required <a href="adminaddclasses"><strike>Add Classes</strike></a></div>
+			{%endifequal%}
+
+			
+
+			<div><a href="adminviewclasses">View Classes</a></div>
+			<div><a href="admineditclasses">Edit Classes: Assign Professors, TAs, and other options</a></div>
+			<div><a href="adminchangephase">Change Phase</a></div>
+			
+			{%ifequal p.phase 4%}
+			<div><a href="adminmatch">Match TAs and Professors for a class</a></div>
+			{%else%}
+			<div>Phase 4 required <a href="adminmatch"><strike>Match TAs and Professors for a class</strike></a></div>
+			{%endifequal%}
+
+			{%endfor%}
+		{%else%}
+			Need to set up the phase first
+			<div><a href="adminchangephase">Change Phase</a></div>
+		{%endif%}
+			<br>
+			<div><a href="/">Home</a></div>
+		</form>
+	</body>
+</html>
+

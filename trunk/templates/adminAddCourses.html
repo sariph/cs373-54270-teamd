@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminaddcourses" method="post">
+			<dl>
+				<dt>Current Courses</dt>
+				<dd> 
+				{% if courses %}
+					{% for course in courses%}
+						<l1>{{course.course_id}}: {{course.course_name}}</li><br/>
+					{% endfor %}
+				{% else %}
+					<li>There are no courses at this time</li>
+				{% endif %}
+				</dd>	
+				<br />
+				<dt><label for="courseid">Course Id (Example: "CS373")</label></dt>
+				<dd><input type="text" name="courseid" id="courseid" {% if results %}{% for result in results %}{% ifequal result.key 'courseid' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>Enter a course id that does not already exist.</span></dd>
+
+				<dt><label for="coursename">Course Name (Capitalize the beginning of each word)</label></dt>
+				<dd><input type="text" name="coursename" id="coursename" {% if results %}{% for result in results %}{% ifequal result.key 'coursename' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>Enter the new course's name.</span></dd>
+			<div><input type="submit" value="Submit" /></div>
+			<div><a href="admin"><button type="button">Back to Admin Page</button></a></div>
+		</form>
+	</body>
+</html>
+

@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Applicant</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="applicant" method="post">
+			<dl>
+			{% if phase %}
+			{% for p in phase%}
+				Current Phase : {{p.phase}}<br/><br/>
+
+
+				{%ifequal p.phase 2%}
+
+				<dt><label for="uniqueUTEID_UTEID">UTEID</label></dt>
+				<dd>
+				{% if eids %}
+				<select name="uniqueUTEID_UTEID">
+				{% for eid in eids %}
+				<option name="uniqueUTEID_UTEID" value={{eid.UTEID}}>{{eid.UTEID}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no UTEID at this time</li>
+				{% endif %}
+				</dd>
+				
+
+				<dt><label for="comment_major">Major field</label></dt>
+				<dd>
+				{% if majors %}
+				<select name="comment_major">
+				{% for major in majors %}
+				<option name="comment_major" value={{major.major}}>{{major.major}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no major at this time</li>
+				{% endif %}
+				</dd>
+
+				<br />
+
+				<dt><label for="date_admission">Admission date (MM-DD-YYYY)</label></dt>
+				<dd><input type="text" name="date_admission" id="date_admission" {% if results %}{% for result in results %}{% ifequal result.key 'date_admission' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/><span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/><span{% endif %}>What is your admission date?</span></dd>
+
+				<br />
+
+				<dt><label for="radio_phd">PhD or Masters Student (Choose one)</label></dt>
+				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_phd' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Are you a PhD or a Masters student? Please choose the correct option.</span>
+				PhD<input type="radio" name="radio_phd" value="PhD" id="radio_phd" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_phd' %}{% ifequal result.value 'PhD' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				Masters<input type="radio" name="radio_phd" value="Masters" id="radio_phd" {% if results %}{% for result in results %}{% ifequal result.key 'radio_phd' %}{% ifequal result.value 'Masters' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				</dd>
+
+				<br />
+
+				<dt><label for="comment_supervising">Supervising professor</label></dt>
+				<dd>
+				{% if professors %}
+				<select name="comment_supervising">
+				{% for professor in professors %}
+				<option name="comment_supervising" value={{professor.UTEID}}>{{professor.first_name}} {{professor.last_name}}</li><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no supervising professor at this time</li>
+				{% endif %}
+				</dd>
+
+				<br />
+
+				<dt><label for="radio_citizen">Are you a citizen of the United States or a resident alien (Choose one)</label></dt>
+				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_citizen' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Are you a US citizen or resident alien? Please choose the correct option.</span>
+				US Citizen<input type="radio" name="radio_citizen" value="Citizen" id="radio_citizen" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_citizen' %}{% ifequal result.value 'Citizen' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				Resident Alien<input type="radio" name="radio_citizen" value="Resident" id="radio_citizen" {% if results %}{% for result in results %}{% ifequal result.key 'radio_citizen' %}{% ifequal result.value 'Resident' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				</dd>
+
+				<br />
+
+				<dt><label for="radio_native">Are you a native English speaker?</label></dt>
+				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Are you a native English speaker? Please choose the correct option.</span>
+				Yes<input type="radio" name="radio_native" value="Yes" id="radio_native" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifequal result.value 'yes' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				No<input type="radio" name="radio_native" value="No" id="radio_native" {% if results %}{% for result in results %}{% ifequal result.key 'radio_native' %}{% ifequal result.value 'no' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				</dd>
+
+				<br />
+
+				<dt><label>TA history</label></dt>
+				<dd>
+				{% if courses %}
+				{% for course in courses %}
+				{{course.course_id}}: {{course.course_name}}<input type="checkbox" name="{{course.course_id}}" value="history" {%for sel in sel_history%}{%ifequal sel course.course_id %}checked{%endifequal%}{%endfor%}><br />
+				{% endfor %}
+				{% else %}
+				<li>No past courses in database.</li>
+				{% endif %}
+				<dt><label>Other (Optional): </label></dt>
+				<input type="text" name="optional_ta" id="optional_ta" {%for result in results%}{%ifequal result.key "optional_ta" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
+				</dd>
+				<br />
+				<br />
+
+
+				<dt><label">Programming languages</label></dt>
+				<dd>
+				{% if programming_languages %}
+				{% for p in programming_languages %}
+				{{p.language}}<input type="checkbox" name="{{p.language}}" value="language" {%for sel in sel_languages%}{%ifequal sel p.language%}checked{%endifequal%}{%endfor%}><br/>
+				{% endfor %}
+				{% else %}
+				<li>There are no programming languages at this time</li>
+				{% endif %}
+				<dt><label>Other (Optional): </label></dt>
+				<input type="text" name="optional_programming" id="optional_programming" {%for result in results%}{%ifequal result.key "optional_programming" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
+				</dd>
+				<br />
+				<br />
+
+				<dt><label>Areas of specialization</label></dt>
+				<dd>
+				{% if specializations %}
+				{% for s in specializations %}
+				{{s.specialization}}<input type="checkbox" name="{{s.specialization}}" value="specialization" {%for sel in sel_specializations%}{%ifequal sel s.specialization%}checked{%endifequal%}{%endfor%}><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no specializations at this time</li>
+				{% endif %}
+				<dt><label>Other (Optional): </label></dt>
+				<input type="text" name="optional_area" id="optional_area" {%for result in results%}{%ifequal result.key "optional_area" %}value="{{result.value}}"{%endifequal%}{%endfor%}/>
+				</dd>
+				<br />
+				<br />
+
+				<dt><label>Course qualified to teach</label></dt>
+				<dd>
+				{% if courses %}
+				{% for course in courses %}
+				{{course.course_id}}: {{course.course_name}}<input type="checkbox" name="{{course.course_id}}" value="qualified" {%for sel in sel_qualified%}{%ifequal sel course.course_id%}checked{%endifequal%}{%endfor%}><br />
+				{% endfor %}
+				{% else %}
+				<li>There are no courses at this time</li>
+				{% endif %}
+				<dt><label>Other (Optional): </label></dt>
+				<input type="text" name="optional_qualified" id="optional_qualified" {%for result in results%}{%ifequal result.key "optional_qualified" %}value="{{result.value}}" {%endifequal%}{%endfor%}>
+				</dd>
+				</dd>
+
+				<div><input type="submit" value="Submit" /></div>
+				{%else%}
+					Phase 2 needed <br>
+				{%endifequal%}
+				{%endfor%}
+			{%else%}
+				Need to set up the phase first
+				<div><a href="admin">Admins</a></div>
+			{%endif%}
+			</dl>
+			
+			<div><a href="/">Home</a></div>
+		</form>
+	</body>
+</html>
+

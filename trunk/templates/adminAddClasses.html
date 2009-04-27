@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin Add Classes</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminaddclasses" method="post">
+			<dl>
+				<dt>Current Courses to add Classes for</dt>
+				<dd> 
+				{% if courses %}
+				<select name="comment_course">
+				{% for course in courses %}
+				<option name="comment_course" value="{{course.key}}" > {{course.course_id}}: {{course.course_name}}</option><br/>
+				{% endfor %}
+				</select>
+				{% else %}
+				<li>There are no courses at this time</li>
+				{% endif %}
+				</dd>
+				<dt><label for="unique_id">Unique ID (five digit number)</label></dt>
+				<dd><input type="text" name="unique_id" id="unique_id" {% if results %}{% for result in results %}{% ifequal result.key 'unique_id' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>What is the class's unique id?</span></dd>
+
+				<br />
+				<dt><label for="radio_class_semester">Semester</label></dt>
+				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_semester' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Which semester will this class take place in?</span>
+				Spring<input type="radio" name="radio_class_semester" value="Spring" id="radio_class_semester" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_semester' %}{% ifequal result.value 'Spring' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				Summer<input type="radio" name="radio_class_semester" value="Summer" id="radio_class_semester" {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_semester' %}{% ifequal result.value 'Summer' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				Fall<input type="radio" name="radio_class_semester" value="Fall" id="radio_class_semester" {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_semester' %}{% ifequal result.value 'Fall' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br /></dd>
+	
+				<br />
+			
+				<dt><label for="radio_class_year">Year</label></dt>
+				<dd><span {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifnotequal result.value "none" %} {% else %}class="error"{% endifnotequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}>Which year will this class take place in?</span>
+				2008<input type="radio" name="radio_class_year" value="2008" id="radio_class_year" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifequal result.value '2008' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				2009<input type="radio" name="radio_class_year" value="2009" id="radio_class_year" checked {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifequal result.value '2009' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+				2010<input type="radio" name="radio_class_year" value="2010" id="radio_class_year" {% if results %}{% for result in results %}{% ifequal result.key 'radio_class_year' %}{% ifequal result.value '2010' %}checked="{{ true }}" {% endifequal %}{% endifequal %}{% endfor %}{% else %}{% endif %}/><br />
+
+				<br />
+
+				<dt><label for="number_exp_enrollment">Expected enrollment</label></dt>
+				<dd><input type="text" name="number_exp_enrollment" id="number_exp_enrollment" {% if results %}{% for result in results %}{% ifequal result.key 'number_exp_enrollment' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>How many students are expected to enroll?</span></dd>
+
+				<br />
+
+				<dt><label for="number_num_ta_needed">Number of TAs needed</label></dt>
+				<dd><input type="text" name="number_num_ta_needed" id="number_num_ta_needed" {% if results %}{% for result in results %}{% ifequal result.key 'number_num_ta_needed' %}{% if result.valid %}value="{{ result.value }}" /><span{% else %}/>
+				<span class="error"{% endif %}{% endifequal %}{% endfor %}{% else %}/>
+				<span{% endif %}>How many TAs will be needed?</span></dd>
+
+				<br />
+			</dl>
+			<div><input type="submit" value="Submit" /></div>
+			<div><a href="admin"><button type="button">Back to Admin Page</button></a></div>
+		</form>
+	</body>
+</html>
+

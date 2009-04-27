@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Instructor</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form>
+
+		{% if phase %}
+			{% for p in phase%}
+				Current Phase : {{p.phase}}<br/>
+
+
+				{%ifequal p.phase 3%}
+					<a href="instructorapp">Apply to be an instructor for a course</a><br/>
+					<a href="instructoredit">Edit preferences for TAs for classes you've been assigned to</a>
+				{%else%}
+					Phase 3 required<br>
+					<a href="instructorapp"><strike>Apply to be an instructor for a course</strike></a><br/>
+					<a href="instructoredit"><strike>Edit preferences for TAs for classes you've been assigned to</strike></a>
+
+				{%endifequal%}
+			{% endfor %}
+		{% else %}
+			Need to set up the phase first
+			<div><a href="admin">Admins</a></div>
+		{% endif %}
+
+			
+			
+			<div><a href="/">Home</a></div>
+		</form>
+	</body>
+</html>
+
