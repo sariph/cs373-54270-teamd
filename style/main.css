@@ -1,0 +1,121 @@
+body {
+	background-color: #666;
+}
+
+form {
+	background-color: #CCC;
+	border: 1px solid #999;
+	font: small Verdana, Helvetica, Geneva, Arial, sans-serif;
+	margin: 10px;
+	padding: 10px;
+	text-align: right;
+	width: 600px;
+}
+
+form fieldset {
+	border: 1px solid #999;
+	margin: 0px 0px 10px 0px;
+	padding: 10px;
+}
+
+form fieldset legend {
+	font-size: large;
+}
+
+/*
+form fieldset dl {
+	text-align: right;
+}
+*/
+
+form fieldset dl dt {
+	float: left;
+}
+
+form fieldset dt + dd input[type=radio] {
+	margin-top: 10px;
+}
+
+form fieldset dl dd {
+	position: relative;
+}
+
+form fieldset dl dd input[type=input] {
+	width: 250px;
+}
+
+form fieldset dl dd textarea {
+	height: 100px;
+	width: 250px;
+}
+
+form fieldset dl dd span {
+	background-color: #FF0;
+	border: 1px solid #CC0;
+	display: none;
+	font: x-small Courier New, serif;
+	padding: 2px;
+	position: absolute;
+	width: 150px;
+	right: -190px;
+	text-align: center;
+	top: 4px;
+}
+
+form fieldset dl dd span.error {
+	background-color: #F00;
+	border: 1px solid #000;
+	display: inline;
+}
+
+form fieldset dl dd table {
+	display: inline;
+}
+
+form fieldset dl dd table th {
+	border: 1px solid #000;
+	padding: 3px;
+}
+
+form fieldset dl dd table td {
+	border: 1px solid #000;
+	padding: 2px;
+}
+
+/*
+form fieldset div {
+	text-align: right;
+}
+*/
+
+form fieldset div input {
+	background-color: #CCC;
+	border: 1px outset #CCC;
+}
+
+/*
+form div {
+	text-align: right;
+}
+*/
+
+.onFocus {
+	border: 2px solid #FF0;
+	margin: 1px;
+}
+
+.onBlur {
+	border: 1px solid #000;
+	margin: 2px;
+}
+
+.valid {
+	border: 3px solid #0F0;
+	margin: 0px;
+}
+
+.invalid {
+	border: 3px solid #F00;
+	margin: 0px;
+}
+

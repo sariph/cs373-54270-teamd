@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Applicant</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="">
+			<fieldset>
+				<legend>Details</legend>
+				<dl>
+					<dt>View/edit</dt>
+					<dd><a href="applicantDetails">Go</a></dd>
+				</dl>
+			</fieldset>
+{%ifequal phase 'applicants'%}
+			<fieldset>
+				<legend>Application</legend>
+				<dl>
+					<dt>Apply</dt>
+					<dd><a href="applicantApply">Go</a></dd>
+				</dl>
+			</fieldset>
+{%endifequal%}
+			<div><a href="index">Back</a></div>
+		</form>
+	</body>
+</html>
+

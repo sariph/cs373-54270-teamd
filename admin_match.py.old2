@@ -1,0 +1,161 @@
+import os
+import data_models
+import data_utilities
+
+from validator import Validator
+
+from google.appengine.ext import db
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
+
+class AdminMatch(webapp.RequestHandler):
+	def __init__(self):
+		global system
+		system = data_models.System.all().get()
+		if system is None:
+			system = data_utilities.initialize()
+		self.logged_in = True if system.current_user and system.current_user.class_name() == 'Admin' else False
+
+		self.applicants = {}
+		self.classes = {}
+		self.matches = {}
+		self.results = []
+
+	def get(self):
+		(self.applicants, self.classes) = self.rate()
+		self.matches = self.smp(self.applicants, self.classes)
+
+#		for key, applicant in self.applicants.iteritems():
+#			self.response.out.write(applicant.first_name)
+#			for class_in_question_key, points in applicant.points.iteritems():
+#				self.response.out.write("\n")
+#				self.response.out.write(db.get(class_in_question_key).unique)
+#				self.response.out.write(': ')
+#				self.response.out.write(points)
+#			self.response.out.write("\n\n")
+
+#		for key, class_in_question in self.classes.iteritems():
+#			self.response.out.write(class_in_question.unique)
+#			for applicant_key, points in class_in_question.points.items():
+#				self.response.out.write("\n")
+#				self.response.out.write(db.get(applicant_key).ut_eid)
+#				self.response.out.write(': ')
+#				self.response.out.write(points)
+#			self.response.out.write("\n\n")
+
+		self.template()
+
+	def post(self):
+		validator = Validator(self.request.params)
+		self.results.extend(validator.results)
+
+		if(all(map(self.check_valid, self.results))):
+			pass
+
+		self.template()
+
+	def rate(self):
+		applicants = [application.applicant for application in data_models.Applications.gql('WHERE semester = :1', system.current_semester)]
+		classes = [class_in_question for class_in_question in data_models.Classes.gql('WHERE semester = :1', system.current_semester)]
+
+		applicants_with_points = {}
+		classes_with_points = {}
+
+		for applicant in applicants:
+			applicant.assigned = None
+			applicant.points = {}
+			for class_in_question in classes:
+				applicant.points[class_in_question.key()] = 0
+				applicant.points[class_in_question.key()] += self.points_specialization(applicant, class_in_question)
+				applicant.points[class_in_question.key()] += self.points_qualified(applicant, class_in_question)
+			applicants_with_points[applicant.key()] = applicant
+
+#		self.classes = [class_in_question for class_in_question in data_models.Classes.gql('WHERE semester = :1', system.current_semester)]
+		for class_in_question in classes:
+			class_in_question.assigned = []
+			class_in_question.free = True
+			class_in_question.points = {}
+			for applicant in applicants:
+				class_in_question.points[applicant.key()] = 0
+				class_in_question.points[applicant.key()] += self.points_specialization(applicant, class_in_question)
+				class_in_question.points[applicant.key()] += self.points_qualified(applicant, class_in_question)
+				class_in_question.points[applicant.key()] += self.points_native_english_speaker(applicant, class_in_question)
+				class_in_question.points[applicant.key()] += self.points_wanted(applicant, class_in_question)
+				class_in_question.points[applicant.key()] += self.points_unwanted(applicant, class_in_question)
+			classes_with_points[class_in_question.key()] = class_in_question
+
+		return (applicants_with_points, classes_with_points)
+
+	def points_specialization(self, applicant, class_in_question):
+		return 1 if applicant.specialization and class_in_question.background and applicant.specialization.key() == class_in_question.background.key() else 0
+
+	def points_qualified(self, applicant, class_in_question):
+		return 1 if data_models.ApplicantsCourses.gql('WHERE applicant = :1 AND course = :2', applicant, class_in_question.course).get() else 0
+
+	def points_native_english_speaker(self, applicant, class_in_question):
+		return -10 if class_in_question.native_english_speaker and not applicant.native_english_speaker else 0
+
+	def points_wanted(self, applicant, class_in_question):
+		return 100 if data_models.ApplicantsWanted.gql('WHERE applicant = :1 AND class_in_question = :2', applicant, class_in_question).get() else 0
+
+	def points_unwanted(self, applicant, class_in_question):
+		return -100 if data_models.ApplicantsUnwanted.gql('WHERE applicant = :1 AND class_in_question = :2', applicant, class_in_question).get() else 0
+
+	def smp(self, applicants_with_points, classes_with_points):
+		for applicant_key, applicant in applicants_with_points.items():
+			for class_key_points in sorted(applicant.points.iteritems(), self.sortfunc):
+				if(classes_with_points[class_key_points[0]].free):
+					applicant.assigned = class_key_points[0]
+#					applicant.free = False
+
+# TODO: is going to assign a TA even if tas_needed == 0..
+					classes_with_points[class_key_points[0]].assigned.append(applicant_key)
+					if(len(classes_with_points[class_key_points[0]].assigned) >= classes_with_points[class_key_points[0]].tas_needed):
+						classes_with_points[class_key_points[0]].free = False
+
+					self.response.out.write('Assigning ' + applicant.first_name + ' ' + applicant.last_name + ' to ' + str(classes_with_points[class_key_points[0]].unique))
+					self.response.out.write("<br />\n")
+					break
+				else:
+					for existing_applicant_key in classes_with_points[class_key_points[0]].assigned:
+						if(classes_with_points[class_key_points[0]].points[applicant_key] > classes_with_points[class_key_points[0]].points[existing_applicant_key]):
+# TODO: need to add existing_applicant back to pile?
+							existing_applicant = applicants_with_points[existing_applicant_key]
+							existing_applicant.assigned = None
+# this prolly won't work.. gonna have to refactor or add a loop like, "while there exists any unmatched applicant AND there exists any unmatched classes, redo smp
+							applicants_with_points.items().append((existing_applicant_key, existing_applicant))
+
+							applicant.assigned = class_key_points[0]
+
+							classes_with_points[class_key_points[0]].assigned.remove(existing_applicant_key)
+							classes_with_points[class_key_points[0]].assigned.append(applicant_key)
+
+							self.response.out.write('Replacing ' + db.get(existing_applicant_key).first_name + ' ' + db.get(existing_applicant_key).last_name + ' with ' + applicant.first_name + ' ' + applicant.last_name + ' for ' + str(classes_with_points[class_key_points[0]].unique))
+							self.response.out.write("<br />\n")
+							break
+# this else is for debugging, remove it
+						else:
+							self.response.out.write('We found no replacement')
+							self.response.out.write("<br />\n")
+		return dict([(applicant, classes_with_points[applicant.assigned]) for key, applicant in applicants_with_points.items() if applicant.assigned])
+
+	def sortfunc(self, x, y):
+		return cmp(x[1], y[1]) # TODO I dunno if this is right order
+#		return cmp(y[1], x[1]) # uncomment if wrong result
+
+	def template(self):
+		"""
+		Renders the template.
+		"""
+		template_values = {
+			'results': self.results,
+			'applicants': self.applicants,
+			'classes': self.classes,
+			'matches': self.matches
+		}
+		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminMatch.html')
+		self.response.out.write(template.render(path, template_values))
+
+	def check_valid(self, dict):
+		return True if dict['valid'] else False
+

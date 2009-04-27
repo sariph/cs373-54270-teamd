@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin: Applicants</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+		<script type="text/javascript" src="/js/formSelectHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminApplicants" method="post">
+			<fieldset>
+				<legend>Applicants</legend>
+				<dl>
+					<dt>Current</dt>
+					<dd>
+{%if applicants%}						<table>
+							<tr>
+								<th>UT EID</th>
+								<th>Password</th>
+								<th>First name</th>
+								<th>Last name</th>
+<!--									<th>Phone</th>
+								<th>Email</th>
+								<th>Major</th>
+								<th>Admission Date</th>
+								<th>PhD or Masters</th>
+								<th>Supervising Instructor</th>
+								<th>Citizen or Resident</th>
+								<th>Native English Speaker</th>
+								<th>Specialization</th>-->
+							</tr>
+{%for applicant in applicants%}							<tr>
+								<td>{{applicant.ut_eid}}</td>
+								<td>{{applicant.password}}</td>
+								<td>{{applicant.first_name}}</td>
+								<td>{{applicant.last_name}}</td>
+<!--									<td>{{applicant.phone}}</td>
+								<td>{{applicant.email}}</td>
+								<td>{{applicant.major.abbr}}</td>
+								<td>{{applicant.admission}}</td>
+								<td>{{applicant.phd}}</td>
+								<td>{{applicant.supervising_professor.ut_eid}}</td>
+								<td>{{applicant.citizen}}</td>
+								<td>{{applicant.native_english_speaker}}</td>
+								<td>{{applicant.specialization.name}}</td>-->
+							</tr>
+{%endfor%}						</table>
+{%else%}<i>There are currently no applicants</i>
+{%endif%}					</dd>
+					<dt>UT EID</dt>
+					<dd><input type="text" name="comment|ut_eid" {%if results%}{%for result in results%}{%ifequal result.key 'comment|ut_eid'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter a UT EID</span></dd>
+					<dt>Password</dt>
+					<dd><input type="password" name="password|password" {%if results%}{%for result in results%}{%ifequal result.key 'password|password'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter a password</span></dd>
+					<dt>First name</dt>
+					<dd><input type="text" name="comment|first_name" {%if results%}{%for result in results%}{%ifequal result.key 'comment|first_name'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter a first name</span></dd>
+					<dt>Last name</dt>
+					<dd><input type="text" name="comment|last_name" {%if results%}{%for result in results%}{%ifequal result.key 'comment|last_name'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter a last name</span></dd>
+					<dt>Phone</dt>
+					<dd><input type="text" name="phone|phone" {%if results%}{%for result in results%}{%ifequal result.key 'phone|phone'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter a phone number</span></dd>
+					<dt>Email</dt>
+					<dd><input type="text" name="email|email" {%if results%}{%for result in results%}{%ifequal result.key 'email|email'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter an email address</span></dd>
+					<dt>Major</dt>
+{%if majors%}					<dd><select name="select|major">
+{%for major in majors%}							<option value="{{major.abbr}}"{%for result in results%}{%ifequal result.key 'select|major'%}{%ifequal major.abbr result.value%} selected{%endifequal%}{%endifequal%}{%endfor%}>{{major.name}}</option>
+{%endfor%}						</select><span>Please select a major</span></dd>
+{%else%}					<dd><i>There are currently no majors</i></dd>
+{%endif%}					<dt>Admission date</dt>
+					<dd><input type="text" name="date|admission" {%if results%}{%for result in results%}{%ifequal result.key 'date|admission'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter an admission date</span></dd>
+					<dt>PhD or Masters</dt>
+					<dd>PhD<input type="radio" name="boolean|phd" value="True" {%ifequal phd 'True'%}checked="checked" {%endifequal%}/><span>Applicant is PhD student</span></dd>
+					<dd>Masters<input type="radio" name="boolean|phd" value="False" {%ifequal phd 'False'%}checked="checked" {%endifequal%}/><span>Applicant is Masters student</span></dd>
+					<dt>Supervising professor</dt>
+{%if supervising_professors%}					<dd><select name="select|supervising_professor">
+{%for supervising_professor in supervising_professors%}							<option value="{{supervising_professor.ut_eid}}"{%for result in results%}{%ifequal result.key 'select|supervising_professor'%}{%ifequal supervising_professor.ut_eid result.value%} selected{%endifequal%}{%endifequal%}{%endfor%}>{{supervising_professor.ut_eid}}</option>
+{%endfor%}						</select><span>Please select a supervising professor</span></dd>
+{%else%}					<dd><i>There are currently no professors</i></dd>
+{%endif%}					<dt>Citizen or Resident</dt>
+					<dd>Citizen<input type="radio" name="boolean|citizen" value="True" {%ifequal citizen 'True'%}checked="checked" {%endifequal%}/><span>Applicant is a citizen</span></dd>
+					<dd>Resident<input type="radio" name="boolean|citizen" value="False" {%ifequal citizen 'False'%}checked="checked" {%endifequal%}/><span>Applicant is a resident</span></dd>
+					<dt>Native English speaker</dt>
+					<dd>Yes<input type="radio" name="boolean|native_english_speaker" value="True" {%ifequal native_english_speaker 'True'%}checked="checked" {%endifequal%}/><span>Applicant is a native English speaker</span></dd>
+					<dd>No<input type="radio" name="boolean|native_english_speaker" value="False" {%ifequal native_english_speaker 'False'%}checked="checked" {%endifequal%}/><span>Applicant is not a native English speaker</span></dd>
+					<dt>Programming languages</dt>
+{%if programming_languages%}					<dd><select multiple="multiple" name="select|programming_languages">
+{%for programming_language in programming_languages%}							<option value="{{programming_language.name}}"{%for result in results%}{%ifequal result.key 'select|programming_languages'%}{%ifequal programming_language.name result.value%} selected{%endifequal%}{%endifequal%}{%endfor%}>{{programming_language.name}}</option>
+{%endfor%}						</select><span>Please select one or many programming languages</span></dd>
+{%else%}					<dd><i>There are currently no programming languages</i></dd>
+{%endif%}					<dt>Specialization</dt>
+{%if specializations%}					<dd><select name="select|specialization">
+{%for specialization in specializations%}							<option value="{{specialization.name}}"{%for result in results%}{%ifequal result.key 'select|specialization'%}{%ifequal specialization.name result.value%} selected{%endifequal%}{%endifequal%}{%endfor%}>{{specialization.name}}</option>
+{%endfor%}						</select><span>Please select a specialization</span></dd>
+{%else%}					<dd><i>There are currently no specializations</i></dd>
+{%endif%}					<dt>Courses qualified to teach</dt>
+{%if courses%}					<dd><select multiple="multiple" name="select|courses">
+{%for course in courses%}							<option value="{{course.number}}"{%for result in results%}{%ifequal result.key 'select|courses'%}{%ifequal course.number result.value%} selected{%endifequal%}{%endifequal%}{%endfor%}>{{course.number}}</option>
+{%endfor%}						</select><span>Please select one or more courses qualified to teach</span></dd>
+{%else%}					<dd><i>There are currently no courses</i></dd>
+{%endif%}				</dl>
+				<div><input type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+	</body>
+</html>
+

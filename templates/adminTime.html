@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin: Time</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+		<script type="text/javascript" src="/js/formSelectHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminTime" method="post">
+			<fieldset>
+				<legend>Time</legend>
+				<dl>
+					<dt><label for="select|season">Season</label></dt>
+					<dd>Spring<input type="radio" name="radio|season" value="spring" {%ifequal season 'spring'%}checked="checked" {%endifequal%}/><span>Set current season to spring</span></dd>
+					<dd>Summer<input type="radio" name="radio|season" value="summer" {%ifequal season 'summer'%}checked="checked" {%endifequal%}/><span>Set current season to summer</span></dd>
+					<dd>Fall<input type="radio" name="radio|season" value="fall" {%ifequal season 'fall'%}checked="checked" {%endifequal%}/><span>Set current season to summer</span></dd>
+					<dt><label for="radio|phase">Phase</label></dt>
+					<dd>Initialization<input type="radio" name="radio|phase" value="initialization" {%ifequal phase 'initialization'%}checked="checked" {%endifequal%}/><span>Allows admin to setup system</span></dd>
+					<dd>Applicants<input type="radio" name="radio|phase" value="applicants" {%ifequal phase 'applicants'%}checked="checked" {%endifequal%}/><span>Allows applicants to apply</span></dd>
+					<dd>Instructors<input type="radio" name="radio|phase" value="instructors" {%ifequal phase 'instructors'%}checked="checked" {%endifequal%}/><span>Allows instructors to enter information</span></dd>
+					<dd>Matching<input type="radio" name="radio|phase" value="matching" {%ifequal phase 'matching'%}checked="checked" {%endifequal%}/><span>Allows admin to assign TAs</span></dd>
+					<dd>Complete<input type="radio" name="radio|phase" value="complete" {%ifequal phase 'complete'%}checked="checked" {%endifequal%}/><span>Blocks all edits</span></dd>
+					<dt><label for="year|year">Year</label></dt>
+					<dd><input type="text" name="year|year" id="year|year" {%if results%}{%for result in results%}{%ifequal result.key 'year|year'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}value="{{year}}" /><span{%endif%}>Enter the year</span></dd>
+				</dl>
+				<div><input type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+	</body>
+</html>
+
