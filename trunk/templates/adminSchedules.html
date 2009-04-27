@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin: Schedules</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+		<script type="text/javascript" src="/js/formSelectHighlight.js"></script>
+	</head>
+
+	<body>
+{%ifequal form 'courses'%}		<form action="adminSchedules" method="post">
+			<fieldset>
+				<legend>Courses</legend>
+				<dl>
+					<dt>Current</dt>
+					<dd>
+{%if courses%}						<table>
+							<tr>
+								<th>Major</th>
+								<th>Number</th>
+								<th>Name</th>
+							</tr>
+{%for course in courses%}							<tr>
+								<td>{{course.major.abbr}}</td>
+								<td><input type="submit" name="select|class" value="{{course.number}}" /></a></td>
+								<td>{{course.name}}</td>
+							</tr>
+{%endfor%}						</table>
+{%else%}<i>There are currently no courses</i>
+{%endif%}					</dd>
+					<dt>Major</dt>
+{%if majors%}					<dd><select name="select|major">
+{%for major in majors%}							<option value="{{major.abbr}}"{%for result in results%}{%ifequal result.key 'select|major'%}{%ifequal major.abbr result.value%} selected{%endifequal%}{%endifequal%}{%endfor%}>{{major.name}}</option>
+{%endfor%}						</select><span>Please select a major</span></dd>
+{%else%}					<dd><i>There are currently no majors</i></dd>
+{%endif%}					<dt>Number</dt>
+					<dd><input type="text" name="comment|number" {%if results%}{%for result in results%}{%ifequal result.key 'comment|number'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter a number with optional decorator (i.e. "313k")</span></dd>
+					<dt>Name</dt>
+					<dd><input type="text" name="comment|name" {%if results%}{%for result in results%}{%ifequal result.key 'comment|name'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter a name (i.e. "Logic, sets and functions")</span></dd>
+					<dd></dd>
+				</dl>
+				<div><input name="select|courses" type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+{%endifequal%}{%ifequal form 'classes'%}		<form action="adminSchedules" method="post">
+			<fieldset>
+				<input type="hidden" name="comment|course" value="{{course.number}}" />
+				<legend>Classes</legend>
+				<dl>
+					<dt>Current</dt>
+					<dd>
+{%if classes%}						<table>
+							<tr>
+								<th>Course</th>
+								<th>Semester</th>
+								<th>Instructor</th>
+								<th>Unique</th>
+								<th>Enrollment</th>
+								<th>TAs Needed</th>
+								<th>Native English Speaker</th>
+								<th>Background</th>
+							</tr>
+{%for class in classes%}							<tr>
+								<td>{{class.course.major.abbr}} {{class.course.number}}</td>
+								<td>{{class.semester.season.name}} {{class.semester.year.year}}</td>
+								<td>{{class.instructor.ut_eid}}</td>
+								<td>{{class.unique}}</td>
+								<td>{{class.enrollment}}</td>
+								<td>{{class.tas_needed}}</td>
+								<td>{{class.native_english_speaker}}</td>
+								<td>{{class.background}}</td>
+							</tr>
+{%endfor%}						</table>
+{%else%}<i>There are currently no classes for course: {{course.name}}</i>
+{%endif%}					</dd>
+					<dt>Instructor</dt>
+{%if instructors%}					<dd><select name="select|instructor">
+{%for instructor in instructors%}							<option value="{{instructor.ut_eid}}"{%for result in results%}{%ifequal result.key 'select|instructor'%}{%ifequal instructor.ut_eid result.value%} selected{%endifequal%}{%endifequal%}{%endfor%}>{{instructor.ut_eid}}</option>
+{%endfor%}						</select><span>Please select an instructor</span></dd>
+{%else%}					<dd><i>There are currently no instructors</i></dd>
+{%endif%}
+					<dt>Unique</dt>
+					<dd><input maxlength="5" size="5" type="text" name="unique|unique" {%if results%}{%for result in results%}{%ifequal result.key 'unique|unique'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter a unique number</span></dd>
+					<dt>Enrollment</dt>
+					<dd><input maxlength="3" size="3" type="text" name="number|enrollment" {%if results%}{%for result in results%}{%ifequal result.key 'number|enrollment'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter an expected enrollment number</span></dd>
+					<dt>TAs needed</dt>
+					<dd><input maxlength="3" size="3" type="text" name="number|tas_needed" {%if results%}{%for result in results%}{%ifequal result.key 'number|tas_needed'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter number of TAs needed</span></dd>
+				</dl>
+				<div><input name="select|classes" type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="adminSchedules">Back</a></div>
+		</form>
+{%endifequal%}	</body>
+</html>
+

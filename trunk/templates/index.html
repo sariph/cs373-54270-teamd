@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching</title>
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+
+	</head>
+
+	<body>
+		<form action="index" method="post">
+			<fieldset>
+				<legend>Login</legend>
+				<dl>
+					<dt><label for="ut_eid|ut_eid">UT EID</label></dt>
+					<dd><input type="text" name="ut_eid|ut_eid" id="ut_eid|ut_eid" {%if results%}{%for result in results%}{%ifequal result.key 'ut_eid|ut_eid'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter your UT EID here</span></dd>
+					<dt>Password</dt>
+					<dd><input type="password" name="password|password" id="password|password" {%if results%}{%for result in results%}{%ifequal result.key 'password|password'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Enter your password here</span></dd>
+				</dl>
+				<div><input type="submit" value="Login" /></div>
+			</fieldset>
+		</form>
+	</body>
+</html>
+

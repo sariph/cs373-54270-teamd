@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Instructor: Classes</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+		<script type="text/javascript" src="/js/formSelectHighlight.js"></script>
+	</head>
+
+	<body>
+{%ifequal form 'classes'%}		<form action="instructorClasses" method="post">
+			<fieldset>
+				<legend>Classes</legend>
+				<dl>
+					<dt>Current</dt>
+					<dd>
+{%if classes%}						<table>
+							<tr>
+								<th>Course</th>
+								<th>Semester</th>
+								<th>Instructor</th>
+								<th>Unique</th>
+								<th>Enrollment</th>
+								<th>TAs Needed</th>
+								<th>Native English Speaker</th>
+								<th>Background</th>
+							</tr>
+{%for class in classes%}							<tr>
+								<td>{{class.course.major.abbr}} {{class.course.number}}</td>
+								<td>{{class.semester.season.name}} {{class.semester.year.year}}</td>
+								<td>{{class.instructor.ut_eid}}</td>
+								<td><input type="submit" name="select|detail" value="{{class.unique}}" /></td>
+								<td>{{class.enrollment}}</td>
+								<td>{{class.tas_needed}}</td>
+								<td>{{class.native_english_speaker}}</td>
+								<td>{{class.background.name}}</td>
+							</tr>
+{%endfor%}						</table>
+{%else%}<i>There are currently no classes for you this semester</i>
+{%endif%}					</dd>
+				</dl>
+			</fieldset>
+			<div><a href="instructor">Back</a></div>
+		</form>
+{%endifequal%}{%ifequal form 'details'%}		<form action="instructorClasses" method="post">
+			<fieldset>
+				<input type="hidden" name="comment|class" value="{{class_in_question.unique}}" />
+				<legend>Details</legend>
+				<dl>
+					<dt>Specific wanted students</dt>
+{%if applicants%}					<dd><select multiple="multiple" name="select|wanted">
+{%for applicant in applicants%}							<option value="{{applicant.ut_eid}}"{%if results%}{%for result in results%}{%ifequal result.key 'select|wanted'%}{%ifequal applicant.ut_eid result.value%} selected="selected"{%endifequal%}{%endifequal%}{%endfor%}>{{applicant.ut_eid}}</option>{%else%}{%for applicant_wanted in applicants_wanted%}{%ifequal applicant.ut_eid applicant_wanted.applicant.ut_eid%} selected="selected"{%endifequal%}{%endfor%}>{{applicant.ut_eid}}</option>{%endif%}
+{%endfor%}						</select><span>Please select one or many wanted students</span></dd>
+{%else%}					<dd><i>There are currently no applicants</i></dd>
+{%endif%}					<dt>Specific unwanted students</dt>
+{%if applicants%}					<dd><select multiple="multiple" name="select|unwanted">
+{%for applicant in applicants%}							<option value="{{applicant.ut_eid}}"{%if results%}{%for result in results%}{%ifequal result.key 'select|unwanted'%}{%ifequal applicant.ut_eid result.value%} selected="selected"{%endifequal%}{%endifequal%}{%endfor%}>{{applicant.ut_eid}}</option>{%else%}{%for applicant_unwanted in applicants_unwanted%}{%ifequal applicant.ut_eid applicant_unwanted.applicant.ut_eid%} selected="selected"{%endifequal%}{%endfor%}>{{applicant.ut_eid}}</option>{%endif%}
+{%endfor%}						</select><span>Please select one or many unwanted students</span></dd>
+{%else%}					<dd><i>There are currently no applicants</i></dd>
+{%endif%}					<dt>Native English speaker</dt>
+					<dd>Yes<input type="radio" name="boolean|native_english_speaker" value="True" {%ifequal native_english_speaker 'True'%}checked="checked" {%endifequal%}/><span>Applicant should be a native English speaker</span></dd>
+					<dd>No<input type="radio" name="boolean|native_english_speaker" value="False" {%ifequal native_english_speaker 'False'%}checked="checked" {%endifequal%}/><span>Applicant could be a native English speaker</span></dd>
+					<dt>Background</dt>
+{%if specializations%}					<dd><select name="select|background">
+{%for specialization in specializations%}							<option value="{{specialization.name}}"{%if results%}{%for result in results%}{%ifequal result.key 'select|background'%}{%ifequal specialization.name result.value%} selected="selected"{%endifequal%}{%endifequal%}{%endfor%}>{{specialization.name}}</option>{%else%}{%ifequal specialization.name class_in_question.background.name%} selected="selected"{%endifequal%}>{{specialization.name}}</option>{%endif%}
+{%endfor%}						</select><span>Please select a useful background specialization</span></dd>
+{%else%}					<dd><i>There are currently no specializations</i></dd>
+{%endif%}				</dl>
+				<div><input name="select|details" type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="instructorClasses">Back</a></div>
+		</form>
+{%endifequal%}	</body>
+</html>
+

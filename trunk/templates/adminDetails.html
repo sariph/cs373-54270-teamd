@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin: Details</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+		<script type="text/javascript" src="/js/formSelectHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="adminDetails" method="post">
+			<fieldset>
+				<legend>Majors</legend>
+				<dl>
+<!--
+					<dd><select name="select|season" id="select|season" multiple size="3">
+							<option value="spring"{%for season in seasons%}{%ifequal season 'spring'%}{%if result.valid%} selected{%endif%}{%endifequal%}{%endfor%}>Spring</option>
+							<option value="summer"{%for season in seasons%}{%ifequal season 'summer'%}{%if result.valid%} selected{%endif%}{%endifequal%}{%endfor%}>Summer</option>
+							<option value="fall"{%for season in seasons%}{%ifequal season 'fall'%}{%if result.valid%} selected{%endif%}{%endifequal%}{%endfor%}>Fall</option>
+						</select><span>Select season</span></dd>
+-->
+					<dt>View/create/edit</dt>
+{%for major in majors%}					<dd>{{major.abbr}} - {{major.name}}</dd>
+{%endfor%}
+					<dd><input maxlength="3" size="3" type="text" name="abbr|abbr" id="abbr|abbr" 
+{%ifequal form 'majors'%}
+	{%for result_abbr in results%}
+		{%ifequal result_abbr.key 'abbr|abbr'%}
+			{%if result_abbr.valid%}
+				{%for result_name in results%}
+					{%ifequal result_name.key 'comment|name'%}
+						{%if result_name.valid%}value="{{result_abbr.value}}" /> - <input type="text" name="comment|name" id="comment|name" value="{{result_name.value}}" /><span
+						{%else%}value="{{result_abbr.value}}" /> - <input type="text" name="comment|name" id="comment|name" /><span class="error"
+						{%endif%}
+					{%endifequal%}
+				{%endfor%}
+			{%else%}
+				{%for result_name in results%}
+					{%ifequal result_name.key 'comment|name'%}
+						{%if result_name.valid%}/> - <input type="text" name="comment|name" id="comment|name" value="{{result_name.value}}" /><span class="error"
+						{%else%}/> - <input type="text" name="comment|name" id="comment|name" /><span class="error"
+						{%endif%}
+					{%endifequal%}
+				{%endfor%}
+			{%endif%}
+		{%endifequal%}
+	{%endfor%}
+{%else%}/> - <input type="text" name="comment|name" id="comment|name" /><span
+{%endifequal%}>Enter the abbreviation and name, respectively</span></dd>
+				</dl>
+				<div><input name="select|majors" type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+		<form action="adminDetails" method="post">
+			<fieldset>
+				<legend>Programming Languages</legend>
+				<dl>
+					<dt>View/create/edit</dt>
+{%for programming_language in programming_languages%}					<dd>{{programming_language.name}}</dd>
+{%endfor%}
+					<dd><input type="text" name="comment|programming_language" id="comment|programming_language" {%ifequal form 'programming_languages'%}{%for result in results%}{%ifequal result.key 'comment|programming_language'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endifequal%}>Enter a programming language</span></dd>
+				</dl>
+				<div><input name="select|programming_languages" type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+		<form action="adminDetails" method="post">
+			<fieldset>
+				<legend>Specializations</legend>
+				<dl>
+					<dt>View/create/edit</dt>
+{%for specialization in specializations%}					<dd>{{specialization.name}}</dd>
+{%endfor%}
+					<dd><input type="text" name="comment|specialization" id="comment|specialization" {%ifequal form 'specializations'%}{%for result in results%}{%ifequal result.key 'comment|specialization'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endifequal%}>Enter a specialization</span></dd>
+				</dl>
+				<div><input name="select|specializations" type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+	</body>
+</html>
+

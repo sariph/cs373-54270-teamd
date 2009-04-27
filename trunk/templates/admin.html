@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+	</head>
+
+	<body>
+		<form action="">
+			<fieldset>
+				<legend>Time</legend>
+				<dl>
+					<dt>View/create/select semester/phase</dt>
+					<dd><a href="adminTime">Go</a></dd>
+				</dl>
+			</fieldset>
+{%ifequal phase 'initialization'%}
+			<fieldset>
+				<legend>Details</legend>
+				<dl>
+					<dt>View/create/edit details</dt>
+					<dd><a href="adminDetails">Go</a></dd>
+				</dl>
+			</fieldset>
+			<fieldset>
+				<legend>Instructors</legend>
+				<dl>
+					<dt>View/create/edit instructors</dt>
+					<dd><a href="adminInstructors">Go</a></dd>
+				</dl>
+			</fieldset>
+			<fieldset>
+				<legend>Applicants</legend>
+				<dl>
+					<dt>View/create/edit applicants</dt>
+					<dd><a href="adminApplicants">Go</a></dd>
+				</dl>
+			</fieldset>
+			<fieldset>
+				<legend>Schedule</legend>
+				<dl>
+					<dt>View/create/edit courses/classes</dt>
+					<dd><a href="adminSchedules">Go</a></dd>
+				</dl>
+			</fieldset>
+{%endifequal%}
+{%ifequal phase 'matching'%}
+			<fieldset>
+				<legend>Matching</legend>
+				<dl>
+					<dt>Match/assign TAs via SMP</dt>
+					<dd><a href="adminMatch">Go</a></dd>
+				</dl>
+			</fieldset>
+{%endifequal%}
+			<fieldset>
+				<legend>Testing</legend>
+				<dl>
+					<dt>Empty the database</dt>
+					<dd><a href="adminEmpty">Go</a></dd>
+					<dt>Set/reset the test data (RELOADS DATABASE)</dt>
+					<dd><a href="adminReset">Go</a></dd>
+					<dt>Run tests</dt>
+					<dd><a href="test">Go</a></dd>
+				</dl>
+			</fieldset>
+			<div><a href="index">Back</a></div>
+		</form>
+	</body>
+</html>
+

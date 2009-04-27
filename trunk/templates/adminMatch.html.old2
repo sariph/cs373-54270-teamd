@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>C S 373: 54270: TA Matching: Admin: Match</title>
+
+		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+	</head>
+
+	<body>
+		<form>
+			<fieldset>
+				<legend>Match</legend>
+				<dl>
+					<dt>Applicants</dt>
+{%if applicants%}{%for item in applicants.items%}					<dd>{{item.1.first_name}} {{item.1.last_name}}</dd>{%endfor%}{%else%}					<dd><i>No applicants at this time</i></dd>{%endif%}
+					<dt>Classes</dt>
+{%if classes%}{%for item in classes.items%}					<dd>{{item.1.unique}}: {{item.1.semester.season.name}} {{item.1.semester.year.year}} ({{item.1.tas_needed}} needed)</dd>{%endfor%}{%else%}					<dd><i>No classes at this time</i></dd>{%endif%}
+					<dt>Matches</dt>
+{%if matches%}{%for item in matches.items%}					<dd>{{item.0.first_name}} {{item.0.last_name}} &lt;insert checkbox&gt; {{item.1.unique}}:{{item.1.semester.season.name}} {{item.1.semester.year.year}}</dd>{%endfor%}{%else%}					<dd><i>No matches at this time</i></dd>{%endif%}
+				</dl>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+	</body>
+</html>
+
