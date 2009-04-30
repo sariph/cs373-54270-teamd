@@ -21,23 +21,21 @@
 					<dt>Current</dt>
 					<dd>
 {%if instructors%}
-						<div>
-							<table>
-								<tr>
-									<th>UT EID</th>
-									<th>Password</th>
-									<th>First name</th>
-									<th>Last name</th>
-								</tr>
-{%for instructor in instructors%}							<tr>
-									<td>{{instructor.ut_eid}}</td>
-									<td>{{instructor.password}}</td>
-									<td>{{instructor.first_name}}</td>
-									<td>{{instructor.last_name}}</td>
-								</tr>
+						<table>
+							<tr>
+								<th>UT EID</th>
+								<th>Password</th>
+								<th>First name</th>
+								<th>Last name</th>
+							</tr>
+{%for instructor in instructors%}						<tr>
+								<td>{{instructor.ut_eid}}</td>
+								<td>{{instructor.password}}</td>
+								<td>{{instructor.first_name}}</td>
+								<td>{{instructor.last_name}}</td>
+							</tr>
 {%endfor%}
-							</table>
-						</div>
+						</table>
 {%else%}
 <i>There are currently no instructors</i>
 {%endif%}
