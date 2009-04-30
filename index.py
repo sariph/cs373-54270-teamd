@@ -11,6 +11,7 @@ from admin_instructors import AdminInstructors
 from admin_applicants import AdminApplicants
 from admin_schedules import AdminSchedules
 from admin_match import AdminMatch
+from admin_search import AdminSearch
 from admin_empty import AdminEmpty
 from admin_reset import AdminReset
 from applicant import Applicant
@@ -91,6 +92,7 @@ application = webapp.WSGIApplication([('/isValid', IsValid),
                                       ('/adminApplicants', AdminApplicants),
                                       ('/adminSchedules', AdminSchedules),
                                       ('/adminMatch', AdminMatch),
+                                      ('/adminSearch', AdminSearch),
                                       ('/adminEmpty', AdminEmpty),
                                       ('/adminReset', AdminReset),
                                       ('/applicant', Applicant),
