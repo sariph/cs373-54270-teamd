@@ -5,16 +5,45 @@
 
 		<link rel="stylesheet" type="text/css" href="/style/reset.css" />
 		<link rel="stylesheet" type="text/css" href="/style/main.css" />
+
+		<script type="text/javascript" src="/js/load.js"></script>
+		<script type="text/javascript" src="/js/setHighlight.js"></script>
+		<script type="text/javascript" src="/js/formInputHighlight.js"></script>
+		<script type="text/javascript" src="/js/formTextareaHighlight.js"></script>
+		<script type="text/javascript" src="/js/formSelectHighlight.js"></script>
 	</head>
 
 	<body>
-		<form>
+		<form action="adminSearch" method="post">
 			<fieldset>
 				<legend>Googlesque search</legend>
 				<dl>
 					<dt>Search</dt>
-					<dd>Success</dd>
+					<dd><input type="text" name="comment|search" id="comment|search" {%if results%}{%for result in results%}{%ifequal result.key 'comment|search'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Search the system</span></dd>
 				</dl>
+				<div><input type="submit" value="Select" /></div>
+{%if search_results %}
+				<dl>
+					<dt>Results</dt>
+					<dd>
+						<table>
+							<tr>
+								<th>UT EID</th>
+								<th>Password</th>
+								<th>First name</th>
+								<th>Last name</th>
+							</tr>
+{%for result in search_results%}						<tr>
+								<td>{{result.ut_eid}}</td>
+								<td>{{result.password}}</td>
+								<td>{{result.first_name}}</td>
+								<td>{{result.last_name}}</td>
+							</tr>
+{%endfor%}
+						</table>
+					</dd>
+				</dl>
+{%endif%}
 			</fieldset>
 			<div><a href="admin">Back</a></div>
 		</form>
