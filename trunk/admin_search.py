@@ -17,6 +17,7 @@ class AdminSearch(webapp.RequestHandler):
 		self.logged_in = True if system.current_user and system.current_user.class_name() == 'Admin' else False
 
 		self.results = []
+		self.form = ''
 		self.search_results = []
 
 	def get(self):
@@ -26,14 +27,36 @@ class AdminSearch(webapp.RequestHandler):
 		validator = Validator(self.request.params)
 		self.results.extend(validator.results)
 
-		if(all(map(self.check_valid, self.results))):
-			for result in self.or_query([data_models.Applicants, data_models.Instructors], ['ut_eid', 'first_name', 'last_name'], re.split('\W+', self.request.get('comment|search'))):
-				if(isinstance(result, data_models.Applicants)):
-					result.type = 'Applicants'
-					self.search_results.append(result)
-				elif(isinstance(result, data_models.Instructors)):
-					result.type = 'Instructors'
-					self.search_results.append(result)
+		if self.request.get('select|google_search'):
+			self.form = 'google_search'
+
+			if(all(map(self.check_valid, self.results))):
+				for result in self.or_query([data_models.Applicants, data_models.Instructors, data_models.Courses], ['ut_eid', 'first_name', 'last_name', 'number', 'name'], re.split('\W+', self.request.get('comment|google_search'))):
+					if(isinstance(result, data_models.Applicants)):
+						result.type = 'Applicants'
+						self.search_results.append(result)
+					elif(isinstance(result, data_models.Instructors)):
+						result.type = 'Instructors'
+						self.search_results.append(result)
+					elif(isinstance(result, data_models.Courses)):
+						result.type = 'Courses'
+						self.search_results.append(result)
+		elif self.request.get('select|model_search'):
+			self.form = 'model_search'
+
+			if(all(map(self.check_valid, self.results))):
+				if(self.request.get('select|model') == 'Applicants'):
+					for result in self.or_query([data_models.Applicants], ['ut_eid', 'first_name', 'last_name'], re.split('\W+', self.request.get('comment|model_search'))):
+						result.type = 'Applicants'
+						self.search_results.append(result)
+				elif(self.request.get('select|model') == 'Instructors'):
+					for result in self.or_query([data_models.Instructors], ['ut_eid', 'first_name', 'last_name'], re.split('\W+', self.request.get('comment|model_search'))):
+						result.type = 'Instructors'
+						self.search_results.append(result)
+				elif(self.request.get('select|model') == 'Courses'):
+					for result in self.or_query([data_models.Courses], ['number', 'name'], re.split('\W+', self.request.get('comment|model_search'))):
+						result.type = 'Courses'
+						self.search_results.append(result)
 
 		self.template()
 
@@ -49,6 +72,7 @@ class AdminSearch(webapp.RequestHandler):
 		"""
 		template_values = {
 			'results': self.results,
+			'form': self.form,
 			'search_results': self.search_results
 		}
 		path = os.path.join(os.path.dirname(__file__), 'templates', 'adminSearch.html' if self.logged_in else 'index.html')

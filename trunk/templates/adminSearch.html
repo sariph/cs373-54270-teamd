@@ -19,34 +19,43 @@
 				<legend>Googlesque search</legend>
 				<dl>
 					<dt>Search</dt>
-					<dd><input type="text" name="comment|search" id="comment|search" {%if results%}{%for result in results%}{%ifequal result.key 'comment|search'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endif%}>Search the system</span></dd>
+					<dd><input type="text" name="comment|google_search" id="comment|google_search" {%ifequal form 'google_search'%}{%for result in results%}{%ifequal result.key 'comment|google_search'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endifequal%}>Search the system</span></dd>
 				</dl>
-				<div><input type="submit" value="Select" /></div>
-{%if search_results %}
-				<dl>
-					<dt>Results</dt>
-					<dd>
-						<table>
-							<tr>
-								<th>UT EID</th>
-								<th>Password</th>
-								<th>First name</th>
-								<th>Last name</th>
-							</tr>
-{%for result in search_results%}						<tr>
-								<td>{{result.ut_eid}}</td>
-								<td>{{result.password}}</td>
-								<td>{{result.first_name}}</td>
-								<td>{{result.last_name}}</td>
-							</tr>
-{%endfor%}
-						</table>
-					</dd>
-				</dl>
-{%endif%}
+				<div><input name="select|google_search" type="submit" value="Select" /></div>
 			</fieldset>
 			<div><a href="admin">Back</a></div>
 		</form>
+		<form action="adminSearch" method="post">
+			<fieldset>
+				<legend>Model specific search</legend>
+				<dl>
+					<dt>Search</dt>
+					<dd><input type="text" name="comment|model_search" id="comment|model_search" {%ifequal form 'model_search'%}{%for result in results%}{%ifequal result.key 'comment|model_search'%}{%if result.valid%}value="{{result.value}}" /><span{%else%}/><span class="error"{%endif%}{%endifequal%}{%endfor%}{%else%}/><span{%endifequal%}>Search the system</span></dd>
+					<dt>Model</dt>
+					<dd><select name="select|model">
+							<option value="Applicants"{%for result in results%}{%ifequal result.key 'select|model'%}{%ifequal result.value 'Applicants'%} selected="selected"{%endifequal%}{%endifequal%}{%endfor%}>Applicants</option>
+							<option value="Instructors"{%for result in results%}{%ifequal result.key 'select|model'%}{%ifequal result.value 'Instructors'%} selected="selected"{%endifequal%}{%endifequal%}{%endfor%}>Instructors</option>
+							<option value="Courses"{%for result in results%}{%ifequal result.key 'select|model'%}{%ifequal result.value 'Courses'%} selected="selected"{%endifequal%}{%endifequal%}{%endfor%}>Courses</option>
+						</select><span>Please select a model</span></dd>
+				</dl>
+				<div><input name="select|model_search" type="submit" value="Select" /></div>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+{%if search_results %}
+		<form>
+			<fieldset>
+				<legend>Results</legend>
+				<dl>
+					<dt>Results</dt>
+{%for result in search_results%}{%ifequal result.type 'Applicants'%}					<dd>{{result.ut_eid}}: {{result.first_name}} {{result.last_name}}</dd>{%endifequal%}{%endfor%}
+{%for result in search_results%}{%ifequal result.type 'Instructors'%}					<dd>{{result.ut_eid}}: {{result.first_name}} {{result.last_name}}</dd>{%endifequal%}{%endfor%}
+{%for result in search_results%}{%ifequal result.type 'Courses'%}					<dd>{{result.major.abbr}}{{result.number}} {{result.name}}</dd>{%endifequal%}{%endfor%}
+				</dl>
+			</fieldset>
+			<div><a href="admin">Back</a></div>
+		</form>
+{%endif%}
 	</body>
 </html>
 
